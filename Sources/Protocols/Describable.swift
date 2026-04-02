@@ -21,8 +21,6 @@ import Foundation
 ///     let details = "Now you're playing with power!"
 /// }
 /// ```
-///
-/// - Authors: [@pianometal](https://github.com/pianometal)
 public protocol Describable {
     
     /// - Returns: A human‑readable, user‑facing description or summary of the value.
@@ -34,8 +32,8 @@ public protocol Describable {
 #if DEBUG
 import SwiftUI
 private struct Magazine: Nameable, Describable {
-    let name = "Nintendo Power"
-    let details = "Now you're playing with power!"
+    let name = "Walking"
+    let details = "They have a magazine for walking. WALKING!"
 }
 #Preview {
     let magazine = Magazine()

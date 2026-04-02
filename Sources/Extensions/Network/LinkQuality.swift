@@ -13,7 +13,7 @@ public extension NWPath.LinkQuality {
     
     /// - Returns: A color representing the link quality.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var color: Color {
         switch self {
         case .good:       .green
@@ -26,7 +26,7 @@ public extension NWPath.LinkQuality {
     
     /// - Returns: An SF Symbol name representing the link quality.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var icon: String {
         switch self {
         case .good:       "gauge.with.dots.needle.100percent"
@@ -39,7 +39,7 @@ public extension NWPath.LinkQuality {
     
     /// - Returns: A string representing the link quality.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var name: String {
         switch self {
         case .good:       "Good"
@@ -52,7 +52,7 @@ public extension NWPath.LinkQuality {
     
     /// - Returns: An array of all valid `NWPath.LinkQuality` cases.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     static let allCases: [NWPath.LinkQuality] = [
         .good,
         .moderate,

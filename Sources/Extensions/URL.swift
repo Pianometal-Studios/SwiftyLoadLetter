@@ -24,8 +24,6 @@ public extension URL {
     ///
     /// - Note: This function is intended for network/remote URLs. It will reject URLs without a host
     ///         (e.g., file URLs or custom schemes without hosts).
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     static func create(_ string: String) -> URL? {
         guard let url = URL(string: string) else {
             printOnDebug("⚠️ Unable to create URL from: \(string)")
@@ -47,8 +45,6 @@ public extension String {
     /// information in the terminal if the URL creation fails.
     ///
     /// - Returns: A `URL` created from the string, or `nil` if the string is not a valid URL.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var toURL: URL? {
         URL.create(self)
     }
@@ -71,7 +67,6 @@ import SwiftUI
                 Text("Valid URL")
                 Text("Testing with Apple's official website")
             }
-            
             LabeledContent {
                 if "".toURL != nil {
                     false.labelView()
@@ -82,7 +77,6 @@ import SwiftUI
                 Text("Blank URL")
                 Text("Testing with an empty string")
             }
-            
             LabeledContent {
                 if "   ".toURL != nil {
                     false.labelView()

@@ -11,9 +11,6 @@ import SwiftUI
 
 public extension NWPath.UnsatisfiedReason {
     
-    /// - Returns: A detailed description of the unsatisfied reason.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var details: String {
         switch self {
         case .notAvailable:
@@ -43,16 +40,11 @@ public extension NWPath.UnsatisfiedReason {
     /// - Note: `.notAvailable` is explicitly treated as "no reason" and will return `false`.
     ///
     /// - Returns: `true` if the reason is a recognized, actionable unsatisfied reason; otherwise `false`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var hasReason: Bool {
         self != .notAvailable &&
         Self.allCases.contains(self)
     }
     
-    /// - Returns: An SF Symbol name representing the unsatisfied reason.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var icon: String {
         switch self {
         case .notAvailable:       "questionmark.bubble"
@@ -64,9 +56,6 @@ public extension NWPath.UnsatisfiedReason {
         }
     }
     
-    /// - Returns: A localized-ready name representing the unsatisfied reason.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
         switch self {
         case .notAvailable:       "Not Available"
@@ -78,10 +67,11 @@ public extension NWPath.UnsatisfiedReason {
         }
     }
     
-    
-    /// - Returns: An array of all recognized unsatisfied reasons, excluding `.notAvailable`.
+    ///An array of all recognized `NWPath.UnsatisfiedReason` cases that represent
+    ///actionable causes for an unsatisfied network path.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    ///- Returns: [.cellularDenied, .localNetworkDenied, .vpnInactive, .wifiDenied,
+    ///.notAvailable]
     static let allCases: [Self] = [
         .cellularDenied,
         .localNetworkDenied,
@@ -90,6 +80,8 @@ public extension NWPath.UnsatisfiedReason {
         .notAvailable
     ]
 }
+
+// MARK: - Preview
 
 #if DEBUG
 #Preview {

@@ -16,70 +16,57 @@ public extension ColorScheme {
     ///
     /// - Returns:
     ///   - `true` for Dark Mode
-    ///   - `false` for Light Mode
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
-    var isDark: Bool { self == .dark }
+    ///   - `false` for Light Mode and unknown cases (e.g., when `ColorScheme`
+    ///   is `nil`)
+    var isDark: Bool {
+        self == .dark
+    }
     
-    /// Name representing the current `ColorScheme`.
-    ///
-    /// - Returns:
-    ///   - `"Dark"` for Dark Mode
-    ///   - `"Light"` for Light Mode
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
-    var name: String { isDark ? "Dark" : "Light" }
+    var name: String {
+        isDark ? "Dark" : "Light"
+    }
     
-    /// SF Symbol representing the current `ColorScheme`.
-    ///
-    /// - Returns:
-    ///   - `"moon"` for Dark Mode
-    ///   - `"sun.max"` for Light Mode
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
-    var icon: String { isDark ? "moon" : "sun.max" }
+    var icon: String {
+        isDark ? "moon" : "sun.max"
+    }
     
-    /// `Color` associated with the current `ColorScheme`.
-    ///
-    /// - Returns:
-    ///   - `.indigo` for Dark Mode
-    ///   - `.orange` for Light Mode
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
-    var color: Color { isDark ? .indigo : .orange }
+    var color: Color {
+        isDark ? .indigo : .orange
+    }
 }
 
 public extension ColorScheme? {
     
     /// - SeeAlso: `ColorScheme.isDark`
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var isDark: Bool {
-        guard let self else { return false }
+        guard let self else {
+            printOnDebug("⚠️ Unknown ColorScheme")
+            return false
+        }
         return self.isDark
     }
     
-    /// - SeeAlso: `ColorScheme.name`
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
-        guard let self else { return "Unknown" }
+        guard let self else {
+            printOnDebug("⚠️ Unknown ColorScheme")
+            return "Unknown"
+        }
         return self.name
     }
     
-    /// - SeeAlso: `ColorScheme.icon`
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var icon: String {
-        guard let self else { return "questionmark" }
+        guard let self else {
+            printOnDebug("⚠️ Unknown ColorScheme")
+            return "questionmark"
+        }
         return self.icon
     }
     
-    /// - SeeAlso: `ColorScheme.color`
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var color: Color {
-        guard let self else { return .gray }
+        guard let self else {
+            printOnDebug("⚠️ Unknown ColorScheme")
+            return .gray
+        }
         return self.color
     }
 }

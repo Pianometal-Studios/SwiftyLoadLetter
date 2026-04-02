@@ -10,9 +10,6 @@ import SwiftUI
 
 public extension DynamicTypeSize {
     
-    /// - Returns: A descriptive `String` for the Dynamic Type Size.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var details: String {
         switch self {
         case .xSmall:         "An extra small size"
@@ -31,9 +28,6 @@ public extension DynamicTypeSize {
         }
     }
     
-    /// - Returns: A `String` representing the name of the Dynamic Type Size.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
         switch self {
         case .xSmall:         "X Small"

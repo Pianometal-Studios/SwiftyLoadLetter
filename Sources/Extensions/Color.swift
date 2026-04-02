@@ -10,16 +10,31 @@ import SwiftUI
 
 public extension Color {
     
-    /// - Returns: The localized capitalized name of the color based on its description.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
-        self.description.localizedCapitalized
+        switch self {
+        case .black:  "Black"
+        case .blue:   "Blue"
+        case .brown:  "Brown"
+        case .cyan:   "Cyan"
+        case .gray:   "Gray"
+        case .green:  "Green"
+        case .indigo: "Indigo"
+        case .red:    "Red"
+        case .mint:   "Mint"
+        case .orange: "Orange"
+        case .purple: "Purple"
+        case .pink:   "Pink"
+        case .teal:   "Teal"
+        case .white:  "White"
+        case .yellow: "Yellow"
+        default:      "Custom"
+        }
     }
     
-    /// - Returns: An array of all standard system colors, sorted alphabetically by name.
+    /// An array of all standard `Color` cases provided by SwiftUI, sorted alphabetically.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    /// - Returns: [.black, .blue, .brown, .cyan, .gray, .green, .indigo, .red, .mint, .orange,
+    /// .purple, .pink, .teal, .white, .yellow]
     static let allCases: [Self] = [
         .black,
         .blue,
@@ -38,9 +53,9 @@ public extension Color {
         .yellow
     ]
     
-    /// - Returns: A random color generated with random RGB values.
+    /// A random color generated with random RGB values.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    /// - Returns: A random color generated with random RGB values.
     static var random: Self {
         Color(
             red: Double.random(in: 0...1),
@@ -61,6 +76,7 @@ public extension Color {
             } icon: {
                 Image(systemName: "circle")
                     .symbolVariant(.fill)
+                    .symbolColorRenderingMode(.gradient)
                     .foregroundStyle(color)
             }
         }

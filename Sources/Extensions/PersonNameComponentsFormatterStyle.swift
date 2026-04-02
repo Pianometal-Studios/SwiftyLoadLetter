@@ -10,23 +10,20 @@ import Foundation
 
 public extension PersonNameComponentsFormatter.Style {
     
-    /// - Returns: A string representing the name style.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
         switch self {
-        case .default: "Default"
-        case .short: "Short"
-        case .medium: "Medium"
-        case .long: "Long"
+        case .default:     "Default"
+        case .short:       "Short"
+        case .medium:      "Medium"
+        case .long:        "Long"
         case .abbreviated: "Abbreviated"
-        @unknown default: "Unknown"
+        @unknown default:  "Unknown"
         }
     }
     
-    /// - Returns: An array of all valid `PersonNameComponentsFormatter.Style` cases.
+    /// An array of all cases of `PersonNameComponentsFormatter.Style`, sorted by their raw value.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    /// - Returns: [`.default`, `.short`, `.medium`, `.long`, `.abbreviated`]
     static let allCases: [PersonNameComponentsFormatter.Style] = [
         .default,
         .short,
@@ -41,13 +38,16 @@ public extension PersonNameComponentsFormatter.Style {
 #if DEBUG
 import SwiftUI
 #Preview {
+    let styles = PersonNameComponentsFormatter.Style.allCases
     NavigationStack {
         List {
             Section("PersonNameComponentsFormatter.Style") {
                 LabeledContent("Name", value: "RawValue")
                     .bold()
-                ForEach(PersonNameComponentsFormatter.Style.allCases, id: \.self) {
-                    LabeledContent($0.name, value: $0.rawValue.formatted())
+                ForEach(styles, id: \.self) {
+                    LabeledContent(
+                        $0.name,
+                        value: $0.rawValue.formatted())
                 }
             }
         }

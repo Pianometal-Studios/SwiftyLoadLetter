@@ -10,9 +10,6 @@ import SwiftUI
 
 public extension ProcessInfo.ThermalState {
     
-    /// - Returns: A color representing the severity of the `ThermalState`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var color: Color {
         switch self {
         case .nominal:    .green
@@ -23,9 +20,6 @@ public extension ProcessInfo.ThermalState {
         }
     }
     
-    /// - Returns: A detailed description of the `ThermalState`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var details: String {
         switch self {
         case .nominal:
@@ -41,9 +35,6 @@ public extension ProcessInfo.ThermalState {
         }
     }
     
-    /// - Returns: An SF Symbol name suitable for use with `Image(systemName:)`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var icon: String {
         switch self {
         case .nominal:    "thermometer.low"
@@ -54,9 +45,6 @@ public extension ProcessInfo.ThermalState {
         }
     }
     
-    /// - Returns: The name of the `ThermalState`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
         switch self {
         case .nominal:    "Nominal"
@@ -69,8 +57,6 @@ public extension ProcessInfo.ThermalState {
     
     /// - Returns: Value between 0 and 100 that provides an approximate visual
     ///            representation of the severity of the `ThermalState`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var percentage: Double {
         switch self {
         case .nominal:    20
@@ -81,9 +67,9 @@ public extension ProcessInfo.ThermalState {
         }
     }
     
-    /// - Returns: An array of all standard `ProcessInfo.ThermalState` cases.
+    /// An array of all standard `ProcessInfo.ThermalState` cases, sorted by severity.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    /// - Returns: [.nominal, .fair, .serious, .critical]
     static let allCases: [ProcessInfo.ThermalState] = [
         .nominal,
         .fair,

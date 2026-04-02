@@ -10,9 +10,6 @@ import SwiftUI
 
 public extension AccessibilityAdjustmentDirection {
     
-    /// - Returns: A detailed description of the adjustment direction.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var details: String {
         switch self {
         case .increment: "Increases the value"
@@ -21,9 +18,6 @@ public extension AccessibilityAdjustmentDirection {
         }
     }
     
-    /// - Returns: A `Color` representing the adjustment direction.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var color: Color {
         switch self {
         case .increment: .green
@@ -32,9 +26,6 @@ public extension AccessibilityAdjustmentDirection {
         }
     }
     
-    /// - Returns: An SF Symbol name suitable for use with `Image(systemName:)`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var icon: String {
         switch self {
         case .increment: "plus"
@@ -43,9 +34,6 @@ public extension AccessibilityAdjustmentDirection {
         }
     }
     
-    /// - Returns: String representing the adjustment direction.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
         switch self {
         case .increment: "Increase"
@@ -54,9 +42,10 @@ public extension AccessibilityAdjustmentDirection {
         }
     }
     
-    /// - Returns: An array of all valid `AccessibilityAdjustmentDirection` cases.
+    /// An array of all valid `AccessibilityAdjustmentDirection` cases, sorted in a logical
+    /// order (increment followed by decrement).
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    /// - Returns: [.increment, .decrement]
     static let allCases: [AccessibilityAdjustmentDirection] = [
         .increment,
         .decrement

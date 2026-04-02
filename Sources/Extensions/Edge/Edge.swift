@@ -11,8 +11,6 @@ import SwiftUI
 public extension Edge {
     
     /// - Returns: The edge opposite to the current edge.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var opposite: Self {
         switch self {
         case .top: .bottom

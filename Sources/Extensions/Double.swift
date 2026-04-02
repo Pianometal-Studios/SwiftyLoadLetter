@@ -29,7 +29,7 @@ public extension Double {
     /// - Returns: A `String` representing the value formatted as a percentage according
     ///   to the current locale with the specified fractional precision.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     func asPercent(_ fractionLength: Int = 0) -> String {
         formatted(.percent.precision(.fractionLength(fractionLength)))
     }
@@ -58,7 +58,7 @@ public extension Double {
     /// - Returns: A `String` representing the value formatted as currency, according to
     ///   the current locale and resolved currency code.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     func currency(_ identifier: String = "USD") -> String {
         guard let code = Locale.current.currency?.identifier else {
             printOnDebug("Cannot resolve currency code from current locale. Using fallback: \(identifier)")
@@ -76,7 +76,7 @@ public extension Double {
     ///
     /// - Returns: `true` if the value is a valid finite number; otherwise, `false`.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var isValid: Bool {
         !self.isNaN &&
         !self.isInfinite &&
@@ -104,7 +104,7 @@ public extension Double {
     ///
     /// - SeeAlso: `asPercent(_:)`
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var percentage: Self {
         self / 100
     }

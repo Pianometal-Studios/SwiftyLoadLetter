@@ -32,8 +32,6 @@ import Foundation
 ///   - `Sendable`, allowing safe transfer across concurrency boundaries.
 ///   - Must support equality comparison (`Equatable`).
 ///   - `RawRepresentable` with a `String` raw value, enabling ergonomic serialization and display.
-///
-/// - Authors: [@pianometal](https://github.com/pianometal)
 public protocol Staticable:
     Identifiable,
     Codable,
@@ -61,8 +59,6 @@ public extension Staticable {
     /// - Returns:
     ///   - If `Bundle.main.bundleIdentifier` is available, returns "<bundleID>.<rawValue>".
     ///   - If the bundle identifier is unavailable, logs a debug warning and returns `rawValue`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var customizationID: String {
         guard let bundleIdentifier = MainBundle.identifier else {
             printOnDebug("⚠️ Bundle identifier is nil. Using \(rawValue) for customizationID.")

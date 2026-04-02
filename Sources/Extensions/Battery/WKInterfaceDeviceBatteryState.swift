@@ -13,9 +13,6 @@ import SwiftUI
 
 public extension WKInterfaceDeviceBatteryState {
     
-    /// - Returns: A detailed description of the battery state.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var details: String {
         switch self {
         case .full:       "The battery is fully charged."
@@ -26,9 +23,6 @@ public extension WKInterfaceDeviceBatteryState {
         }
     }
     
-    /// - Returns: An SF Symbol name suitable for use with `Image(systemName:)`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var icon: String {
         switch self {
         case .unknown:    "questionmark"
@@ -39,9 +33,6 @@ public extension WKInterfaceDeviceBatteryState {
         }
     }
     
-    /// - Returns: The name of the battery state.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
         switch self {
         case .full:       "Full"
@@ -52,9 +43,10 @@ public extension WKInterfaceDeviceBatteryState {
         }
     }
     
-    /// - Returns: An array of all standard `WKInterfaceDeviceBatteryState` cases.
+    /// An array of all valid `WKInterfaceDeviceBatteryState` cases, arranged in a logical
+    /// order for display purposes.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    /// - Returns: [`.full`, `.charging`, `.unplugged`, `.unknown`]
     static let allCases: [Self] = [
         .full,
         .charging,

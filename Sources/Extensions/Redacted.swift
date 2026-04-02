@@ -17,15 +17,14 @@ public extension View {
     ///
     /// - Parameter isRedacted: A Boolean value indicating whether the view should be
     ///   displayed in a placeholder (redacted) state. Pass `true` to apply redaction,
-    ///   or `false` to remove it.
+    ///   or `false` to remove it. The default value is `true`, allowing you to simply
+    ///   call `.redacted()` to apply the placeholder effect.
     ///
     /// - Returns:
     ///   - When `isRedacted` is `true`, the view is displayed using `.placeholder`
     ///     redaction styling (commonly used to represent loading skeletons).
     ///   - When `false`, the redaction is removed and the view renders normally.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
-    func redacted(_ isRedacted: Bool) -> some View {
+    func redacted(_ isRedacted: Bool = true) -> some View {
         redacted(reason: isRedacted ? .placeholder : [])
     }
 }
@@ -39,7 +38,9 @@ public extension View {
         Text("This is an example of redacted content.")
             .redacted(isRedacted)
         Button {
-            withAnimation { isRedacted.toggle() }
+            withAnimation {
+                isRedacted.toggle()
+            }
         } label: {
             Text(isRedacted ? "Show" : "Redact")
                 .font(.title2)

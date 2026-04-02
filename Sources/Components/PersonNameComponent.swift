@@ -24,8 +24,6 @@ import Foundation
 ///
 /// - SeeAlso: `PersonNameComponents`, `PersonNameComponentsFormatter`
 ///
-/// - Authors: [@pianometal](https://github.com/pianometal)
-///
 /// - Complexity: O(1) for all properties and methods, as they involve simple enum cases and direct property access.
 public enum PersonNameComponent: String, Staticable, Searchable {
     

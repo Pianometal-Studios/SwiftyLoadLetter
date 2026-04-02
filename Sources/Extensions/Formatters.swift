@@ -22,7 +22,7 @@ public enum Formatters {
     /// - Use this formatter to display file sizes, memory usage, or any byte counts in a
     ///   localized, user‑friendly string without repeatedly creating new formatter instances.
     ///
-    /// Example:
+    /// ## Example
     /// ```swift
     /// let sizeInBytes: Int64 = 5_242_880 // 5 MB
     /// let text = Formatters.byteCount.string(fromByteCount: sizeInBytes) // "5 MB" (locale dependent)

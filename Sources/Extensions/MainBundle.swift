@@ -17,15 +17,11 @@ import Foundation
 /// - Reading the app’s bundle identifier.
 /// - Accessing the full Info.plist dictionary.
 /// - Fetching specific string values from Info.plist keys (e.g., CFBundleName, CFBundleShortVersionString).
-///
-/// - Authors: [@pianometal](https://github.com/pianometal)
 public enum MainBundle {
     
     /// The app’s bundle identifier string from the main bundle.
     ///
     /// - Returns: The value of `Bundle.main.bundleIdentifier` if available.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     public static var identifier: String? {
         guard let identifier = Bundle.main.bundleIdentifier else {
             printOnDebug("⚠️ Bundle identifier is nil")
@@ -40,7 +36,6 @@ public enum MainBundle {
     ///   representing the entries from `Bundle.main.infoDictionary`, or `nil` if the
     ///   info dictionary cannot be accessed.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     public static var infoDictionary: [String : Any]? {
         guard let infoDictionary = Bundle.main.infoDictionary else {
             printOnDebug("⚠️ Bundle infoDictionary is nil")
@@ -54,11 +49,10 @@ public enum MainBundle {
     /// This helper reads from `Bundle.main.infoDictionary` via `MainBundle.infoDictionary`
     /// and attempts to cast the value associated with the provided key to `String`.
     ///
-    /// - Parameter key: The Info.plist key to look up (e.g., `"CFBundleName"`, `"CFBundleShortVersionString"`).
+    /// - Parameter key: The Info.plist key to look up (e.g., `"CFBundleName"`, `
+    /// "CFBundleShortVersionString"`).
     ///
     /// - Returns: The string value for the key if it exists and is a `String`; otherwise, `nil`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     public static func infoDictionary(_ key: String) -> String? {
         guard let value = infoDictionary?[key] as? String else {
             printOnDebug("⚠️ Unable to find \(key) in Info.plist")

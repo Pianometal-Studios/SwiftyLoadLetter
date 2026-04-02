@@ -27,7 +27,6 @@ public extension View {
     ///
     /// - Returns: A view with adjusted saturation and opacity reflecting the emphasis state.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     func lightUp(_ isTrue: Bool) -> some View {
         self
             .saturation(isTrue ? 1 : 0.1)
@@ -55,7 +54,6 @@ public extension View {
     ///   - iOS, macOS, visionOS: Uses `listRowSeparator(.hidden)` to hide separators.
     ///   - Other platforms: No effect.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     @ViewBuilder func listRowSeparatorHidden() -> some View {
 #if os(iOS) || os(macOS) || os(visionOS)
         listRowSeparator(.hidden)
@@ -70,7 +68,6 @@ public extension View {
     ///   - `.automatic` on watchOS
     ///   - `.segmented` on all other platforms
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     @ViewBuilder func segmentedPicker() -> some View {
 #if !os(watchOS)
         pickerStyle(.segmented)

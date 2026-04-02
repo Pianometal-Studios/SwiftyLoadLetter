@@ -12,9 +12,6 @@ import SwiftUI
 
 public extension UIDevice.BatteryState {
     
-    /// - Returns: A detailed description of the battery state.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var details: String {
         switch self {
         case .full:       "The battery is fully charged."
@@ -25,9 +22,6 @@ public extension UIDevice.BatteryState {
         }
     }
     
-    /// - Returns: An SF Symbol name suitable for use with `Image(systemName:)`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var icon: String {
         switch self {
         case .unknown:    "questionmark"
@@ -38,9 +32,6 @@ public extension UIDevice.BatteryState {
         }
     }
     
-    /// - Returns: The name of the battery state.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
         switch self {
         case .full:       "Full"
@@ -51,9 +42,12 @@ public extension UIDevice.BatteryState {
         }
     }
     
-    /// - Returns: An array of all standard `UIDevice.BatteryState` cases.
+    /// An array of all standard `UIDevice.BatteryState` cases, sorted by typical user relevance.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    /// - Returns: [`.full`, `.charging`, `.unplugged`, `.unknown`]
+    ///
+    /// - Note: This array is provided for convenience and does not include any potential future
+    /// cases that may be added to `UIDevice.BatteryState`.
     static let allCases: [UIDevice.BatteryState] = [
         .full,
         .charging,

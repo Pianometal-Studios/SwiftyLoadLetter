@@ -13,8 +13,6 @@ public extension HorizontalEdge {
     /// Converts a `HorizontalEdge` to its corresponding `Edge`.
     ///
     /// - Returns: An `Edge` instance corresponding to the `HorizontalEdge`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     func toEdge() -> Edge {
         switch self {
         case .leading: .leading
@@ -28,8 +26,6 @@ public extension Edge {
     /// Converts an `Edge` to its corresponding `HorizontalEdge` if applicable.
     ///
     /// - Returns: A `HorizontalEdge` instance corresponding to the `Edge`, or `nil` if not horizontal.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     func horizontal() -> HorizontalEdge? {
         switch self {
         case .leading: .leading

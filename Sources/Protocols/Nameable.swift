@@ -19,7 +19,7 @@ import Foundation
 /// Text(person.name)
 /// ```
 ///
-/// - Authors: [@pianometal](https://github.com/pianometal)
+
 public protocol Nameable {
     
     /// - Returns: A human‑readable name identifying the conforming type.
@@ -44,7 +44,7 @@ public extension Nameable {
     ///
     /// - Complexity: O(m), where m is the length of the shorter name being compared.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     static func < (lhs: Self, rhs: Self) -> Bool {
         lhs.name < rhs.name
     }
@@ -69,8 +69,6 @@ public extension Collection where Element: Nameable {
     /// - Note: Matching uses `localizedCaseInsensitiveContains(_:)`, which respects the current locale.
     ///
     /// - Complexity: O(n), where n is the number of elements in the collection.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     @inlinable func search(_ text: String) -> [Element] {
         filter {
             text.isEmpty ||

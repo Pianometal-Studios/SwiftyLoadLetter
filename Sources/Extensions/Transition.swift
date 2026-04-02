@@ -26,8 +26,6 @@ public extension View {
     ///   will automatically use the opposite edge.
     ///
     /// - Returns: A view modified with the described transition.
-    /// 
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     func fadeInOut(from edge: Edge) -> some View {
         transition(
             .asymmetric(
@@ -39,3 +37,26 @@ public extension View {
         )
     }
 }
+
+// MARK: - Preview
+
+#if DEBUG
+#Preview {
+    @Previewable @State var showDetail = false
+    NavigationStack {
+        VStack {
+            Button("Toggle Detail") {
+                withAnimation {
+                    showDetail.toggle()
+                }
+            }
+            if showDetail {
+                Text("This is the detail view.")
+                    .padding()
+                    .fadeInOut(from: .bottom)
+            }
+        }
+        .navigationTitle("Fade In/Out")
+    }
+}
+#endif

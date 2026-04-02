@@ -10,10 +10,12 @@ import SwiftUI
 
 public extension View {
     
-    /// Applies a platform-appropriate `glass` button style to the view, with an option to fall back to a supplied primitive button style.
+    /// Applies a platform-appropriate `glass` button style to the view, with an option to
+    ///  fall back to a supplied primitive button style.
     ///
-    /// This helper allows more flexible coding practices when writing for multiple platforms, specifically `visionOS`. It will choose between a custom glass
-    /// appearance and standard SwiftUI button styles based on:
+    /// This helper allows more flexible coding practices when writing for multiple platforms,
+    /// specifically `visionOS`. It will choose between a custom glass appearance and
+    /// standard SwiftUI button styles based on:
     /// - The style you pass in (e.g., prominent vs. regular)
     /// - The current platform (e.g., `visionOS` does not support `Glass` at all)
     ///
@@ -33,8 +35,6 @@ public extension View {
     ///
     /// - Important: Providing `glass` or `glassProminent` directly to this method will cause compilation
     /// errors on `visionOS`. Use `borderedProminent` or no parameter to fallback to `bordered`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     @ViewBuilder func glassButton(
         or primitiveButtonStyle: some PrimitiveButtonStyle = .bordered
     ) -> some View {

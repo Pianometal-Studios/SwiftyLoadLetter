@@ -13,7 +13,7 @@ public extension NWPath.Status {
     
     /// - Returns: A color representing the network status.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var color: Color {
         switch self {
         case .satisfied:          .green
@@ -25,7 +25,7 @@ public extension NWPath.Status {
     
     /// - Returns: A detailed description of the network status.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var details: String {
         switch self {
         case .satisfied:          "You are connected to the internet."
@@ -37,7 +37,7 @@ public extension NWPath.Status {
     
     /// - Returns: An SF Symbol name suitable for use with `Image(systemName:)`.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var icon: String {
         switch self {
         case .satisfied:          "wifi"
@@ -51,14 +51,14 @@ public extension NWPath.Status {
     ///
     /// - Returns: `true` if the status is `.satisfied`, otherwise `false`.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var isConnected: Bool {
         self == .satisfied
     }
     
     /// - Returns: A user-friendly name for the network status.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var name: String {
         switch self {
         case .satisfied:          "Connected"
@@ -70,7 +70,7 @@ public extension NWPath.Status {
     
     /// - Returns: An array of all standard `NWPath.Status` cases.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     static let allCases: [NWPath.Status] = [
         .satisfied,
         .unsatisfied,

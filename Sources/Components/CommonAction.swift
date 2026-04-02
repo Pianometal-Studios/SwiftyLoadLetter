@@ -12,8 +12,6 @@ import SwiftUI
 ///
 /// Each action provides a localized name and a corresponding SF Symbol icon name.
 ///
-/// - Authors: [@pianometal](https://github.com/pianometal)
-///
 /// - Complexity: O(1) for all properties and methods, as they are computed from a fixed set of cases.
 public enum CommonAction: String, Staticable, Searchable, Iconable {
     
@@ -42,7 +40,6 @@ public enum CommonAction: String, Staticable, Searchable, Iconable {
         }
     }
     
-    /// - Returns: An SF Symbols glyph identifier representing the action.
     public var icon: String {
         switch self {
         case .add:            "plus"
@@ -59,9 +56,22 @@ public enum CommonAction: String, Staticable, Searchable, Iconable {
         }
     }
     
-    /// - Returns: A localized, human-readable name for the action.
     public var name: String {
-        rawValue.localizedCapitalized
+        switch self {
+        case .add:      "Add"
+        case .cancel:   "Cancel"
+        case .close:    "Close"
+        case .confirm:  "Confirm"
+        case .debug:    "Debug"
+        case .delete:   "Delete"
+        case .edit:     "Edit"
+        case .filter:   "Filter"
+        case .help:     "Help"
+        case .info:     "Info"
+        case .save:     "Save"
+        case .settings: "Settings"
+        case .sort:     "Sort"
+        }
     }
     
     /// - Returns: `TabPlacement` associated with the action.

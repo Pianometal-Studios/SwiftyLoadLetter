@@ -10,22 +10,19 @@ import SwiftUI
 
 public extension Font.Design {
     
-    /// - Returns: String representation of the font design.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     var name: String {
         switch self {
-        case .default: "Default"
-        case .serif: "Serif"
-        case .rounded: "Rounded"
+        case .default:    "Default"
+        case .serif:      "Serif"
+        case .rounded:    "Rounded"
         case .monospaced: "Monospaced"
         @unknown default: "Unknown"
         }
     }
     
-    /// - Returns: An array of all standard `Font.Design` cases.
+    /// An array of all available `Font.Design` cases, sorted by typical usage and preference order.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    /// - Returns: [.default, .serif, .rounded, .monospaced]
     static let allCases: [Font.Design] = [
         .default,
         .serif,

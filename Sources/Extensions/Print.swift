@@ -18,11 +18,10 @@ import Foundation
 ///   - items: Zero or more items to print. Each item is converted to a string
 ///     using `String(describing:)` and separated by `separator`.
 ///   - separator: A string to insert between each item. The default is a single space (`" "`).
-///   - terminator: The string to print after all items have been printed. The default is a newline (`"\n"`).
+///   - terminator: The string to print after all items have been printed. The
+///   default is a newline (`"\n"`).
 ///
 /// - Note: In non-DEBUG builds, this function does nothing and produces no output.
-///
-/// - Authors: [@pianometal](https://github.com/pianometal)
 public func printOnDebug(
     _ items: Any...,
     separator: String = " ",
@@ -42,7 +41,7 @@ public func printOnDebug(
 ///
 /// - Parameter error: Accepts any value conforming to the `Error` protocol.
 ///
-/// - Authors: [@pianometal](https://github.com/pianometal)
+/// - Note: In non-DEBUG builds, this function does nothing and produces no output.
 public func printOnDebug(_ error: any Error) {
 #if DEBUG
     printOnDebug("📜 \(error.localizedDescription)")

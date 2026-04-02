@@ -11,6 +11,7 @@ import SwiftUI
 public extension VerticalEdge {
     
     /// Converts a `VerticalEdge` to its corresponding `Edge`.
+    ///
     /// - Returns: An `Edge` instance corresponding to the `VerticalEdge`.
     func toEdge() -> Edge {
         switch self {

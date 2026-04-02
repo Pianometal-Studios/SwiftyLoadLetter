@@ -13,7 +13,7 @@ public extension NWInterface.InterfaceType {
     
     /// - Returns: A `Color` associated with the interface type.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var color: Color {
         switch self {
         case .other:         .brown
@@ -27,7 +27,7 @@ public extension NWInterface.InterfaceType {
     
     /// - Returns: An SF Symbol name suitable for use with `Image(systemName:)`.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var icon: String {
         switch self {
         case .other:         "questionmark"
@@ -41,7 +41,7 @@ public extension NWInterface.InterfaceType {
     
     /// - Returns: A user-friendly name for the interface type.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     var name: String {
         switch self {
         case .other:         "Other"
@@ -55,7 +55,7 @@ public extension NWInterface.InterfaceType {
     
     /// - Returns: All network connection interface types.
     ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
+    
     static let allCases: [Self] = [
         .cellular,
         .loopback,

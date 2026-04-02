@@ -31,8 +31,6 @@ public extension View {
     /// - Returns:
     ///   - **iOS, macOS**: Applies the subtitle using the system-supported navigation subtitle API.
     ///   - **Other platforms**: Has no effect; the original view is returned.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     @ViewBuilder func navigationSubtitle<S>(subtitle: S) -> some View where S: StringProtocol {
 #if os(iOS) || os(macOS)
         navigationSubtitle(subtitle)

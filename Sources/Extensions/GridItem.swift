@@ -30,8 +30,6 @@ public extension GridItem {
     /// - Returns: An array containing `count` flexible `GridItem` values.
     ///
     /// - Note: Use this to quickly set up uniform grid layouts without manually repeating `GridItem(.flexible())`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     static func generate(_ count: Int = 3) -> [Self] {
         Array(repeating: GridItem(.flexible()), count: count)
     }
@@ -58,8 +56,6 @@ public extension GridItem {
     ///
     /// - Returns: An array of flexible `GridItem` values: one when the size class is `nil` or `.compact`,
     ///   and two when the size class is `.regular`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     static func list(_ sizeClass: UserInterfaceSizeClass?) -> [Self] {
         guard let sizeClass else { return generate(1) }
         return generate(sizeClass == .regular ? 2 : 1)

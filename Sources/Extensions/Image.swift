@@ -28,8 +28,6 @@ public extension Image {
     /// - Parameter contentMode: The strategy used to fit the image within its available space. The default value is `.fit`.
     ///
     /// - Returns: A view that renders the image as resizable and scaled according to the specified content mode.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     @MainActor func scaled(to contentMode: ContentMode = .fit) -> some View {
         self
             .resizable()

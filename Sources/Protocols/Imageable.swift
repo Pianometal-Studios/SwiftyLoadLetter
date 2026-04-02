@@ -33,10 +33,10 @@ import SwiftUI
 ///     }
 /// }
 /// ```
-///
-/// - Authors: [@pianometal](https://github.com/pianometal)
 public protocol Imageable {
     
+    /// - Note: The `@MainActor` annotation indicates that the `image` property
+    /// should be accessed on the main thread, which is important for UI-related resources.
     /// - Returns: An `ImageResource` representing the conforming type.
     @MainActor var image: ImageResource { get }
 }

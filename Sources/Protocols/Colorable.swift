@@ -21,11 +21,9 @@ import SwiftUI
 ///     let color: Color
 /// }
 /// ```
-///
-/// - Authors: [@pianometal](https://github.com/pianometal)
 public protocol Colorable {
     
-    /// - Returns: `Color` representing the conforming type.
+    /// - Returns: SwiftUI `Color` representing the conforming type.
     var color: Color { get }
 }
 

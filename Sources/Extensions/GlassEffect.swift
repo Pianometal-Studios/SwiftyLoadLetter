@@ -49,8 +49,6 @@ public extension View {
     ///   - On visionOS, the original view is returned unmodified.
     ///
     /// - Important: On visionOS, this implementation is a no-op and returns the original view unmodified.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     @ViewBuilder func glass(
         isRegular: Bool = true,
         shape: some Shape = .buttonBorder,
@@ -79,7 +77,7 @@ public extension View {
             ContentUnavailableView(
                 AppleOS.visionOS.name,
                 systemImage: AppleOS.visionOS.icon,
-                description: Text("This modifier is a no-op on \(AppleOS.visionOS.details)"))
+                description: Text("This modifier is a no-op on \(AppleOS.visionOS.device)"))
         }
         Text("Default")
             .padding()

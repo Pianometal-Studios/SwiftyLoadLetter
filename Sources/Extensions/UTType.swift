@@ -30,8 +30,6 @@ public extension UTType {
     /// - Important: This relies on `MainBundle.identifier` being non-`nil`. If the bundle identifier
     ///   is not available or is misconfigured, this will cause a runtime crash due to the
     ///   forced unwrap.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     static var fromBundle: Self {
         UTType(exportedAs: MainBundle.identifier!)
     }

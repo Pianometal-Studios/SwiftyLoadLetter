@@ -17,8 +17,6 @@ public extension Edge {
     ///
     /// ## Vertical
     /// Represents edges that are either `.top` or `.bottom`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     enum Orientation: String, Staticable {
         
         /// `Edge.leading` or `Edge.trailing`
@@ -41,8 +39,6 @@ public extension Edge {
     /// - Precondition:
     ///   - When `orientation` is `.horizontal`, `self` is `.leading` or `.trailing`;
     ///   - When `orientation` is `.vertical`, `self` is `.top` or `.bottom`.
-    ///
-    /// - Authors: [@pianometal](https://github.com/pianometal)
     func toEdge(_ orientation: Edge.Orientation) -> Self? {
         switch orientation {
         case .horizontal: horizontal()?.toEdge()

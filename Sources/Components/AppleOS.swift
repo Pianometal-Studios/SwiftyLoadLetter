@@ -14,10 +14,12 @@ import Foundation
 /// provides convenient, platform-specific metadata such as a human-readable device name,
 /// an SF Symbols glyph identifier, and a canonical display name.
 ///
-/// - Authors: [@pianometal](https://github.com/pianometal)
-///
 /// - Complexity: O(1) for all properties and methods, as they rely on simple enum cases and switch statements.
-public enum AppleOS: String, Staticable, Searchable, Iconable, Describable {
+public enum AppleOS:
+    String,
+    Staticable,
+    Searchable,
+    Iconable {
     
     case iOS
     case iPadOS
@@ -26,8 +28,7 @@ public enum AppleOS: String, Staticable, Searchable, Iconable, Describable {
     case tvOS
     case watchOS
     
-    /// - Returns: A human-readable device name associated with the platform.
-    public var details: String {
+    public var device: String {
         switch self {
         case .iOS:      "iPhone"
         case .iPadOS:   "iPad"
@@ -38,7 +39,6 @@ public enum AppleOS: String, Staticable, Searchable, Iconable, Describable {
         }
     }
     
-    /// - Returns: An SF Symbols glyph identifier representing the platform.
     public var icon: String {
         switch self {
         case .iOS:      "iphone"
@@ -50,7 +50,6 @@ public enum AppleOS: String, Staticable, Searchable, Iconable, Describable {
         }
     }
     
-    /// - Returns: The canonical display name of the platform.
     public var name: String { rawValue }
     
     /// Determines if the platform corresponds to the current operating system.
@@ -83,7 +82,7 @@ import SwiftUI
             Label {
                 Text(os.name)
                     .bold()
-                Text(os.details)
+                Text(os.device)
                 if os.isCurrent {
                     Text("Current")
                         .foregroundStyle(.red)

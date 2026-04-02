@@ -18,8 +18,6 @@ import Foundation
 ///   - `Identifiable`: Supplies a unique `id` for stable identity across sessions.
 ///   - `Hashable`: Enables efficient collection operations and diffing.
 ///   - `Comparable`: Allows consistent sorting of search results.
-///
-/// - Authors: [@pianometal](https://github.com/pianometal)
 public protocol Searchable:
     Nameable,
     Identifiable,
