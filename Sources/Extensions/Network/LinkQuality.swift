@@ -11,9 +11,6 @@ import SwiftUI
 
 public extension NWPath.LinkQuality {
     
-    /// - Returns: A color representing the link quality.
-    ///
-    
     var color: Color {
         switch self {
         case .good:       .green
@@ -23,9 +20,6 @@ public extension NWPath.LinkQuality {
         @unknown default: .red
         }
     }
-    
-    /// - Returns: An SF Symbol name representing the link quality.
-    ///
     
     var icon: String {
         switch self {
@@ -37,9 +31,6 @@ public extension NWPath.LinkQuality {
         }
     }
     
-    /// - Returns: A string representing the link quality.
-    ///
-    
     var name: String {
         switch self {
         case .good:       "Good"
@@ -50,9 +41,9 @@ public extension NWPath.LinkQuality {
         }
     }
     
-    /// - Returns: An array of all valid `NWPath.LinkQuality` cases.
+    /// An array of all valid `NWPath.LinkQuality` cases, sorted from best to worst quality.
     ///
-    
+    /// - Returns: [.good, .moderate, .minimal, .unknown]
     static let allCases: [NWPath.LinkQuality] = [
         .good,
         .moderate,

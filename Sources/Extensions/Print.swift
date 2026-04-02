@@ -28,7 +28,10 @@ public func printOnDebug(
     terminator: String = "\n"
 ) {
 #if DEBUG
-    print(items, separator: separator, terminator: terminator)
+    print(
+        items,
+        separator: separator,
+        terminator: terminator)
 #endif
 }
 

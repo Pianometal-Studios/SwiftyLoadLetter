@@ -11,9 +11,6 @@ import SwiftUI
 
 public extension NWPath.Status {
     
-    /// - Returns: A color representing the network status.
-    ///
-    
     var color: Color {
         switch self {
         case .satisfied:          .green
@@ -23,9 +20,6 @@ public extension NWPath.Status {
         }
     }
     
-    /// - Returns: A detailed description of the network status.
-    ///
-    
     var details: String {
         switch self {
         case .satisfied:          "You are connected to the internet."
@@ -34,9 +28,6 @@ public extension NWPath.Status {
         @unknown default:         "Cannot determine network status."
         }
     }
-    
-    /// - Returns: An SF Symbol name suitable for use with `Image(systemName:)`.
-    ///
     
     var icon: String {
         switch self {
@@ -50,14 +41,9 @@ public extension NWPath.Status {
     /// Indicates whether the device is connected to a network
     ///
     /// - Returns: `true` if the status is `.satisfied`, otherwise `false`.
-    ///
-    
     var isConnected: Bool {
         self == .satisfied
     }
-    
-    /// - Returns: A user-friendly name for the network status.
-    ///
     
     var name: String {
         switch self {
@@ -68,9 +54,9 @@ public extension NWPath.Status {
         }
     }
     
-    /// - Returns: An array of all standard `NWPath.Status` cases.
+    /// An array of all valid `NWPath.Status` cases, sorted by connectivity level.
     ///
-    
+    /// - Returns: [.satisfied, .unsatisfied, .requiresConnection]
     static let allCases: [NWPath.Status] = [
         .satisfied,
         .unsatisfied,

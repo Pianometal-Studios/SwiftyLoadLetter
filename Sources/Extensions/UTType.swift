@@ -22,8 +22,7 @@ public extension UTType {
     ///   ensuring global uniqueness as long as your bundle identifier is unique.
     ///
     /// ## Use Cases:
-    /// - Defining a custom UTType for drag-and-drop:
-    ///   - e.g., `NSItemProvider(object: data as NSData, typeIdentifier: UTType.generate.identifier)`
+    /// - Defining a custom UTType for drag-and-drop
     /// - Registering a custom document type in conjunction with Info.plist declarations.
     /// - Tagging custom data on the pasteboard or in interprocess communication.
     ///

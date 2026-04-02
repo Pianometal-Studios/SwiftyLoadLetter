@@ -11,9 +11,11 @@ import SwiftUI
 /// A set of common, reusable actions that standardize action representations across app development.
 ///
 /// Each action provides a localized name and a corresponding SF Symbol icon name.
-///
-/// - Complexity: O(1) for all properties and methods, as they are computed from a fixed set of cases.
-public enum CommonAction: String, Staticable, Searchable, Iconable {
+public enum CommonAction:
+    String,
+    Staticable,
+    Searchable,
+    Iconable {
     
     case add
     case cancel
@@ -28,17 +30,6 @@ public enum CommonAction: String, Staticable, Searchable, Iconable {
     case save
     case settings
     case sort
-    
-    /// - Returns: `ButtonRole` associated with the action, if applicable.
-    public var buttonRole: ButtonRole? {
-        switch self {
-        case .cancel:         .cancel
-        case .close:          .close
-        case .confirm, .save: .confirm
-        case .delete:         .destructive
-        default:              nil
-        }
-    }
     
     public var icon: String {
         switch self {
@@ -74,6 +65,17 @@ public enum CommonAction: String, Staticable, Searchable, Iconable {
         }
     }
     
+    /// - Returns: `ButtonRole` associated with the action, if applicable.
+    public var role: ButtonRole? {
+        switch self {
+        case .cancel:         .cancel
+        case .close:          .close
+        case .confirm, .save: .confirm
+        case .delete:         .destructive
+        default:              nil
+        }
+    }
+    
     /// - Returns: `TabPlacement` associated with the action.
     public var tabPlacement: TabPlacement {
         switch self {
@@ -87,10 +89,22 @@ public enum CommonAction: String, Staticable, Searchable, Iconable {
 
 #if DEBUG
 #Preview {
-    List {
-        ForEach(CommonAction.allCases) {
-            Label($0.name, systemImage: $0.icon)
+    NavigationStack {
+        ScrollView {
+            LazyVGrid(columns: GridItem.generate(2)) {
+                ForEach(CommonAction.allCases) { action in
+                    Button(role: action.role) {
+                        printOnDebug(action.name)
+                    } label: {
+                        Label(
+                            action.name,
+                            systemImage: action.icon)
+                        .padding()
+                    }
+                }
+            }
         }
+        .navigationTitle("Common Actions")
     }
 }
 #endif

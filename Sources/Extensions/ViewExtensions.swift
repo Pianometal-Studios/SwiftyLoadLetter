@@ -26,7 +26,6 @@ public extension View {
     /// - Parameter isTrue: A Boolean value that determines whether the view should be emphasized.
     ///
     /// - Returns: A view with adjusted saturation and opacity reflecting the emphasis state.
-    ///
     func lightUp(_ isTrue: Bool) -> some View {
         self
             .saturation(isTrue ? 1 : 0.1)
@@ -53,7 +52,6 @@ public extension View {
     /// - Returns:
     ///   - iOS, macOS, visionOS: Uses `listRowSeparator(.hidden)` to hide separators.
     ///   - Other platforms: No effect.
-    ///
     @ViewBuilder func listRowSeparatorHidden() -> some View {
 #if os(iOS) || os(macOS) || os(visionOS)
         listRowSeparator(.hidden)
@@ -67,7 +65,6 @@ public extension View {
     /// - Returns: A view that applies a platform-appropriate picker style.
     ///   - `.automatic` on watchOS
     ///   - `.segmented` on all other platforms
-    ///
     @ViewBuilder func segmentedPicker() -> some View {
 #if !os(watchOS)
         pickerStyle(.segmented)

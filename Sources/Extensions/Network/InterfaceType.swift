@@ -11,9 +11,6 @@ import SwiftUI
 
 public extension NWInterface.InterfaceType {
     
-    /// - Returns: A `Color` associated with the interface type.
-    ///
-    
     var color: Color {
         switch self {
         case .other:         .brown
@@ -24,9 +21,6 @@ public extension NWInterface.InterfaceType {
         @unknown default:    .gray
         }
     }
-    
-    /// - Returns: An SF Symbol name suitable for use with `Image(systemName:)`.
-    ///
     
     var icon: String {
         switch self {
@@ -39,9 +33,6 @@ public extension NWInterface.InterfaceType {
         }
     }
     
-    /// - Returns: A user-friendly name for the interface type.
-    ///
-    
     var name: String {
         switch self {
         case .other:         "Other"
@@ -53,9 +44,9 @@ public extension NWInterface.InterfaceType {
         }
     }
     
-    /// - Returns: All network connection interface types.
+    /// An array of all valid `NWInterface.InterfaceType` cases, sorted by typical usage frequency.
     ///
-    
+    /// - Returns: [.cellular, .loopback, .wifi, .wiredEthernet, .other]
     static let allCases: [Self] = [
         .cellular,
         .loopback,

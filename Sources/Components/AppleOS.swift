@@ -13,8 +13,6 @@ import Foundation
 /// Each case corresponds to one of Apple's OS families and
 /// provides convenient, platform-specific metadata such as a human-readable device name,
 /// an SF Symbols glyph identifier, and a canonical display name.
-///
-/// - Complexity: O(1) for all properties and methods, as they rely on simple enum cases and switch statements.
 public enum AppleOS:
     String,
     Staticable,

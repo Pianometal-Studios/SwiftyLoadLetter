@@ -46,3 +46,21 @@ public extension DynamicTypeSize {
         }
     }
 }
+
+// MARK: - Preview
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        List(DynamicTypeSize.allCases, id: \.self) { size in
+            LabeledContent {
+                EmptyView()
+            } label: {
+                Text(size.name)
+                Text(size.details)
+            }
+        }
+        .navigationTitle("Dynamic Type Sizes")
+    }
+}
+#endif

@@ -21,7 +21,8 @@ public extension PersonNameComponentsFormatter.Style {
         }
     }
     
-    /// An array of all cases of `PersonNameComponentsFormatter.Style`, sorted by their raw value.
+    /// An array of all cases of `PersonNameComponentsFormatter.Style`, sorted
+    /// by their raw value.
     ///
     /// - Returns: [`.default`, `.short`, `.medium`, `.long`, `.abbreviated`]
     static let allCases: [PersonNameComponentsFormatter.Style] = [

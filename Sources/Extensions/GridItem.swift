@@ -68,24 +68,30 @@ public extension GridItem {
 #Preview {
     @Previewable @Environment(\.horizontalSizeClass) var horizontalSizeClass
     ScrollView {
-        LazyVGrid(columns: GridItem.list(horizontalSizeClass), pinnedViews: .sectionHeaders) {
-            Section {
-                ForEach(0..<100) { index in
-                    LabeledContent("Item Number", value: index.formatted())
+        LazyVGrid(
+            columns: GridItem.list(horizontalSizeClass),
+            pinnedViews: .sectionHeaders) {
+                Section {
+                    ForEach(0..<100) { index in
+                        LabeledContent(
+                            "Item Number",
+                            value: index.formatted())
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .glass(isInteractive: false, tint: .blue.opacity(0.2))
+                        .glass(
+                            isInteractive: false,
+                            tint: .blue.opacity(0.2))
+                    }
+                } header: {
+                    Text("GridItem Demo")
+                        .font(.title)
+                        .bold()
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .glass(isRegular: false)
                 }
-            } header: {
-                Text("GridItem Demo")
-                    .font(.title)
-                    .bold()
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .glass(isRegular: false)
             }
-        }
-        .padding()
+            .padding()
     }
     .safeAreaBar(edge: .bottom) {
         LabeledContent {
