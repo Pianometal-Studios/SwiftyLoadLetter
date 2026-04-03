@@ -1,6 +1,6 @@
 # 🖨️ SwiftyLoadLetter
 
-What the [func](https://en.wikipedia.org/wiki/PC_LOAD_LETTER) does that mean?
+The [func](https://en.wikipedia.org/wiki/PC_LOAD_LETTER) does that mean?
 
 ---
 
