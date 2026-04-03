@@ -4,33 +4,6 @@ What the [func](https://en.wikipedia.org/wiki/PC_LOAD_LETTER) does that mean?
 
 ---
 
-## 📦 What's Inside
-
-SwiftyLoadLetter provides a focused set of battle-tested utilities across these categories:
-
-**Extensions**
-- `Bool` — `.name`, `.icon`, `.color`, `.labelView()`, `.allCases`
-- `Color` — `.name`, `.allCases`, `.random`
-- `ColorScheme` — `.isDark`, `.name`, `.icon`, `.color` (including `ColorScheme?` variants)
-- `Double` — `.convert(_:to:)` for `UnitLength`, `UnitMass`, and `UnitTemperature`
-- `Edge` — `.opposite`, `.toEdge(_:)`, `.vertical()`, `.horizontal()`
-- `VerticalEdge` — `.toEdge()`
-- `NWPath.Status` — `.name`, `.icon`, `.color`, `.details`, `.isConnected`, `.allCases`
-- `NWPath.LinkQuality` — `.name`, `.icon`, `.color`, `.allCases`
-- `URL` — `.create(_:)` (validates host, logs debug warnings on failure)
-- `String` — `.toURL`
-- `UTType` — `.fromBundle`
-- `UserInterfaceSizeClass` — `.name` (including `UserInterfaceSizeClass?` variants)
-
-**Protocols**
-- `Nameable` — Provides a `name: String` and a default `search(_:)` implementation on collections
-- `Staticable` — `String`-backed, `Codable`, `CaseIterable`, `CodingKey`, `Sendable` enum foundation
-- `Listable` — For use in list-based UIs
-- `Searchable` — Composition of `Nameable`, `Identifiable`, `Hashable`, `Comparable`
-- `Imageable` — Provides a typed `ImageResource` for use with SwiftUI `Image`
-
----
-
 ## ⚙️ Compatibility
 
 ### Xcode
