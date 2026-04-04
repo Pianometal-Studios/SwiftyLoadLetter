@@ -10,16 +10,16 @@ import SwiftUI
 
 public extension Bool {
     
-    var name: String {
-        self ? "Yes" : "No"
+    var color: Color {
+        self ? .green : .red
     }
     
     var icon: String {
         self ? "checkmark" : "xmark"
     }
     
-    var color: Color {
-        self ? .green : .red
+    var name: String {
+        self ? "Yes" : "No"
     }
     
     /// Creates a view representing this boolean value using a name,
@@ -28,8 +28,7 @@ public extension Bool {
     /// This helper is intended to provide a quick, styled label for true/false states
     ///
     /// - Returns: A SwiftUI `Label`  that displays a `Label` composed
-    ///            of `name` and `icon`, tinted with `color` based on the
-    ///            given value.
+    /// of `name` and `icon`, tinted with `color` based on the given value.
     @MainActor func labelView() -> some View {
         Label(name, systemImage: icon)
             .foregroundStyle(color)
