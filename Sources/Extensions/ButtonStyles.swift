@@ -38,17 +38,13 @@ public extension View {
     @ViewBuilder func glassButton(
         or primitiveButtonStyle: some PrimitiveButtonStyle = .bordered
     ) -> some View {
-        
         switch primitiveButtonStyle {
-            
         case is BorderedProminentButtonStyle:
-            
 #if !os(visionOS)
             buttonStyle(.glassProminent)
 #else
             buttonStyle(.borderedProminent)
 #endif
-            
         default:
             
 #if !os(visionOS)

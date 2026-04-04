@@ -12,6 +12,14 @@ import SwiftUI
 
 public extension ColorScheme {
     
+    var color: Color {
+        isDark ? .indigo : .orange
+    }
+    
+    var icon: String {
+        isDark ? "moon" : "sun.max"
+    }
+    
     /// Indicates whether the current `ColorScheme` is Dark Mode.
     ///
     /// - Returns:
@@ -25,17 +33,25 @@ public extension ColorScheme {
     var name: String {
         isDark ? "Dark" : "Light"
     }
-    
-    var icon: String {
-        isDark ? "moon" : "sun.max"
-    }
-    
-    var color: Color {
-        isDark ? .indigo : .orange
-    }
 }
 
 public extension ColorScheme? {
+    
+    var color: Color {
+        guard let self else {
+            printOnDebug("⚠️ Unknown ColorScheme")
+            return .secondary
+        }
+        return self.color
+    }
+    
+    var icon: String {
+        guard let self else {
+            printOnDebug("⚠️ Unknown ColorScheme")
+            return "questionmark"
+        }
+        return self.icon
+    }
     
     /// - SeeAlso: `ColorScheme.isDark`
     var isDark: Bool {
@@ -52,21 +68,5 @@ public extension ColorScheme? {
             return "Unknown"
         }
         return self.name
-    }
-    
-    var icon: String {
-        guard let self else {
-            printOnDebug("⚠️ Unknown ColorScheme")
-            return "questionmark"
-        }
-        return self.icon
-    }
-    
-    var color: Color {
-        guard let self else {
-            printOnDebug("⚠️ Unknown ColorScheme")
-            return .gray
-        }
-        return self.color
     }
 }

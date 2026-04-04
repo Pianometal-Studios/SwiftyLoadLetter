@@ -56,7 +56,7 @@ public extension ProcessInfo.ThermalState {
     }
     
     /// - Returns: Value between 0 and 100 that provides an approximate visual
-    ///            representation of the severity of the `ThermalState`.
+    /// representation of the severity of the `ThermalState`.
     var percentage: Double {
         switch self {
         case .nominal:    20

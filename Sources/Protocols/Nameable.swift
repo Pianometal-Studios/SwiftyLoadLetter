@@ -18,8 +18,6 @@ import Foundation
 /// let person = Person(name: "Ada")
 /// Text(person.name)
 /// ```
-///
-
 public protocol Nameable {
     
     /// - Returns: A human‑readable name identifying the conforming type.
@@ -41,10 +39,6 @@ public extension Nameable {
     ///
     /// - Returns: `true` if `lhs.name` is lexicographically less than `rhs.name`;
     ///   otherwise, `false`.
-    ///
-    /// - Complexity: O(m), where m is the length of the shorter name being compared.
-    ///
-    
     static func < (lhs: Self, rhs: Self) -> Bool {
         lhs.name < rhs.name
     }
@@ -66,9 +60,8 @@ public extension Collection where Element: Nameable {
     ///
     /// - Returns: An array of elements whose `name` matches the provided text.
     ///
-    /// - Note: Matching uses `localizedCaseInsensitiveContains(_:)`, which respects the current locale.
-    ///
-    /// - Complexity: O(n), where n is the number of elements in the collection.
+    /// - Note: Matching uses `localizedCaseInsensitiveContains(_:)`, which
+    /// respects the current locale.
     @inlinable func search(_ text: String) -> [Element] {
         filter {
             text.isEmpty ||

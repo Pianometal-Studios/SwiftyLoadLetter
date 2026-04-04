@@ -41,6 +41,7 @@ private struct Crayon: Nameable, Colorable {
     } icon: {
         Image(systemName: "circle")
             .symbolVariant(.fill)
+            .symbolColorRenderingMode(.gradient)
             .foregroundStyle(crayon.color)
     }
 }
