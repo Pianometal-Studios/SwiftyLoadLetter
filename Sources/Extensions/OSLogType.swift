@@ -18,6 +18,7 @@
 //                        🪵 OSLogType + Extensions 🔗
 // -----------------------------------------------------------------------------
 
+import SwiftUI
 import os
 
 public extension OSLogType {
