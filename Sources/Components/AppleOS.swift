@@ -26,6 +26,8 @@ public enum AppleOS:
     case tvOS
     case watchOS
     
+    /// - Returns: A device name commonly associated with the OS, such
+    ///   as "iPhone" for iOS or "Mac" for macOS.
     public var device: String {
         switch self {
         case .iOS:      "iPhone"
@@ -48,14 +50,27 @@ public enum AppleOS:
         }
     }
     
-    public var name: String { rawValue }
+    public var name: String {
+        switch self {
+        case .iOS:      "iOS"
+        case .iPadOS:   "iPadOS"
+        case .macOS:    "macOS"
+        case .tvOS:     "tvOS"
+        case .watchOS:  "watchOS"
+        case .visionOS: "visionOS"
+        }
+    }
     
     /// Determines if the platform corresponds to the current operating system.
     ///
     /// - Returns: `true` if the platform corresponds to the current operating system.
-    public var isCurrent: Bool {
+    @MainActor public var isCurrent: Bool {
 #if os(iOS)
-        self == .iOS || self == .iPadOS
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return self == .iPadOS
+        } else {
+            return self == .iOS
+        }
 #elseif os(macOS)
         self == .macOS
 #elseif os(tvOS)
@@ -65,6 +80,7 @@ public enum AppleOS:
 #elseif os(visionOS)
         self == .visionOS
 #else
+        printOnDebug("⚠️ Current operating system is unknown.")
         false
 #endif
     }
@@ -77,17 +93,22 @@ import SwiftUI
 #Preview {
     List {
         ForEach(AppleOS.allCases) { os in
-            Label {
-                Text(os.name)
-                    .bold()
-                Text(os.device)
+            LabeledContent {
                 if os.isCurrent {
-                    Text("Current")
-                        .foregroundStyle(.red)
+                    Image(systemName: "checkmark.seal.fill")
+                        .font(.title)
+                        .foregroundStyle(.green)
+                        .symbolRenderingMode(.hierarchical)
                 }
-            } icon: {
-                Image(systemName: os.icon)
-                    .font(.title2)
+            } label: {
+                Label {
+                    Text(os.name)
+                        .bold()
+                    Text(os.device)
+                } icon: {
+                    Image(systemName: os.icon)
+                        .font(.title2)
+                }
             }
         }
     }
