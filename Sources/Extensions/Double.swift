@@ -108,4 +108,14 @@ public extension Double {
     var percentage: Self {
         self / 100
     }
+    
+    /// Converts a fractional value (0.0–1.0) to a `PressureLevel` using predefined thresholds.
+    var pressureLevel: PressureLevel {
+        switch self {
+        case ..<0.60:            .normal
+        case 0.60.nextUp..<0.80: .warning
+        case 0.80.nextUp...:     .critical
+        default:                 .unknown
+        }
+    }
 }
