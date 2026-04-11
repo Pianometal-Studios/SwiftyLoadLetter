@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 /// Enumeration of Apple operating systems.
 ///
@@ -66,7 +68,7 @@ public enum AppleOS:
     ///
     /// - Returns: `true` if the platform corresponds to the current operating system.
     @MainActor public var isCurrent: Bool {
-#if os(iOS)
+#if os(iOS) && canImport(UIKit)
         if UIDevice.current.userInterfaceIdiom == .pad {
             return self == .iPadOS
         } else {
