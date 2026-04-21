@@ -10,15 +10,16 @@ import SwiftUI
 
 /// Represents the current pressure level of a hardware component, such as memory or CPU.
 ///
-/// Each level provides associated properties for color, emoji, icon, and name to facilitate consistent
-/// UI representation across the app. The `unknown` case is included to handle any unexpected
-/// or unrecognized pressure levels, ensuring that the app can gracefully handle edge cases without crashing.
+/// Each level provides associated properties for color, emoji, icon, name, and details to
+/// facilitate consistent UI representation across the app. The `unknown` case handles any
+/// unexpected or unrecognized pressure levels gracefully.
 @frozen public enum PressureLevel:
     String,
     Staticable,
     Searchable,
     Iconable,
-    Colorable {
+    Colorable,
+    Describable {
     
     /// The pressure level is within normal operating parameters.
     case normal
@@ -29,7 +30,8 @@ import SwiftUI
     /// The pressure level is critical and requires immediate action to prevent system instability.
     case critical
     
-    /// The pressure level is unknown, which may indicate an error in retrieving the information or an unrecognized state.
+    /// The pressure level is unknown, which may indicate an error in retrieving the information
+    /// or an unrecognized state.
     case unknown
     
     public var color: Color {
@@ -38,6 +40,19 @@ import SwiftUI
         case .warning:  .orange
         case .critical: .red
         case .unknown:  .gray
+        }
+    }
+    
+    public var details: String {
+        switch self {
+        case .normal:
+            "Pressure is within normal operating parameters."
+        case .warning:
+            "Pressure is elevated and may require attention."
+        case .critical:
+            "Pressure is critical. Immediate action required to prevent instability."
+        case .unknown:
+            "Pressure level is unknown. This may indicate an error retrieving the information."
         }
     }
     
@@ -83,6 +98,7 @@ import SwiftUI
             } label: {
                 Label {
                     Text(level.name)
+                    Text(level.details)
                 } icon: {
                     Image(systemName: level.icon)
                         .foregroundStyle(level.color)
