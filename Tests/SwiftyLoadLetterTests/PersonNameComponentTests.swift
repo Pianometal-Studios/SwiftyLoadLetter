@@ -4,7 +4,7 @@ import Foundation
 
 /// Tests for `PersonNameComponent` extensions that extract components from `PersonNameComponents`.
 @Suite("PersonNameComponent") struct PersonNameComponentTests {
-
+    
     private var components: PersonNameComponents {
         PersonNameComponents(
             namePrefix: "Dr.",
@@ -14,7 +14,7 @@ import Foundation
             nameSuffix: "III",
             nickname: "Avie")
     }
-
+    
     @Test("value(from:) extracts each component correctly")
     func valueExtracts() {
         #expect(PersonNameComponent.namePrefix.value(from: components) == "Dr.")
@@ -24,7 +24,7 @@ import Foundation
         #expect(PersonNameComponent.nameSuffix.value(from: components) == "III")
         #expect(PersonNameComponent.nickname.value(from: components) == "Avie")
     }
-
+    
     @Test("value(from:) returns nil for missing components")
     func valueMissingComponent() {
         let minimal = PersonNameComponents(givenName: "Kyle")

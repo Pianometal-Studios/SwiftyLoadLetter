@@ -3,7 +3,7 @@ import Testing
 
 /// Tests for SwiftyLoadLetter `Int` extensions.
 @Suite("Int.bluetoothSignalQuality") struct IntTests {
-
+    
     @Test(
         "RSSI thresholds map to correct SignalQuality",
         arguments: [
