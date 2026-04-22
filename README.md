@@ -1,6 +1,8 @@
 # 🖨️ SwiftyLoadLetter
 
-The [func](https://en.wikipedia.org/wiki/PC_LOAD_LETTER) does that mean?
+> 🤷‍♂️ The [func](https://en.wikipedia.org/wiki/PC_LOAD_LETTER) does that mean?
+
+Inspired by the legendary printer error that drove Peter, Michael, and Samir to the field with a baseball bat — `🖨️ SwiftyLoadLetter` is a Swift utility package for Apple platforms that fills in the gaps left by the standard library and SwiftUI. It provides composable protocols, type-safe extensions on Foundation and SwiftUI types, system-state enums with built-in UI properties, and SwiftUI view helpers — all designed to reduce boilerplate across every Apple platform. No cover sheets required.
 
 ---
 
@@ -12,7 +14,7 @@ The [func](https://en.wikipedia.org/wiki/PC_LOAD_LETTER) does that mean?
 
 ### Swift
 
-![Language Version](https://img.shields.io/badge/Language_Version-6.2-orange?logo=swift)
+![Language Version](https://img.shields.io/badge/Language_Version-6.3-orange?logo=swift)
 ![Approachable Concurrency](https://img.shields.io/badge/Approachable_Concurrency-Yes-darkgreen?logo=swift)
 ![Strict Concurrency Checking](https://img.shields.io/badge/Strict_Concurrency_Checking-Complete-darkblue?logo=swift)
 ![Default Actor Isolation](https://img.shields.io/badge/Default_Actor_Isolation-nil-darkred?logo=swift)
@@ -34,7 +36,7 @@ The [func](https://en.wikipedia.org/wiki/PC_LOAD_LETTER) does that mean?
 
 ### Xcode
 
-Add the package via **File → Add Package Dependencies** and enter:
+Add the package via **File → Add Package Dependencies** and enter — no memo from Lumbergh required:
 
 ```
 https://github.com/Pianometal-Studios/SwiftyLoadLetter.git
@@ -49,9 +51,6 @@ dependencies: [
         .upToNextMinor(from: .init(1, 0, 0))
     ),
 ],
-```
-
-```swift
 targets: [
     .target(name: "MyTarget", dependencies: [.byName(name: "SwiftyLoadLetter")])
 ]
@@ -59,9 +58,329 @@ targets: [
 
 ---
 
+## 🧩 Protocols
+
+SwiftyLoadLetter's protocols are designed to be composed freely — kind of like pieces of flair, except you actually want these. Conform to one or several depending on what your type needs to express.
+
+| Protocol | Requirements | Purpose |
+|---|---|---|
+| `Nameable` | `name: String` | Human-readable identity. Provides a default `Comparable` implementation and a case-insensitive `search()` method on any `Collection`. |
+| `Describable` | `details: String` | A longer user-facing description, complementing `Nameable`'s short title. |
+| `Colorable` | `color: Color` | An associated SwiftUI `Color` for theming, tinting, or visualization. |
+| `Iconable` | `icon: String` | An SF Symbol name, ready for `Image(systemName:)`. |
+| `Imageable` | `image: ImageResource` | An asset catalog image resource for types backed by named assets. |
+| `Searchable` | `Nameable` + `Identifiable` + `Hashable` + `Comparable` | Full composition for models that appear in searchable lists and autocomplete UIs. |
+| `Staticable` | `Codable` + `CaseIterable` + `Hashable` + `CodingKey` + `Sendable` + `RawRepresentable<String>` | For string-backed enums used as stable identifiers, configuration keys, or routing constants. Provides `customizationID` for `TabView` persistence. |
+| `Listable` | `static navigationTitle: String` | Provides a navigation title for list-based presentation of a type's instances. |
+
+### Example: Building a conforming type
+
+```swift
+enum Tab: String, Staticable, Searchable, Iconable, Colorable {
+
+    case home
+    case library
+    case settings
+
+    var color: Color {
+        switch self {
+        case .home:     .blue
+        case .library:  .purple
+        case .settings: .gray
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .home:     "house"
+        case .library:  "books.vertical"
+        case .settings: "gear"
+        }
+    }
+
+    var name: String {
+        switch self {
+        case .home:     "Home"
+        case .library:  "Library"
+        case .settings: "Settings"
+        }
+    }
+}
+
+// Case-insensitive search comes for free via Nameable
+let results = Tab.allCases.search("lib") // [.library]
+```
+
+---
+
+## 🗂️ Components
+
+Ready-made enumerations that model common app and system concepts, all conforming to the relevant protocols above.
+
+### `AppleOS`
+
+An enumeration of Apple's OS families with `device` name, SF Symbol `icon`, `name`, and a `@MainActor`-isolated `isCurrent` property.
+
+```swift
+if AppleOS.visionOS.isCurrent {
+    // show Vision Pro–specific UI
+}
+```
+
+Cases: `.iOS` `.iPadOS` `.macOS` `.tvOS` `.watchOS` `.visionOS`
+
+---
+
+### `CommonAction`
+
+A set of reusable UI actions, each with an SF Symbol `icon`, localized `name`, an optional `ButtonRole`, and a `TabPlacement`.
+
+```swift
+Button(role: CommonAction.delete.role) {
+    deleteItem()
+} label: {
+    Label(CommonAction.delete.name, systemImage: CommonAction.delete.icon)
+}
+```
+
+Cases: `.add` `.cancel` `.close` `.confirm` `.debug` `.delete` `.edit` `.filter` `.help` `.info` `.save` `.settings` `.sort`
+
+---
+
+### `ConnectionState`
+
+General-purpose Bluetooth and network connection states, each with a `color` and `name`.
+
+```swift
+Label(state.name, systemImage: "circle.fill")
+    .foregroundStyle(state.color)
+```
+
+Cases: `.disconnected` `.connecting` `.connected` `.disconnecting`
+
+---
+
+### `PersonNameComponent`
+
+Type-safe access to individual fields of `PersonNameComponents`, with localized form field `placeholder`s and `value(from:)` extraction.
+
+```swift
+let first = PersonNameComponent.givenName.value(from: components) // "Michael"
+let formatted = PersonNameComponent.string(components, style: .short) // "Michael B."
+```
+
+Cases: `.namePrefix` `.givenName` `.middleName` `.familyName` `.nameSuffix` `.nickname`
+
+---
+
+### `PressureLevel`
+
+System pressure levels for memory, CPU, or any hardware component — with `color`, `icon`, `emoji`, `name`, and `details`.
+
+```swift
+let level = memoryUsageFraction.pressureLevel // via Double.pressureLevel
+label.foregroundStyle(level.color)
+```
+
+Cases: `.normal` `.warning` `.critical` `.unknown`
+
+---
+
+### `SignalQuality`
+
+Four-level signal quality enum with `color`, `icon`, `name`, and `strength`. Sorts by signal strength via `Comparable`.
+
+```swift
+let quality = rssi.bluetoothSignalQuality // via Int.bluetoothSignalQuality
+// rssi >= -60 → .excellent, -70..<-60 → .good, -80..<-70 → .fair, else → .poor
+```
+
+Cases: `.excellent` `.good` `.fair` `.poor`
+
+---
+
+## 🔧 Extensions
+
+### SwiftUI — View Modifiers
+
+| Modifier | Description |
+|---|---|
+| `.fadeInOut(from:)` | Asymmetric push + opacity transition. Removal uses the opposite edge automatically. |
+| `.glass(isRegular:shape:isInteractive:tint:)` | Cross-platform glass material effect. No-op on visionOS. |
+| `.glassButton(or:)` | Platform-appropriate glass button style with visionOS fallback. |
+| `.redacted(_:)` | Boolean-driven `.placeholder` redaction — pass `true` to redact, `false` to reveal. |
+| `.lightUp(_:)` | Full saturation + opacity when `true`, desaturated + dimmed when `false`. |
+| `.segmentedPicker()` | `.segmented` style on all platforms, `.automatic` on watchOS. |
+| `.listRowSeparatorHidden()` | Hides list row separators on iOS, macOS, and visionOS. No-op elsewhere. |
+| `.navigationSubtitle(subtitle:)` | Sets a navigation subtitle on iOS and macOS. No-op elsewhere. |
+
+```swift
+Text("Loading...")
+    .redacted(isLoading)
+
+Image(systemName: "star.fill")
+    .lightUp(isSelected)
+
+SomeView()
+    .fadeInOut(from: .bottom)
+
+VStack { ... }
+    .glass(tint: .blue.opacity(0.2))
+```
+
+---
+
+### SwiftUI — Layout
+
+| API | Description |
+|---|---|
+| `GridItem.generate(_ count:)` | Creates `count` flexible `GridItem`s. Defaults to `3`. |
+| `GridItem.list(_ sizeClass:)` | 1 column in compact, 2 in regular — adapts to `horizontalSizeClass`. |
+| `Image.scaled(to:)` | `.resizable()` + `.aspectRatio(contentMode:)` in one call. |
+
+```swift
+LazyVGrid(columns: GridItem.list(horizontalSizeClass)) { ... }
+
+Image(.hero)
+    .scaled(to: .fill)
+```
+
+---
+
+### Foundation — Double
+
+| API | Description |
+|---|---|
+| `.asPercent(_ fractionLength:)` | Localized percent string. `0.25.asPercent()` → `"25%"`. |
+| `.currency(_ identifier:)` | Localized currency string with locale-aware fallback. |
+| `.percentage` | Divides by 100. `25.0.percentage` → `0.25`. |
+| `.isValid` | `true` if finite, non-NaN, and non-signaling. |
+| `.pressureLevel` | Maps `0...1` to `PressureLevel`. Returns `.unknown` for invalid values. |
+
+```swift
+Text(0.42.asPercent())          // "42%"
+Text(1234.56.currency())        // "$1,234.56"
+Text(75.0.percentage.asPercent()) // "75%"
+```
+
+---
+
+### Foundation — Other
+
+| API | Description |
+|---|---|
+| `Int.bluetoothSignalQuality` | Maps an RSSI `Int` to `SignalQuality` using standard BLE thresholds. |
+| `UInt64.toByteCount` | Converts to `Int64` for use with `ByteCountFormatter`. |
+| `Data.hexString` | Space-separated hex string. `[0x01, 0xFF]` → `"01 FF"`. Useful for BLE debugging. |
+| `URL.create(_:)` | Validates a string has both a parseable `URL` and a non-empty host. |
+| `String.toURL` | Convenience wrapper for `URL.create(_:)`. |
+| `Formatters.byteCount` | Shared `ByteCountFormatter` (`.useAll`, `.memory`), safe for off-main use. |
+| `MainBundle.identifier` | Safe accessor for `Bundle.main.bundleIdentifier` with debug logging. |
+| `MainBundle.infoDictionary` | Safe accessor for `Bundle.main.infoDictionary`. |
+| `MainBundle.infoDictionary(_ key:)` | Typed `String` lookup for a specific Info.plist key. |
+| `UTType.fromBundle` | App-scoped `UTType` from the bundle identifier. |
+| `Staticable.customizationID` | Bundle-prefixed stable ID for `TabView` customization. |
+
+---
+
+### Network — `Network.framework`
+
+| Type | Properties Added |
+|---|---|
+| `NWPath.Status` | `color`, `icon`, `name`, `details`, `isConnected`, `allCases` |
+| `NWPath.LinkQuality` | `color`, `icon`, `name`, `allCases` |
+| `NWPath.UnsatisfiedReason` | `icon`, `name`, `details`, `hasReason`, `allCases` |
+| `NWInterface.InterfaceType` | `color`, `icon`, `name`, `allCases` |
+
+```swift
+Label(path.status.name, systemImage: path.status.icon)
+    .foregroundStyle(path.status.color)
+```
+
+---
+
+### System State
+
+| Type | Properties Added |
+|---|---|
+| `ProcessInfo.ThermalState` | `color`, `icon`, `name`, `details`, `percentage`, `allCases` |
+| `DispatchSource.MemoryPressureEvent` | `pressureLevel` → `PressureLevel` |
+| `OSLogType` | `color`, `icon`, `name`, `details`, `emoji`, `label`, `severity`, `isPersistedInProduction`, `allCases` |
+| `CBManagerState` | `icon`, `name`, `details`, `allCases` |
+
+```swift
+ProgressView(value: thermalState.percentage, total: 100)
+    .tint(thermalState.color)
+
+let level = memoryEvent.pressureLevel
+```
+
+---
+
+### SwiftUI Types
+
+| Type | Properties Added |
+|---|---|
+| `ColorScheme` / `ColorScheme?` | `color`, `icon`, `name`, `isDark` |
+| `DynamicTypeSize` | `name`, `details` |
+| `Font.Design` | `name`, `allCases` |
+| `Edge` | `opposite` |
+| `Edge` / `HorizontalEdge` / `VerticalEdge` | Bidirectional conversion helpers |
+| `Edge.Orientation` | `.horizontal` / `.vertical` with `toEdge(_:)` |
+| `UserInterfaceSizeClass` / `UserInterfaceSizeClass?` | `name`, `icon`, `allCases` |
+| `AccessibilityAdjustmentDirection` | `color`, `icon`, `name`, `details`, `allCases` |
+| `Bool` | `color`, `icon`, `name`, `labelView()`, `allCases` |
+| `Color` | `name`, `allCases`, `random` |
+| `PersonNameComponentsFormatter.Style` | `name`, `allCases` |
+
+---
+
+### Platform-Specific
+
+| Type | Platform | Properties Added |
+|---|---|---|
+| `UIDevice.BatteryState` | iOS, visionOS | `icon`, `name`, `details`, `allCases` |
+| `WKInterfaceDeviceBatteryState` | watchOS | `icon`, `name`, `details`, `allCases` |
+
+---
+
+## 🖼️ Views
+
+### `LiquidMeshBackground`
+
+An animated dual-circle blurred background suitable for hero screens, onboarding, or any view that benefits from an organic ambient glow.
+
+```swift
+ContentView()
+    .background {
+        LiquidMeshBackground(
+            color1: .blue,
+            color2: .purple,
+            isAnimating: $isAnimating)
+    }
+```
+
+---
+
+## 🛠️ Utilities
+
+### `printOnDebug`
+
+A debug-only `print` replacement that prefixes all output with `[🖨️ SwiftyLoadLetter]` for easy filtering in Xcode's console. Compiles to a no-op in release builds. Milton would have had a lot fewer stapler incidents if he'd had better diagnostic logging.
+
+```swift
+printOnDebug("⚠️ Something unexpected happened")
+// [🖨️ SwiftyLoadLetter] ⚠️ Something unexpected happened
+
+printOnDebug(someError)
+// [🖨️ SwiftyLoadLetter] 📜 The operation couldn't be completed.
+```
+
+---
+
 ## 📋 Releases
 
-See the full [release history](https://github.com/Pianometal-Studios/SwiftyLoadLetter/releases) for changelogs and version notes.
+See the full [release history](https://github.com/Pianometal-Studios/SwiftyLoadLetter/releases) for changelogs and version notes. We went ahead and put them in there, so if you could just go ahead and read those, that'd be great. ☕️
 
 ---
 
