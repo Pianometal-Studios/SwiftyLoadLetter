@@ -28,8 +28,6 @@ public extension Double {
     ///
     /// - Returns: A `String` representing the value formatted as a percentage according
     ///   to the current locale with the specified fractional precision.
-    ///
-    
     func asPercent(_ fractionLength: Int = 0) -> String {
         formatted(.percent.precision(.fractionLength(fractionLength)))
     }
@@ -57,8 +55,6 @@ public extension Double {
     ///
     /// - Returns: A `String` representing the value formatted as currency, according to
     ///   the current locale and resolved currency code.
-    ///
-    
     func currency(_ identifier: String = "USD") -> String {
         guard let code = Locale.current.currency?.identifier else {
             printOnDebug("Cannot resolve currency code from current locale. Using fallback: \(identifier)")
@@ -75,8 +71,6 @@ public extension Double {
     /// finite values.
     ///
     /// - Returns: `true` if the value is a valid finite number; otherwise, `false`.
-    ///
-    
     var isValid: Bool {
         !self.isNaN &&
         !self.isInfinite &&
@@ -103,18 +97,18 @@ public extension Double {
     ///   formatting, use `asPercent(_:)`
     ///
     /// - SeeAlso: `asPercent(_:)`
-    ///
-    
     var percentage: Self {
         self / 100
     }
     
     /// Converts a fractional value (0.0–1.0) to a `PressureLevel` using predefined thresholds.
+    ///
+    /// - Returns: A `PressureLevel` corresponding to the receiver's value.
     var pressureLevel: PressureLevel {
         switch self {
-        case ...0.59:            .normal
+        case 0...0.59:           .normal
         case 0.59.nextUp...0.79: .warning
-        case 0.79.nextUp...:     .critical
+        case 0.79.nextUp...1:    .critical
         default:                 .unknown
         }
     }
