@@ -17,7 +17,7 @@ import Foundation
 /// - Reading the app’s bundle identifier.
 /// - Accessing the full Info.plist dictionary.
 /// - Fetching specific string values from Info.plist keys (e.g., CFBundleName, CFBundleShortVersionString).
-public enum MainBundle {
+public enum MainBundle: Sendable {
     
     /// The app’s bundle identifier string from the main bundle.
     ///
