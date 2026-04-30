@@ -10,7 +10,7 @@ import SwiftUI
 
 /// An enum representing general connection states, such as those used in Bluetooth or network connections.
 /// Each case has an associated color and name for easy UI representation.
-public enum ConnectionState: String, Staticable, Colorable, Searchable {
+@frozen public enum ConnectionState: String, Staticable, Colorable, Searchable {
     
     case disconnected
     case connecting

@@ -6,6 +6,8 @@
 //  MIT License
 //
 
+import Foundation
+
 public extension Duration {
 
     /// Converts the duration to a fractional `Double` value representing seconds.
