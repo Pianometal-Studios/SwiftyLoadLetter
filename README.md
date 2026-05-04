@@ -149,7 +149,7 @@ Cases: `.add` `.cancel` `.close` `.confirm` `.debug` `.delete` `.edit` `.filter`
 
 ### `ConnectionState`
 
-General-purpose Bluetooth and network connection states, each with a `color` and `name`.
+General-purpose network connection state each with a `color` and `name`.
 
 ```swift
 Label(state.name, systemImage: "circle.fill")
@@ -183,19 +183,6 @@ label.foregroundStyle(level.color)
 ```
 
 Cases: `.normal` `.warning` `.critical` `.unknown`
-
----
-
-### `SignalQuality`
-
-Four-level signal quality enum with `color`, `icon`, `name`, and `strength`. Sorts by signal strength via `Comparable`.
-
-```swift
-let quality = rssi.bluetoothSignalQuality // via Int.bluetoothSignalQuality
-// rssi >= -60 → .excellent, -70..<-60 → .good, -80..<-70 → .fair, else → .poor
-```
-
-Cases: `.excellent` `.good` `.fair` `.poor`
 
 ---
 
@@ -269,7 +256,6 @@ Text(75.0.percentage.asPercent()) // "75%"
 
 | API | Description |
 |---|---|
-| `Int.bluetoothSignalQuality` | Maps an RSSI `Int` to `SignalQuality` using standard BLE thresholds. |
 | `UInt64.toByteCount` | Converts to `Int64` for use with `ByteCountFormatter`. |
 | `Data.hexString` | Space-separated hex string. `[0x01, 0xFF]` → `"01 FF"`. Useful for BLE debugging. |
 | `URL.create(_:)` | Validates a string has both a parseable `URL` and a non-empty host. |

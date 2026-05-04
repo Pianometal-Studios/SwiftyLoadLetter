@@ -8,9 +8,10 @@
 
 import SwiftUI
 
-/// An enum representing general connection states, such as those used in Bluetooth or network connections.
+/// An enum representing general connection states, such as those used in device or network connections.
+///
 /// Each case has an associated color and name for easy UI representation.
-@frozen public enum ConnectionState: String, Staticable, Colorable, Searchable {
+@frozen public enum ConnectionState: String, Staticable, Colorable, Searchable, Iconable {
     
     case disconnected
     case connecting
@@ -23,6 +24,14 @@ import SwiftUI
         case .connecting:    .blue
         case .disconnecting: .orange
         case .disconnected:  .red
+        }
+    }
+    
+    public var icon: String {
+        switch self {
+        case .connected:    true.icon
+        case .disconnected: false.icon
+        default:            "arrow.trianglehead.2.clockwise.rotate.90"
         }
     }
     
@@ -45,7 +54,7 @@ import SwiftUI
             Label {
                 Text(state.name)
             } icon: {
-                Image(systemName: "circle")
+                Image(systemName: state.icon)
                     .symbolVariant(.fill)
                     .symbolColorRenderingMode(.gradient)
                     .foregroundStyle(state.color)
