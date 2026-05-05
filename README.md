@@ -69,6 +69,7 @@ SwiftyLoadLetter's protocols are designed to be composed freely — kind of like
 | `Colorable` | `color: Color` | An associated SwiftUI `Color` for theming, tinting, or visualization. |
 | `Iconable` | `icon: String` | An SF Symbol name, ready for `Image(systemName:)`. |
 | `Imageable` | `image: ImageResource` | An asset catalog image resource for types backed by named assets. |
+| `Emojiable` | `emoji: String` | A single-emoji visual representation. When combined with `Nameable`, gains a free `emojiLabel` (`"🖨️ SwiftyLoadLetter"`) for Console.app/Xcode-friendly labels. |
 | `Searchable` | `Nameable` + `Identifiable` + `Hashable` + `Comparable` | Full composition for models that appear in searchable lists and autocomplete UIs. |
 | `Staticable` | `Codable` + `CaseIterable` + `Hashable` + `CodingKey` + `Sendable` + `RawRepresentable<String>` | For string-backed enums used as stable identifiers, configuration keys, or routing constants. Provides `customizationID` for `TabView` persistence. |
 | `Listable` | `static navigationTitle: String` | Provides a navigation title for list-based presentation of a type's instances. |
@@ -76,7 +77,7 @@ SwiftyLoadLetter's protocols are designed to be composed freely — kind of like
 ### Example: Building a conforming type
 
 ```swift
-enum Tab: String, Staticable, Searchable, Iconable, Colorable {
+enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable {
 
     case home
     case library
@@ -87,6 +88,14 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable {
         case .home:     .blue
         case .library:  .purple
         case .settings: .gray
+        }
+    }
+
+    var emoji: String {
+        switch self {
+        case .home:     "🏠"
+        case .library:  "📚"
+        case .settings: "⚙️"
         }
     }
 
@@ -109,6 +118,9 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable {
 
 // Case-insensitive search comes for free via Nameable
 let results = Tab.allCases.search("lib") // [.library]
+
+// "📚 Library" comes for free via Emojiable + Nameable
+Text(Tab.library.emojiLabel)
 ```
 
 ---
@@ -175,7 +187,7 @@ Cases: `.namePrefix` `.givenName` `.middleName` `.familyName` `.nameSuffix` `.ni
 
 ### `PressureLevel`
 
-System pressure levels for memory, CPU, or any hardware component — with `color`, `icon`, `emoji`, `name`, and `details`.
+A `@frozen` enum representing system pressure levels for memory, CPU, or any hardware component. Conforms to `Staticable`, `Searchable`, `Iconable`, `Colorable`, `Describable`, and `Emojiable` — with `color`, `icon`, `emoji`, `name`, and `details`.
 
 ```swift
 let level = memoryUsageFraction.pressureLevel // via Double.pressureLevel
@@ -196,7 +208,8 @@ Cases: `.normal` `.warning` `.critical` `.unknown`
 | `.glass(isRegular:shape:isInteractive:tint:)` | Cross-platform glass material effect. No-op on visionOS. |
 | `.glassButton(or:)` | Platform-appropriate glass button style with visionOS fallback. |
 | `.redacted(_:)` | Boolean-driven `.placeholder` redaction — pass `true` to redact, `false` to reveal. |
-| `.lightUp(_:)` | Full saturation + opacity when `true`, desaturated + dimmed when `false`. |
+| `.darken(when:disable:)` | Desaturates and dims the view when `true`. Optionally disables the view when dimmed. |
+| `.lightUp(_:)` | _**Deprecated**_ — use `.darken(when:)` and invert the logic. |
 | `.segmentedPicker()` | `.segmented` style on all platforms, `.automatic` on watchOS. |
 | `.listRowSeparatorHidden()` | Hides list row separators on iOS, macOS, and visionOS. No-op elsewhere. |
 | `.navigationSubtitle(subtitle:)` | Sets a navigation subtitle on iOS and macOS. No-op elsewhere. |
@@ -205,8 +218,8 @@ Cases: `.normal` `.warning` `.critical` `.unknown`
 Text("Loading...")
     .redacted(isLoading)
 
-Image(systemName: "star.fill")
-    .lightUp(isSelected)
+Button("Submit") { submit() }
+    .darken(when: isProcessing, disable: true)
 
 SomeView()
     .fadeInOut(from: .bottom)
@@ -291,7 +304,7 @@ Label(path.status.name, systemImage: path.status.icon)
 |---|---|
 | `ProcessInfo.ThermalState` | `color`, `icon`, `name`, `details`, `percentage`, `allCases` |
 | `DispatchSource.MemoryPressureEvent` | `pressureLevel` → `PressureLevel` |
-| `OSLogType` | `color`, `icon`, `name`, `details`, `emoji`, `label`, `severity`, `isPersistedInProduction`, `allCases` |
+| `OSLogType` | `color`, `icon`, `name`, `details`, `emoji`, `emojiLabel`, `severity`, `isPersistedInProduction`, `allCases` |
 | `CBManagerState` | `icon`, `name`, `details`, `allCases` |
 
 ```swift
@@ -313,9 +326,9 @@ let level = memoryEvent.pressureLevel
 | `Edge` | `opposite` |
 | `Edge` / `HorizontalEdge` / `VerticalEdge` | Bidirectional conversion helpers |
 | `Edge.Orientation` | `.horizontal` / `.vertical` with `toEdge(_:)` |
-| `UserInterfaceSizeClass` / `UserInterfaceSizeClass?` | `name`, `icon`, `allCases` |
+| `UserInterfaceSizeClass` / `UserInterfaceSizeClass?` | `name`, `icon`, `isCompact`, `allCases` |
 | `AccessibilityAdjustmentDirection` | `color`, `icon`, `name`, `details`, `allCases` |
-| `Bool` | `color`, `icon`, `name`, `labelView()`, `allCases` |
+| `Bool` | `color`, `emoji`, `emojiLabel`, `icon`, `name`, `labelView()`, `allCases` |
 | `Color` | `name`, `allCases`, `random` |
 | `PersonNameComponentsFormatter.Style` | `name`, `allCases` |
 
@@ -351,19 +364,24 @@ ContentView()
 ## 🛠️ Utilities
 
 **Logging**
-- `LogCategory` — Strongly-typed logging categories (`auth`, `bluetooth`, `firebase`, `network`, `revenueCat`, `swift`, `swiftData`, `system`, etc.) bound to `os.Logger` with emoji prefixes for Console.app scanning
-- `logger(_:message:type:)` / `logger(_:error:type:)` — Free-function entry points with consistent formatting and debug-build mirroring to the console
+- `LogCategory` — Strongly-typed logging categories (`asc`, `auth`, `bluetooth`, `firebase`, `general`, `location`, `network`, `revenueCat`, `swift`, `swiftData`, `system`) bound to `os.Logger` with emoji prefixes for Console.app scanning. Conforms to `Staticable`, `Searchable`, `Describable`, `Listable`, and `Emojiable`.
+- `logger(_:message:type:)` / `logger(_:error:type:)` — Free-function entry points with consistent formatting and debug-build mirroring to the console.
+
+```swift
+logger(.network, message: "Request started", type: .debug)
+logger(.auth, error: someError, type: .error)
+```
 
 ### `printOnDebug`
 
-A debug-only `print` replacement that prefixes all output with `[🖨️ SwiftyLoadLetter]` for easy filtering in Xcode's console. Compiles to a no-op in release builds. Milton would have had a lot fewer stapler incidents if he'd had better diagnostic logging.
+A debug-only `print` replacement that prefixes all output with `🖨️ SwiftyLoadLetter:` for easy filtering in Xcode's console. Compiles to a no-op in release builds. Milton would have had a lot fewer stapler incidents if he'd had better diagnostic logging.
 
 ```swift
 printOnDebug("⚠️ Something unexpected happened")
-// [🖨️ SwiftyLoadLetter] ⚠️ Something unexpected happened
+// 🖨️ SwiftyLoadLetter: ⚠️ Something unexpected happened
 
 printOnDebug(someError)
-// [🖨️ SwiftyLoadLetter] 📜 The operation couldn't be completed.
+// 🖨️ SwiftyLoadLetter: The operation couldn't be completed.
 ```
 
 ---
@@ -371,6 +389,19 @@ printOnDebug(someError)
 ## 📋 Releases
 
 See the full [release history](https://github.com/Pianometal-Studios/SwiftyLoadLetter/releases) for changelogs and version notes. We went ahead and put them in there, so if you could just go ahead and read those, that'd be great. ☕️
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome — bug reports, feature requests, documentation fixes, and pull requests of any size. Before getting started, please:
+
+- Read the [Code of Conduct](CODE_OF_CONDUCT.md) — participation in this project is governed by it.
+- Read the [Contributing Guide](CONTRIBUTING.md) for development setup, code style conventions, and the PR process.
+- Use the issue templates when [filing a bug or requesting a feature](https://github.com/Pianometal-Studios/SwiftyLoadLetter/issues/new/choose).
+- Report security issues **privately** per the [Security Policy](SECURITY.md) — please don't file them as public issues.
+
+For questions or discussion that aren't bug reports, start a [Discussion](https://github.com/Pianometal-Studios/SwiftyLoadLetter/discussions) instead of an issue.
 
 ---
 
