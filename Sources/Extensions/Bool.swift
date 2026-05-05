@@ -14,6 +14,14 @@ public extension Bool {
         self ? .green : .red
     }
     
+    var emoji: String {
+        self ? "✅" : "❌"
+    }
+    
+    var emojiLabel: String {
+        "\(emoji) \(name)"
+    }
+    
     var icon: String {
         self ? "checkmark" : "xmark"
     }

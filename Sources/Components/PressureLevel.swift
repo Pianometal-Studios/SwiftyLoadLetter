@@ -19,7 +19,8 @@ import SwiftUI
     Searchable,
     Iconable,
     Colorable,
-    Describable {
+    Describable,
+    Emojiable {
     
     /// The pressure level is within normal operating parameters.
     case normal
@@ -56,7 +57,6 @@ import SwiftUI
         }
     }
     
-    /// - Returns: An emoji representing the pressure level.
     public var emoji: String {
         switch self {
         case .normal:   "✅"

@@ -10,6 +10,11 @@ import SwiftUI
 
 public extension UserInterfaceSizeClass {
     
+    /// - Returns: `true` if the size class is `.compact`, otherwise `false`
+    var isCompact: Bool {
+        self == .compact
+    }
+    
     var icon: String {
         switch self {
         case .compact:    "rectangle.compress.vertical"
@@ -37,9 +42,24 @@ public extension UserInterfaceSizeClass {
 
 public extension UserInterfaceSizeClass? {
     
+    /// Determines if the size class is compact, treating `nil` as compact for safety.
+    ///
+    /// - Returns: `true` if the size class is `.compact` or `nil`,
+    ///   otherwise `false`
+    ///
+    /// - Note: Assumes `nil` represents an unknown size class, which is
+    ///   treated as compact for safety.
+    var isCompact: Bool {
+        guard let self else {
+            logger(.swift, message: "Unknown size class, assuming compact")
+            return true
+        }
+        return self == .compact
+    }
+    
     var name: String {
         guard let self else {
-            printOnDebug("⚠️ Unknown size class name")
+            logger(.swift, message: "Unknown size class")
             return "Unknown"
         }
         return self.name

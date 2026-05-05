@@ -13,9 +13,16 @@ import SwiftUI
 /// Each case has an associated color and name for easy UI representation.
 @frozen public enum ConnectionState: String, Staticable, Colorable, Searchable, Iconable {
     
+    /// Represents a state where there is no active connection.
     case disconnected
+    
+    /// Represents a state where a connection is in the process of being established.
     case connecting
+    
+    /// Represents a state where a connection is active and stable.
     case connected
+    
+    /// Represents a state where an active connection is in the process of being terminated.
     case disconnecting
     
     public var color: Color {

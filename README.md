@@ -350,6 +350,10 @@ ContentView()
 
 ## 🛠️ Utilities
 
+**Logging**
+- `LogCategory` — Strongly-typed logging categories (`auth`, `bluetooth`, `firebase`, `network`, `revenueCat`, `swift`, `swiftData`, `system`, etc.) bound to `os.Logger` with emoji prefixes for Console.app scanning
+- `logger(_:message:type:)` / `logger(_:error:type:)` — Free-function entry points with consistent formatting and debug-build mirroring to the console
+
 ### `printOnDebug`
 
 A debug-only `print` replacement that prefixes all output with `[🖨️ SwiftyLoadLetter]` for easy filtering in Xcode's console. Compiles to a no-op in release builds. Milton would have had a lot fewer stapler incidents if he'd had better diagnostic logging.
