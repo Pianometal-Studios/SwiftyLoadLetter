@@ -39,7 +39,7 @@ public extension ColorScheme? {
     
     var color: Color {
         guard let self else {
-            printOnDebug("⚠️ Unknown ColorScheme")
+            logger(.swift, message: "Unknown ColorScheme")
             return .secondary
         }
         return self.color
@@ -47,7 +47,7 @@ public extension ColorScheme? {
     
     var icon: String {
         guard let self else {
-            printOnDebug("⚠️ Unknown ColorScheme")
+            logger(.swift, message: "Unknown ColorScheme")
             return "questionmark"
         }
         return self.icon
@@ -56,7 +56,7 @@ public extension ColorScheme? {
     /// - SeeAlso: `ColorScheme.isDark`
     var isDark: Bool {
         guard let self else {
-            printOnDebug("⚠️ Unknown ColorScheme")
+            logger(.swift, message: "Unknown ColorScheme")
             return false
         }
         return self.isDark
@@ -64,7 +64,7 @@ public extension ColorScheme? {
     
     var name: String {
         guard let self else {
-            printOnDebug("⚠️ Unknown ColorScheme")
+            logger(.swift, message: "Unknown ColorScheme")
             return "Unknown"
         }
         return self.name

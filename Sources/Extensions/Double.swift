@@ -57,7 +57,10 @@ public extension Double {
     ///   the current locale and resolved currency code.
     func currency(_ identifier: String = "USD") -> String {
         guard let code = Locale.current.currency?.identifier else {
-            printOnDebug("Cannot resolve currency code from current locale. Using fallback: \(identifier)")
+            logger(
+                .swift,
+                message: "Cannot resolve currency code from current locale. Using fallback: \(identifier)",
+                type: .default)
             return self.formatted(.currency(code: identifier))
         }
         return self.formatted(.currency(code: code))

@@ -26,11 +26,11 @@ public extension URL {
     ///         (e.g., file URLs or custom schemes without hosts).
     static func create(_ string: String) -> URL? {
         guard let url = URL(string: string) else {
-            printOnDebug("⚠️ Unable to create URL from: \(string)")
+            logger(.swift, message: "Unable to create URL: \(string)")
             return nil
         }
         guard let host = url.host(), !host.isEmpty else {
-            printOnDebug("⚠️ Unable to contact host from: \(url.debugDescription)")
+            logger(.swift, message: "Unable to contact host: \(url.debugDescription)")
             return nil
         }
         return url

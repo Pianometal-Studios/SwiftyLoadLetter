@@ -51,8 +51,6 @@ public extension OSLogType {
         }
     }
     
-    /// An emoji representing this log type for visual identification in the console output and
-    /// Xcode logs.
     var emoji: String {
         switch self {
         case .debug:   "🐛"
@@ -83,7 +81,7 @@ public extension OSLogType {
     }
     
     /// A combined emoji and name description of this log type.
-    var label: String {
+    var emojiLabel: String {
         "\(emoji) \(name)"
     }
     
@@ -164,7 +162,7 @@ import SwiftUI
                     .tint(type.color.gradient)
 #endif
                 } label: {
-                    Text(type.label)
+                    Text(type.emojiLabel)
                         .bold()
                     Text(type.isPersistedInProduction ? "Persisted" : "Not persisted")
                         .foregroundStyle(type.isPersistedInProduction.color.gradient)

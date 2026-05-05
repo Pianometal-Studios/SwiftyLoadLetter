@@ -97,7 +97,7 @@ public enum CommonAction:
             LazyVGrid(columns: GridItem.generate(2)) {
                 ForEach(CommonAction.allCases) { action in
                     Button(role: action.role) {
-                        printOnDebug(action.name)
+                        logger(.swift, message: action.name)
                     } label: {
                         Label(
                             action.name,

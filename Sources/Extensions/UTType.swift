@@ -41,7 +41,7 @@ public extension UTType {
             identifier = bundleID
         } else {
             identifier = "com.debug.unknown-bundle"
-            printOnDebug("⚠️ Using UTType fallback: \(identifier)")
+            logger(.swift, message: "Using UTType fallback: \(identifier)")
         }
         return .init(exportedAs: identifier)
     }

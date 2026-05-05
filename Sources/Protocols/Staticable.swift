@@ -61,7 +61,9 @@ public extension Staticable {
     ///   - If the bundle identifier is unavailable, logs a debug warning and returns `rawValue`.
     var customizationID: String {
         guard let bundleIdentifier = MainBundle.identifier else {
-            printOnDebug("⚠️ Bundle identifier is nil. Using \(rawValue) for customizationID.")
+            logger(
+                .swift,
+                message: "Bundle identifier is nil. Using rawValue.")
             return rawValue
         }
         return "\(bundleIdentifier).\(rawValue)"

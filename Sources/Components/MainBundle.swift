@@ -24,7 +24,7 @@ public enum MainBundle: Sendable {
     /// - Returns: The value of `Bundle.main.bundleIdentifier` if available.
     public static var identifier: String? {
         guard let identifier = Bundle.main.bundleIdentifier else {
-            printOnDebug("⚠️ Bundle identifier is nil")
+            logger(.swift, message: "Bundle identifier is nil")
             return nil
         }
         return identifier
@@ -38,7 +38,7 @@ public enum MainBundle: Sendable {
     ///
     public static var infoDictionary: [String : Any]? {
         guard let infoDictionary = Bundle.main.infoDictionary else {
-            printOnDebug("⚠️ Bundle infoDictionary is nil")
+            logger(.swift, message: "Bundle infoDictionary is nil")
             return nil
         }
         return infoDictionary
@@ -55,7 +55,7 @@ public enum MainBundle: Sendable {
     /// - Returns: The string value for the key if it exists and is a `String`; otherwise, `nil`.
     public static func infoDictionary(_ key: String) -> String? {
         guard let value = infoDictionary?[key] as? String else {
-            printOnDebug("⚠️ Unable to find \(key) in Info.plist")
+            logger(.swift, message: "Unable to find \(key) in Info.plist")
             return nil
         }
         return value
