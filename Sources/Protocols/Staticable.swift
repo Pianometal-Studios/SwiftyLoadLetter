@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UniformTypeIdentifiers
 
 /// A convenience protocol that unifies common static, value-like requirements for types,
 /// especially string-backed enumerations intended to be safely shared across concurrency domains.
@@ -16,22 +17,24 @@ import Foundation
 /// - Use the cases as `CodingKey`s when implementing custom `Codable` logic.
 /// - Iterate all cases with `CaseIterable` for validation or UI lists.
 /// - Pass values across tasks/actors thanks to `Sendable`.
+/// - Transfer types conforming to this protocol via drag and drop or copy/paste operations.
 ///
 /// ## Use Cases
 /// - Stable identifiers and keys in data models and network payloads.
 /// - Configuration namespaces and feature toggles.
 /// - Routing and analytics event names.
 /// - Schema-like keys used across decoding/encoding boundaries.
+/// - Transferable items in drag-and-drop or sharing operations.
 ///
 /// - Requires:
-///   - `Identifiable` so each instance has a stable identity (often derived from its raw value).
-///   - Support encoding/decoding via `Codable` for persistence and networking.
-///   - Provide a finite, discoverable set of values via `CaseIterable`.
-///   - Participate in hashing (`Hashable`) for use in sets and dictionary keys.
-///   - Behave as a `CodingKey`, enabling use as keys in `Codable` containers.
-///   - `Sendable`, allowing safe transfer across concurrency boundaries.
-///   - Must support equality comparison (`Equatable`).
-///   - `RawRepresentable` with a `String` raw value, enabling ergonomic serialization and display.
+///   - `Identifiable`: Each instance has a stable identity (often derived from its raw value).
+///   - `Codable`: Support encoding/decoding for persistence and networking.
+///   - `CaseIterable`: Provide a finite, discoverable set of values.
+///   - `Hashable` (and `Equatable`): Participate in hashing for use in sets and dictionary keys.
+///   - `CodingKey`: Enable use as keys in `Codable` containers.
+///   - `Sendable`: Allow safe transfer across concurrency boundaries.
+///   - `Transferable`: Support system-level data transfer operations.
+///   - `RawRepresentable` where `RawValue == String`: Enable ergonomic serialization and display.
 public protocol Staticable:
     Identifiable,
     Codable,
@@ -40,10 +43,17 @@ public protocol Staticable:
     CodingKey,
     Sendable,
     Equatable,
+    Transferable,
     RawRepresentable where RawValue == String { }
 
 public extension Staticable {
     
+    /// The stable identity of this instance, implemented as the instance itself.
+    ///
+    /// This default implementation satisfies the `Identifiable` protocol requirement
+    /// by returning `self`, allowing the entire enum case to serve as its own unique identifier.
+    /// This approach works well for static enumerations where each case is inherently unique.
+    ///
     /// - Returns: The instance itself as its identity.
     var id: Self { self }
     
@@ -63,10 +73,27 @@ public extension Staticable {
         guard let bundleIdentifier = MainBundle.identifier else {
             logger(
                 .swift,
-                message: "Bundle identifier is nil. Using rawValue.")
+                message: "Returning customizationID without namespace",
+                type: .error)
             return rawValue
         }
         return "\(bundleIdentifier).\(rawValue)"
+    }
+    
+    /// The transfer representation for this type, enabling drag-and-drop and copy/paste operations.
+    ///
+    /// This default implementation uses `CodableRepresentation` with a custom content type
+    /// derived from the app's bundle identifier (via `UTType.fromBundle`). This allows
+    /// conforming types to participate in system-level data transfer operations while
+    /// maintaining type safety and automatic encoding/decoding via `Codable`.
+    ///
+    /// - Returns: A `CodableRepresentation` configured for the conforming type with
+    ///   a bundle-specific content type.
+    ///
+    /// - Note: The content type is based on `UTType.fromBundle`, which uses your app's
+    ///   bundle identifier to create a unique uniform type identifier.
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(for: Self.self, contentType: UTType.fromBundle)
     }
 }
 
