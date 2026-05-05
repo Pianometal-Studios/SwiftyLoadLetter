@@ -180,6 +180,9 @@ public enum LogCategory:
     ///   - type: The `OSLogType` level to use.
     func log(_ message: String, type: OSLogType = .default) {
         logger.log(level: type, "\(type.emoji) \(message, privacy: .auto)")
+#if DEBUG
+        printOnDebug(emojiLabel, type.emojiLabel, "ℹ️ \(message)")
+#endif
     }
     
     public static let navigationTitle = "LogCategory"
@@ -196,6 +199,9 @@ import SwiftUI
                 Text(category.emojiLabel)
                     .bold()
                 Text(category.details)
+            }
+            .onAppear {
+                logger(.swift, message: category.emojiLabel)
             }
         }
         .navigationTitle(LogCategory.navigationTitle)

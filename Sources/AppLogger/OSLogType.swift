@@ -173,6 +173,9 @@ import SwiftUI
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity)
             }
+            .onAppear {
+                logger(.swift, message: type.emojiLabel)
+            }
         }
         .navigationTitle("OSLogTypes")
         .navigationSubtitle(subtitle: "Preview of extended properties")

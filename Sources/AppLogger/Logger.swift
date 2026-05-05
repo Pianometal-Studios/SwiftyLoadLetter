@@ -49,9 +49,6 @@ public func logger(
     message: String,
     type: OSLogType = .debug) {
         category.log(message, type: type)
-#if DEBUG
-        printOnDebug(category.emojiLabel, type.emojiLabel, "ℹ️ \(message)")
-#endif
     }
 
 /// Logs an error using the app’s centralized logging system and prints the localized description
