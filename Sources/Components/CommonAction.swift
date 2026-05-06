@@ -31,6 +31,7 @@ public enum CommonAction:
     case save
     case settings
     case sort
+    case stop
     
     public var icon: String {
         switch self {
@@ -46,6 +47,7 @@ public enum CommonAction:
         case .reset:          "arrow.counterclockwise"
         case .settings:       "gear"
         case .sort:           "arrow.up.arrow.down"
+        case .stop:           "stop"
         }
     }
     
@@ -65,17 +67,18 @@ public enum CommonAction:
         case .save:     "Save"
         case .settings: "Settings"
         case .sort:     "Sort"
+        case .stop:     "Stop"
         }
     }
     
     /// - Returns: `ButtonRole` associated with the action, if applicable.
     public var role: ButtonRole? {
         switch self {
-        case .cancel:         .cancel
-        case .close:          .close
-        case .confirm, .save: .confirm
-        case .delete, .reset: .destructive
-        default:              nil
+        case .cancel:                .cancel
+        case .close:                 .close
+        case .confirm, .save:        .confirm
+        case .delete, .reset, .stop: .destructive
+        default:                     nil
         }
     }
     
