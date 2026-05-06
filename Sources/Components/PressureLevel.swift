@@ -84,7 +84,21 @@ import SwiftUI
         }
     }
     
+    /// - Returns: An array of all valid `PressureLevel` cases, sorted in a logical order from least to most severe.
+    public var sortOrder: Int {
+        switch self {
+        case .normal:   0
+        case .warning:  1
+        case .critical: 2
+        case .unknown:  3
+        }
+    }
+    
     public static let navigationTitle = "Pressure Levels"
+    
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        lhs.sortOrder < rhs.sortOrder
+    }
 }
 
 // MARK: - Preview
@@ -92,20 +106,20 @@ import SwiftUI
 #if DEBUG
 #Preview {
     NavigationStack {
-        List(PressureLevel.allCases) { level in
-            LabeledContent {
-                Text(level.emoji)
-            } label: {
-                Label {
-                    Text(level.name)
-                    Text(level.details)
-                } icon: {
-                    Image(systemName: level.icon)
-                        .foregroundStyle(level.color)
-                        .symbolVariant(.fill)
-                        .symbolColorRenderingMode(.gradient)
-                }
+        List(PressureLevel.allCases.sorted()) { level in
+            Label {
+                Text(level.emojiLabel)
+                    .bold()
+                Text(level.details)
+            } icon: {
+                Image(systemName: level.icon)
+                    .foregroundStyle(level.color)
+                    .symbolVariant(.fill)
+                    .symbolColorRenderingMode(.gradient)
             }
+            .padding(.vertical)
+            .listRowBackground(level.color.opacity(0.15))
+            .listRowSeparatorHidden()
         }
         .navigationTitle(PressureLevel.navigationTitle)
         .navigationSubtitle(subtitle: "All system component pressure levels.")
