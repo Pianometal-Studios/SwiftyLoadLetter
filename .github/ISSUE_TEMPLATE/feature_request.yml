@@ -1,0 +1,103 @@
+name: 💡 Feature Request
+description: Suggest a new API, extension, or enhancement.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! SwiftyLoadLetter is intentionally a small utility package — additions are most likely to land if they fill a real gap in the standard library or SwiftUI and compose with the existing protocols.
+
+        Before submitting, please [search existing issues and discussions](https://github.com/Pianometal-Studios/SwiftyLoadLetter/issues?q=is%3Aissue) to see if it's already being tracked.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the use case or pain point first — before describing the solution. This helps us understand whether the proposed API is the right shape.
+      placeholder: "When building X, I find myself repeatedly writing Y because there's no built-in way to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe what you'd like to see added. Include API signatures, example call sites, and protocol conformances if relevant.
+      render: swift
+      placeholder: |
+        public extension SomeType {
+            func newHelper(_ input: String) -> Output { ... }
+        }
+
+        // Example usage:
+        SomeType().newHelper("...")
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Where in the project would this live?
+      options:
+        - New protocol
+        - New component (concrete enum/struct)
+        - Type extension
+        - SwiftUI view modifier
+        - SwiftUI view
+        - Logging / utilities
+        - Documentation
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Platforms
+      description: Which platforms would this support?
+      multiple: true
+      options:
+        - All Apple platforms
+        - iOS / iPadOS only
+        - macOS only
+        - tvOS only
+        - visionOS only
+        - watchOS only
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What workarounds have you tried? Are there existing APIs in Swift or Apple's frameworks that almost solve this?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Links to related issues, prior art in other libraries, screenshots, etc.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd be willing to open a PR implementing this.
+          required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have searched existing issues and discussions and confirmed this is not a duplicate.
+          required: true
+        - label: I agree to follow this project's [Code of Conduct](https://github.com/Pianometal-Studios/SwiftyLoadLetter/blob/main/CODE_OF_CONDUCT.md).
+          required: true

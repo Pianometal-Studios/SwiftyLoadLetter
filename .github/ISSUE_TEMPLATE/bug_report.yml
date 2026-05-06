@@ -1,0 +1,107 @@
+name: 🐛 Bug Report
+description: Report something that's broken or behaving unexpectedly.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug report! Please fill in as much detail as you can — it dramatically increases the chance we can fix the issue quickly.
+
+        Before submitting, please [search existing issues](https://github.com/Pianometal-Studios/SwiftyLoadLetter/issues?q=is%3Aissue) to see if it's already been reported.
+
+  - type: input
+    id: version
+    attributes:
+      label: SwiftyLoadLetter version
+      description: The tagged release or commit SHA you're using.
+      placeholder: "e.g. 1.2.0 or 1a2b3c4"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which Apple platform(s) does this affect?
+      multiple: true
+      options:
+        - iOS
+        - iPadOS
+        - macOS
+        - tvOS
+        - visionOS
+        - watchOS
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS version
+      description: The OS version you're running.
+      placeholder: "e.g. iOS 26.1, macOS 26.0"
+    validations:
+      required: true
+
+  - type: input
+    id: xcode-version
+    attributes:
+      label: Xcode version
+      placeholder: "e.g. Xcode 26.0 (Build 17A300)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, including what you expected to happen instead.
+      placeholder: "When I call X with Y, I expected Z but got W."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: |
+        The smallest code sample that demonstrates the problem. A self-contained snippet that fits in a playground is ideal.
+      render: swift
+      placeholder: |
+        import SwiftyLoadLetter
+
+        let result = something.thatBreaks()
+        // Expected: ...
+        // Actual:   ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console output / crash log
+      description: Any relevant log output, error messages, or crash logs. Paste plain text — no screenshots of text, please.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Anything else that might help — workarounds you've tried, related issues, related symbols.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have searched existing issues and confirmed this is not a duplicate.
+          required: true
+        - label: I am using the latest tagged release of SwiftyLoadLetter (or have a reason to be on an older one).
+          required: true
+        - label: I agree to follow this project's [Code of Conduct](https://github.com/Pianometal-Studios/SwiftyLoadLetter/blob/main/CODE_OF_CONDUCT.md).
+          required: true
