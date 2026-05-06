@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Question or Discussion
+    url: https://github.com/Pianometal-Studios/SwiftyLoadLetter/discussions
+    about: Have a question, want to share an idea, or just want to chat? Start a discussion instead of filing an issue.
+  - name: 🔐 Security Vulnerability
+    url: https://github.com/Pianometal-Studios/SwiftyLoadLetter/security/advisories/new
+    about: Please report security issues privately, not as public issues. See SECURITY.md for details.
+  - name: 📚 Documentation
+    url: https://github.com/Pianometal-Studios/SwiftyLoadLetter#readme
+    about: Read the README for protocol overviews, components, extensions, and usage examples.
