@@ -111,12 +111,24 @@ All `public` declarations should have DocC-style documentation comments using Sw
 /// let result = thing.doSomething(with: input)
 /// ```
 ///
-/// - Parameter input: What the parameter is for.
+/// - Parameters:
+///    - input: What the parameter is for.
+///    - bool: If it's true
+///
 /// - Returns: What the function returns.
+///
 /// - Throws: Any errors the function can throw.
+///
 /// - Note: Anything noteworthy.
+///
 /// - Important: Anything that could trip readers up.
-public func doSomething(with input: String) throws -> Result {
+///
+/// - Warning: Something very consequential
+///
+/// - Complexity: If appropriate
+///
+/// - Authors: [@yourHandle](https://github.com/yourHandle)
+public func doSomething(with input: String, isTrue: Bool) throws -> Result {
     ...
 }
 ```
@@ -125,11 +137,14 @@ A runnable usage example in the doc comment is strongly preferred — it makes t
 
 ### Concurrency
 
-The package uses Swift 6.3 language mode with Approachable Concurrency and **Complete** strict concurrency checking. Default actor isolation is `nonisolated`. Don't add `@MainActor` annotations unless the type or member genuinely needs to be main-isolated (e.g. SwiftUI view helpers that access `ImageResource`).
+- The package uses Swift 6.3 language mode with Approachable Concurrency and **Complete** strict concurrency checking. 
+- Default actor isolation is `nonisolated`.
+- Don't add `@MainActor` annotations unless the type or member genuinely needs to be main-isolated.
 
 ### Tests
 
-New types and extensions should ship with tests. The test suite uses Swift Testing:
+- Test names should describe the behavior being verified, not the function being called.
+- New types and extensions should ship with tests. The test suite uses Swift Testing:
 
 ```swift
 import Testing
@@ -143,8 +158,6 @@ import Testing
     }
 }
 ```
-
-Test names should describe the behavior being verified, not the function being called.
 
 ## Pull Request Process
 
@@ -165,7 +178,7 @@ Releases are cut by Pianometal Studios and follow [Semantic Versioning](https://
 
 ## Recognition
 
-Significant contributions are credited in release notes and in the relevant DocC comments via `- Authors:` tags (see `LiquidMeshBackground.swift` for an example).
+Significant contributions are credited in release notes and in the relevant DocC comments via `- Authors:` tags.
 
 ## Questions
 
