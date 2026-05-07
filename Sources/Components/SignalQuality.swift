@@ -64,7 +64,6 @@ import SwiftUI
     
     /// - Returns: Closed range of valid signal quality levels
     public static let range = 1...allCases.count
-        
     
     /// Sorted in order of signal ``strength``
     public static func < (lhs: Self, rhs: Self) -> Bool {
