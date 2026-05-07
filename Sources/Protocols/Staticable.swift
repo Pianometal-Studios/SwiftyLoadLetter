@@ -8,6 +8,7 @@
 
 import Foundation
 import UniformTypeIdentifiers
+import CoreTransferable
 
 /// A convenience protocol that unifies common static, value-like requirements for types,
 /// especially string-backed enumerations intended to be safely shared across concurrency domains.
