@@ -68,7 +68,7 @@ public func logger(
 ///   - category: The `LogCategory` category to log under.
 ///   - error: The `Error` instance to log. The localized description will be extracted and logged.
 ///     Consider redacting sensitive information at the call site if needed.
-///   - type: The `OSLogType` severity for the error message. Defaults to `.debug`.
+///   - type: The `OSLogType` severity for the error message. Defaults to `.error`.
 ///
 /// - Important:
 ///   - `.debug` and `.info` are not persisted to disk and are best for development-time diagnostics.
@@ -78,7 +78,7 @@ public func logger(
 public func logger(
     _ category: LogCategory,
     error: any Error,
-    type: OSLogType = .debug) {
+    type: OSLogType = .error) {
         logger(
             category,
             message: error.localizedDescription,

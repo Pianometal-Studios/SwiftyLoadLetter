@@ -28,7 +28,7 @@ import SwiftUI
     public var color: Color {
         switch self {
         case .excellent: .green
-        case .good:      .yellow
+        case .good:      .blue
         case .fair:      .orange
         case .poor:      .red
         }
@@ -61,6 +61,9 @@ import SwiftUI
         case .poor:      1
         }
     }
+    
+    /// - Returns: Closed range of valid signal quality levels
+    public static let range = 1...allCases.count
     
     /// Sorted in order of signal ``strength``
     public static func < (lhs: Self, rhs: Self) -> Bool {
