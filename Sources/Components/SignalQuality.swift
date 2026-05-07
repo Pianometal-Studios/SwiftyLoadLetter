@@ -28,7 +28,7 @@ import SwiftUI
     public var color: Color {
         switch self {
         case .excellent: .green
-        case .good:      .yellow
+        case .good:      .blue
         case .fair:      .orange
         case .poor:      .red
         }
