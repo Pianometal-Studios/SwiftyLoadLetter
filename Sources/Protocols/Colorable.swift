@@ -27,6 +27,36 @@ public protocol Colorable {
     var color: Color { get }
 }
 
+public struct ColorableObject: Searchable, Iconable, Describable, Colorable, Sendable {
+    
+    public let id: UUID
+    public let name: String
+    public let icon: String
+    public let details: String
+    public let color: Color
+    
+    public var hasDetails: Bool {
+        !details.isEmpty
+    }
+    
+    public var hasIcon: Bool {
+        !icon.isEmpty
+    }
+    
+    public init(
+        _ name: String,
+        icon: String = "",
+        details: String = "",
+        color: Color
+    ) {
+        self.id = .init()
+        self.name = name
+        self.icon = icon
+        self.details = details
+        self.color = color
+    }
+}
+
 // MARK: - Preview
 
 #if DEBUG

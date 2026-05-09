@@ -26,6 +26,19 @@ public protocol Iconable {
     var icon: String { get }
 }
 
+public struct IconableObject: Searchable, Iconable, Sendable, Codable {
+    
+    public let id: UUID
+    public let name: String
+    public let icon: String
+    
+    public init(_ name: String, icon: String) {
+        self.id = .init()
+        self.name = name
+        self.icon = icon
+    }
+}
+
 // MARK: - Preview
 
 #if DEBUG

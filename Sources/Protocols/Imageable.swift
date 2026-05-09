@@ -40,3 +40,26 @@ public protocol Imageable {
     /// - Returns: An `ImageResource` representing the conforming type.
     @MainActor var image: ImageResource { get }
 }
+
+public struct ImageableObject: Searchable, Imageable, Describable, Sendable {
+    
+    public let id: UUID
+    public let name: String
+    public let image: ImageResource
+    public var details: String
+    
+    public var hasDetails: Bool {
+        !details.isEmpty
+    }
+    
+    public init(
+        _ name: String,
+        image: ImageResource,
+        details: String = ""
+    ) {
+        self.id = .init()
+        self.name = name
+        self.image = image
+        self.details = details
+    }
+}

@@ -27,6 +27,29 @@ public protocol Describable {
     var details: String { get }
 }
 
+public struct DescribableObject: Searchable, Iconable, Describable, Sendable, Codable {
+    
+    public let id: UUID
+    public let name: String
+    public let icon: String
+    public var details: String
+    
+    public var hasIcon: Bool {
+        !icon.isEmpty
+    }
+    
+    public init(
+        _ name: String,
+        icon: String = "",
+        details: String
+    ) {
+        self.id = .init()
+        self.name = name
+        self.icon = icon
+        self.details = details
+    }
+}
+
 // MARK: - Preview
 
 #if DEBUG
