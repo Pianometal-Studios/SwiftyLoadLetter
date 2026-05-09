@@ -39,7 +39,7 @@ import os
     func loggerWithError() {
         let error = TestError.testCase
         logger(.general, error: error)
-        logger(.network, error: error, type: .error)
+        logger(.network, error: error)
     }
     
     @Test("Logger error function accepts all OSLogType levels")
@@ -49,7 +49,7 @@ import os
         logger(.general, error: error, type: .debug)
         logger(.general, error: error, type: .info)
         logger(.general, error: error, type: .default)
-        logger(.general, error: error, type: .error)
+        logger(.general, error: error)
         logger(.general, error: error, type: .fault)
     }
     
@@ -71,8 +71,7 @@ import os
             domain: "com.test.error",
             code: 404,
             userInfo: [NSLocalizedDescriptionKey: "Not found"])
-        
-        logger(.network, error: nsError, type: .error)
+        logger(.network, error: nsError)
     }
     
     @Test("Logger handles empty messages")
@@ -142,7 +141,7 @@ import os
         await withTaskGroup(of: Void.self) { group in
             for _ in 0..<10 {
                 group.addTask {
-                    logger(.general, error: error, type: .error)
+                    logger(.general, error: error)
                 }
             }
         }
@@ -160,7 +159,6 @@ import os
     @Test("Logger error handles all category-type combinations")
     func loggerErrorAllCombinations() {
         let error = TestError.testCase
-        
         for category in LogCategory.allCases {
             for type in OSLogType.allCases {
                 logger(category, error: error, type: type)
@@ -170,17 +168,12 @@ import os
     
     @Test("Logger handles different error types")
     func loggerWithVariousErrors() {
-        // Custom enum error
         logger(.general, error: TestError.testCase, type: .error)
         logger(.general, error: TestError.withDescription, type: .error)
-        
-        // NSError
         let nsError = NSError(domain: "test", code: 1)
-        logger(.network, error: nsError, type: .error)
-        
-        // URL error
+        logger(.network, error: nsError)
         let urlError = URLError(.badURL)
-        logger(.network, error: urlError, type: .error)
+        logger(.network, error: urlError)
     }
     
     @Test("Logger handles rapid sequential calls")

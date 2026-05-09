@@ -27,6 +27,10 @@ public protocol Describable {
     var details: String { get }
 }
 
+// MARK: - Describable Object
+
+/// A simple struct that conforms to `Searchable`, `Iconable`, and `Describable`, representing an
+/// object with a name, an optional SF Symbol icon, and a descriptive details string.
 public struct DescribableObject: Searchable, Iconable, Describable, Sendable, Codable {
     
     public let id: UUID
@@ -34,10 +38,17 @@ public struct DescribableObject: Searchable, Iconable, Describable, Sendable, Co
     public let icon: String
     public var details: String
     
+    /// - Returns: `true` if the `icon` property is not empty.
     public var hasIcon: Bool {
         !icon.isEmpty
     }
-    
+ 
+    /// Initializes a new `DescribableObject` with the specified name, optional icon, and details.
+    ///
+    /// - Parameters:
+    ///   - name: The display name of the object.
+    ///   - icon: An optional SF Symbol name representing the object's icon (default is an empty string).
+    ///   - details: A human‑readable description or summary of the object
     public init(
         _ name: String,
         icon: String = "",
