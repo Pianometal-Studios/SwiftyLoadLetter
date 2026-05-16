@@ -10,34 +10,51 @@ import SwiftUI
 
 public extension View {
     
-    /// Applies a platform-appropriate `glass` button style to the view, with an option to
-    ///  fall back to a supplied primitive button style.
+    
+    /// Applies a platform-appropriate glass button style to the view.
     ///
-    /// This helper allows more flexible coding practices when writing for multiple platforms,
-    /// specifically `visionOS`. It will choose between a custom glass appearance and
-    /// standard SwiftUI button styles based on:
-    /// - The style you pass in (e.g., prominent vs. regular)
-    /// - The current platform (e.g., `visionOS` does not support `Glass` at all)
+    /// This modifier provides a consistent way to apply glass-style button appearances across
+    /// different Apple platforms, automatically adapting to each platform's capabilities and
+    /// design guidelines.
     ///
-    /// ## Behavior
-    /// - If the provided style is `BorderedProminentButtonStyle` or `GlassProminentButtonStyle`, the view
-    /// receives a prominent glass style on supported platforms, or `.borderedProminent` on visionOS.
-    /// - For all other styles, the view receives the regular glass style on supported platforms, or the provided primitive
-    /// style on visionOS.
+    /// ## Platform Behavior
     ///
-    /// - Parameter primitiveButtonStyle: The desired primitive button style to use as input and as a fallback on
-    /// platforms where the glass style is unavailable. Defaults to `.bordered`.
+    /// - **tvOS**: Always uses `.card` button style, ignoring the fallback parameter.
+    /// - **iOS, iPadOS, macOS, watchOS**: Applies `.glass` or `.glassProminent` button
+    ///   styles depending on whether the fallback is `.borderedProminent`.
+    /// - **visionOS**: Uses the provided fallback `primitiveButtonStyle` since glass
+    ///   styles are handled differently in the spatial computing environment.
     ///
-    /// - Returns: A view with the appropriate button style applied.
+    /// ## Usage
     ///
-    /// - Note: On platforms where the glass style is unsupported (such as visionOS), this method falls back to standard
-    /// SwiftUI styles to ensure consistent behavior.
+    /// ```swift
+    /// Button("Submit") {
+    ///     // Action
+    /// }
+    /// .glassButton()
     ///
-    /// - Important: Providing `glass` or `glassProminent` directly to this method will cause compilation
-    /// errors on `visionOS`. Use `borderedProminent` or no parameter to fallback to `bordered`.
+    /// Button("Primary Action") {
+    ///     // Action
+    /// }
+    /// .glassButton(or: .borderedProminent)
+    /// ```
+    /// - Parameter primitiveButtonStyle: A fallback button style to use when glass styles
+    ///   are not available or not appropriate for the platform. Defaults to `.bordered`.
+    ///   On platforms that support glass styles, this parameter is only used for non-glass
+    ///   compatible styles or as a fallback on visionOS.
+    ///
+    /// - Returns: A view with the appropriate button style applied based on the platform
+    ///   and the provided fallback style.
+    ///
+    /// - Note: Glass button styles provide a modern, translucent appearance that blurs
+    ///   content behind them and reflects surrounding colors, creating a cohesive visual
+    ///   experience with the system UI.
     @ViewBuilder func glassButton(
         or primitiveButtonStyle: some PrimitiveButtonStyle = .bordered
     ) -> some View {
+#if os(tvOS)
+        buttonStyle(.card)
+#else
         switch primitiveButtonStyle {
         case is BorderedProminentButtonStyle:
 #if !os(visionOS)
@@ -53,5 +70,6 @@ public extension View {
             buttonStyle(primitiveButtonStyle)
 #endif
         }
+#endif
     }
 }
