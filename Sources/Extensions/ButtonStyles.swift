@@ -10,64 +10,100 @@ import SwiftUI
 
 public extension View {
     
-    
-    /// Applies a platform-appropriate glass button style to the view.
+    /// Applies a platform-appropriate Liquid Glass button style to the view.
     ///
-    /// This modifier provides a consistent way to apply glass-style button appearances across
+    /// This modifier provides a consistent way to apply Liquid Glass button appearances across
     /// different Apple platforms, automatically adapting to each platform's capabilities and
-    /// design guidelines.
+    /// design guidelines. Liquid Glass is a dynamic material that combines optical properties
+    /// of glass with fluidity, blurring content behind it and reflecting surrounding colors.
     ///
     /// ## Platform Behavior
     ///
-    /// - **tvOS**: Always uses `.card` button style, ignoring the fallback parameter.
-    /// - **iOS, iPadOS, macOS, watchOS**: Applies `.glass` or `.glassProminent` button
-    ///   styles depending on whether the fallback is `.borderedProminent`.
-    /// - **visionOS**: Uses the provided fallback `primitiveButtonStyle` since glass
-    ///   styles are handled differently in the spatial computing environment.
+    /// - **tvOS**: Uses `.card` button style, which provides the appropriate appearance
+    ///   for TV interfaces. The fallback parameter is ignored.
     ///
-    /// ## Usage
+    /// - **macOS**: Uses `.link` button style, which is the standard approach for Mac
+    ///   applications. The fallback parameter is ignored.
+    ///
+    /// - **iOS, iPadOS, watchOS**: Applies `.glass` or `.glassProminent` button styles
+    ///   based on the fallback parameter:
+    ///   - When fallback is `.borderedProminent`: Uses `.glassProminent` for emphasis
+    ///   - For all other fallback styles: Uses `.glass` for a subtle appearance
+    ///
+    /// - **visionOS**: Uses the provided fallback style directly since glass effects
+    ///   in spatial computing are handled differently. Defaults to `.borderedProminent`
+    ///   if you specify that as the fallback, otherwise uses your specified style.
+    ///
+    /// ## Liquid Glass Features
+    ///
+    /// Liquid Glass buttons provide:
+    /// - Dynamic blur effects that adapt to content behind them
+    /// - Color and light reflection from surrounding UI elements
+    /// - Real-time reactions to touch and pointer interactions
+    /// - Smooth morphing and transitions between states
+    /// - Consistent integration with system design language
+    ///
+    /// ## Usage Examples
     ///
     /// ```swift
+    /// // Basic glass button with default style
     /// Button("Submit") {
-    ///     // Action
+    ///     submitForm()
     /// }
     /// .glassButton()
     ///
-    /// Button("Primary Action") {
-    ///     // Action
+    /// // Prominent glass button for primary actions
+    /// Button("Save Changes") {
+    ///     saveData()
     /// }
     /// .glassButton(or: .borderedProminent)
+    ///
+    /// // Using with other button configurations
+    /// Button {
+    ///     performAction()
+    /// } label: {
+    ///     Label("Download", systemImage: "arrow.down.circle")
+    /// }
+    /// .glassButton()
+    /// .tint(.blue)
+    ///
+    /// // In a toolbar with multiple actions
+    /// HStack(spacing: 12) {
+    ///     Button("Cancel") { cancel() }
+    ///         .glassButton()
+    ///     Button("Done") { complete() }
+    ///         .glassButton(or: .borderedProminent)
+    /// }
     /// ```
-    /// - Parameter primitiveButtonStyle: A fallback button style to use when glass styles
-    ///   are not available or not appropriate for the platform. Defaults to `.bordered`.
-    ///   On platforms that support glass styles, this parameter is only used for non-glass
-    ///   compatible styles or as a fallback on visionOS.
+    ///
+    /// - Parameter primitiveButtonStyle: A fallback button style used for platform-specific
+    ///   behavior. Defaults to `.bordered`. On iOS, iPadOS, and watchOS, this determines
+    ///   whether to use `.glass` or `.glassProminent`. On visionOS, this style is applied
+    ///   directly. On tvOS and macOS, this parameter is ignored in favor of platform-
+    ///   appropriate styles (`.card` and `.link` respectively).
     ///
     /// - Returns: A view with the appropriate button style applied based on the platform
-    ///   and the provided fallback style.
-    ///
-    /// - Note: Glass button styles provide a modern, translucent appearance that blurs
-    ///   content behind them and reflects surrounding colors, creating a cohesive visual
-    ///   experience with the system UI.
+    ///   and fallback style configuration.
     @ViewBuilder func glassButton(
         or primitiveButtonStyle: some PrimitiveButtonStyle = .bordered
     ) -> some View {
 #if os(tvOS)
         buttonStyle(.card)
+#elseif os(macOS)
+        buttonStyle(.link)
 #else
         switch primitiveButtonStyle {
         case is BorderedProminentButtonStyle:
-#if !os(visionOS)
-            buttonStyle(.glassProminent)
-#else
+#if os(visionOS)
             buttonStyle(.borderedProminent)
+#else
+            buttonStyle(.glassProminent)
 #endif
         default:
-            
-#if !os(visionOS)
-            buttonStyle(.glass)
-#else
+#if os(visionOS)
             buttonStyle(primitiveButtonStyle)
+#else
+            buttonStyle(.glass)
 #endif
         }
 #endif
