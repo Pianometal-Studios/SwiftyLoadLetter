@@ -44,6 +44,10 @@ public extension NWInterface.InterfaceType {
         }
     }
     
+    var object: IconableObject {
+        .init(name, icon: icon)
+    }
+    
     /// An array of all valid `NWInterface.InterfaceType` cases, sorted by typical usage frequency.
     ///
     /// - Returns: [.cellular, .loopback, .wifi, .wiredEthernet, .other]

@@ -41,6 +41,10 @@ public extension NWPath.LinkQuality {
         }
     }
     
+    var object: IconableObject {
+        .init(name, icon: icon)
+    }
+    
     /// An array of all valid `NWPath.LinkQuality` cases, sorted from best to worst quality.
     ///
     /// - Returns: [.good, .moderate, .minimal, .unknown]

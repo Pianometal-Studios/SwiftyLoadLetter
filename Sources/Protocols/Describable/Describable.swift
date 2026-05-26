@@ -38,11 +38,8 @@ public extension Describable where Self: Nameable & Iconable {
     ///
     /// - Returns: A view that displays a message indicating that the content is
     ///   unavailable, along with an icon and a description.
-    var contentUnavailableView: some View {
-        ContentUnavailableView(
-            name,
-            systemImage: icon,
-            description: Text(details))
+    @MainActor var contentUnavailableView: some View {
+        DescribableCardView(self)
     }
 }
 

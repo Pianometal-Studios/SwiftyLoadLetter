@@ -31,6 +31,10 @@ public extension UserInterfaceSizeClass {
         }
     }
     
+    var object: IconableObject {
+        .init(name, icon: icon)
+    }
+    
     /// An array of all standard `UserInterfaceSizeClass` cases
     ///
     /// - Returns: [.compact, .regular]

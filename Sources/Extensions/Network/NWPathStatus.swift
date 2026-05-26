@@ -54,6 +54,10 @@ public extension NWPath.Status {
         }
     }
     
+    var object: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     /// An array of all valid `NWPath.Status` cases, sorted by connectivity level.
     ///
     /// - Returns: [.satisfied, .unsatisfied, .requiresConnection]

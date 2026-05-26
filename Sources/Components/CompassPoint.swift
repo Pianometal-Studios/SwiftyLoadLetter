@@ -5,13 +5,42 @@
 //  Created by Kyle Lovely on 5/25/26.
 //  MIT License
 //
+// ----------------------------------------------------------
+//                               N
+//                              ⬆️
+//                            ╱ │ ╲
+//                          ╱   │   ╲
+//                        ╱     │     ╲
+//                      ╱       │       ╲
+//                    ╱         │         ╲
+//                  ╱           │           ╲
+//                ╱             │             ╲
+//       W ⬅️━━━━━━━━━━━━━━━━━━━┼━━━━━━━━━━━━━━━━━━━➡️ E
+//                ╲             │             ╱
+//                  ╲           │           ╱
+//                    ╲         │         ╱
+//                      ╲       │       ╱
+//                        ╲     │     ╱
+//                          ╲   │   ╱
+//                            ╲ │ ╱
+//                              ⬇️
+//                               S
+//
+//              Now... where the func are my keys?! 😩
+//
+// ----------------------------------------------------------
 
 import Foundation
 
 /// An enumeration representing the four cardinal directions on a compass.
 ///
 /// Each case provides properties for its abbreviation, icon, name, and opposite direction.
-@frozen public enum CompassPoint: String, Staticable, Searchable, Iconable, Listable {
+@frozen public enum CompassPoint:
+    String,
+    Staticable,
+    Searchable,
+    Iconable,
+    Listable {
     
     case north
     case south

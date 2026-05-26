@@ -10,32 +10,6 @@ import SwiftUI
 
 public extension View {
     
-    /// Applies a visual emphasis effect to the view based on a Boolean flag.
-    ///
-    /// When `isTrue` is `true`, the view is rendered at full saturation and full opacity,
-    /// making it appear "lit up." When `isTrue` is `false`, the view is desaturated and
-    /// partially transparent, making it appear dimmed.
-    ///
-    /// ## Example
-    /// ```swift
-    /// @State private var isSelected = false
-    /// Image(systemName: "star.fill")
-    ///     .lightUp(isSelected)
-    /// ```
-    ///
-    /// - Parameter isTrue: A Boolean value that determines whether the view should be emphasized.
-    ///
-    /// - Returns: A view with adjusted saturation and opacity reflecting the emphasis state.
-    @available(*,
-                deprecated,
-                renamed: "darken(when:)",
-                message: "Use darken(when:) and invert your logic.")
-    func lightUp(_ isTrue: Bool) -> some View {
-        self
-            .saturation(isTrue ? 1 : 0.1)
-            .opacity(isTrue ? 1 : 0.5)
-    }
-    
     /// Applies a visual dimming effect to the view based on a Boolean condition.
     ///
     /// When `isTrue` is `true`, the view is desaturated and partially transparent,

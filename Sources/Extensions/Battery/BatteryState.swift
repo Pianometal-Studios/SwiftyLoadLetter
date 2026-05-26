@@ -42,6 +42,10 @@ public extension UIDevice.BatteryState {
         }
     }
     
+    var object: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     /// An array of all standard `UIDevice.BatteryState` cases, sorted by typical user relevance.
     ///
     /// - Returns: [`.full`, `.charging`, `.unplugged`, `.unknown`]
@@ -62,16 +66,12 @@ public extension UIDevice.BatteryState {
 #Preview {
     NavigationStack {
         List(UIDevice.BatteryState.allCases, id: \.rawValue) { state in
-            LabeledContent {
-                EmptyView()
-            } label: {
-                Label {
-                    Text(state.name)
-                    Text(state.details)
-                    
-                } icon: {
-                    Image(systemName: state.icon)
-                }
+            Label {
+                Text(state.name)
+                Text(state.details)
+                
+            } icon: {
+                Image(systemName: state.icon)
             }
         }
         .navigationTitle("Battery States")

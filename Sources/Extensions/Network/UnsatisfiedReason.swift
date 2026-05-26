@@ -67,6 +67,10 @@ public extension NWPath.UnsatisfiedReason {
         }
     }
     
+    var object: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     ///An array of all recognized `NWPath.UnsatisfiedReason` cases that represent
     ///actionable causes for an unsatisfied network path.
     ///

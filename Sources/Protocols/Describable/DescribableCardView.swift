@@ -85,7 +85,7 @@ public struct DescribableCardView<Object: Nameable & Iconable & Describable>: Vi
                 }
             }
         }
-        .navigationTitle("Card Views")
+        .navigationTitle("DescribableCardView")
     }
 }
 #endif

@@ -139,11 +139,9 @@ import SwiftUI
                 } label: {
                     Label {
                         Text(os.name)
-                            .bold()
                         Text(os.device)
                     } icon: {
                         Image(systemName: os.icon)
-                            .font(.title2)
                     }
                 }
             }
