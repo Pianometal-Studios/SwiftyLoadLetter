@@ -20,6 +20,10 @@ public extension NWPath.Status {
         }
     }
     
+    var describableObject: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     var details: String {
         switch self {
         case .satisfied:          "You are connected to the internet."
@@ -34,8 +38,12 @@ public extension NWPath.Status {
         case .satisfied:          "wifi"
         case .unsatisfied:        "wifi.slash"
         case .requiresConnection: "wifi.exclamationmark"
-        @unknown default:         "questionmark"
+        @unknown default:         "exclamationmark.triangle"
         }
+    }
+    
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
     }
     
     /// Indicates whether the device is connected to a network
@@ -54,14 +62,10 @@ public extension NWPath.Status {
         }
     }
     
-    var object: DescribableObject {
-        .init(name, icon: icon, details: details)
-    }
-    
     /// An array of all valid `NWPath.Status` cases, sorted by connectivity level.
     ///
     /// - Returns: [.satisfied, .unsatisfied, .requiresConnection]
-    static let allCases: [NWPath.Status] = [
+    static let allCases: [Self] = [
         .satisfied,
         .unsatisfied,
         .requiresConnection

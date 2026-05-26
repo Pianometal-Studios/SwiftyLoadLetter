@@ -26,6 +26,10 @@ public extension ProcessInfo.ThermalState {
         }
     }
     
+    var describableObject: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     var details: String {
         switch self {
         case .nominal:
@@ -51,6 +55,10 @@ public extension ProcessInfo.ThermalState {
         }
     }
     
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
+    }
+    
     var name: String {
         switch self {
         case .nominal:    "Nominal"
@@ -73,19 +81,17 @@ public extension ProcessInfo.ThermalState {
         }
     }
     
-    var object: DescribableObject {
-        .init(name, icon: icon, details: details)
-    }
-    
     /// An array of all standard `ProcessInfo.ThermalState` cases, sorted by severity.
     ///
     /// - Returns: [.nominal, .fair, .serious, .critical]
-    static let allCases: [ProcessInfo.ThermalState] = [
+    static let allCases: [Self] = [
         .nominal,
         .fair,
         .serious,
         .critical
     ]
+    
+    static let navigationTitle = "Thermal States"
 }
 
 // MARK: - Preview
@@ -108,7 +114,7 @@ public extension ProcessInfo.ThermalState {
             .padding(.vertical)
             .listRowBackground(state.color.opacity(0.1))
         }
-        .navigationTitle("Thermal States")
+        .navigationTitle(ProcessInfo.ThermalState.navigationTitle)
     }
 }
 #endif

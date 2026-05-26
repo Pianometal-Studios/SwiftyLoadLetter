@@ -25,7 +25,7 @@ public extension PersonNameComponentsFormatter.Style {
     /// by their raw value.
     ///
     /// - Returns: [`.default`, `.short`, `.medium`, `.long`, `.abbreviated`]
-    static let allCases: [PersonNameComponentsFormatter.Style] = [
+    static let allCases: [Self] = [
         .default,
         .short,
         .medium,

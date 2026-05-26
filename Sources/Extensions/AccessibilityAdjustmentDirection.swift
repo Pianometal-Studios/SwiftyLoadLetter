@@ -10,47 +10,51 @@ import SwiftUI
 
 public extension AccessibilityAdjustmentDirection {
     
+    var describableObject: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     var details: String {
         switch self {
-        case .increment: "Increases the value"
-        case .decrement: "Decreases the value"
+        case .increment:  "Increases the value"
+        case .decrement:  "Decreases the value"
         @unknown default: "Adjusts the value"
         }
     }
     
     var color: Color {
         switch self {
-        case .increment: .green
-        case .decrement: .red
+        case .increment:  .green
+        case .decrement:  .red
         @unknown default: .gray
         }
     }
     
     var icon: String {
         switch self {
-        case .increment: "plus"
-        case .decrement: "minus"
-        @unknown default: "questionmark"
+        case .increment:  "plus"
+        case .decrement:  "minus"
+        @unknown default: "exclamationmark.triangle"
         }
+    }
+    
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
     }
     
     var name: String {
         switch self {
-        case .increment: "Increase"
-        case .decrement: "Decrease"
+        case .increment:  "Increase"
+        case .decrement:  "Decrease"
         @unknown default: "Unknown"
         }
-    }
-    
-    var object: DescribableObject {
-        .init(name, icon: icon, details: details)
     }
     
     /// An array of all valid `AccessibilityAdjustmentDirection` cases, sorted in a logical
     /// order (increment followed by decrement).
     ///
     /// - Returns: [.increment, .decrement]
-    static let allCases: [AccessibilityAdjustmentDirection] = [
+    static let allCases: [Self] = [
         .increment,
         .decrement
     ]

@@ -13,6 +13,20 @@ import SwiftUI
 
 public extension WKInterfaceDeviceBatteryState {
     
+    var color: Color {
+        switch self {
+        case .unplugged:   .orange
+        case .charging:    .blue
+        case .full:        .green
+        case .unknown:     .gray
+        @unknown default:  .red
+        }
+    }
+    
+    var describableObject: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     var details: String {
         switch self {
         case .full:       "The battery is fully charged."
@@ -33,6 +47,10 @@ public extension WKInterfaceDeviceBatteryState {
         }
     }
     
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
+    }
+    
     var name: String {
         switch self {
         case .full:       "Full"
@@ -41,10 +59,6 @@ public extension WKInterfaceDeviceBatteryState {
         case .unknown:    "Unknown"
         @unknown default: "Undefined"
         }
-    }
-    
-    var object: DescribableObject {
-        .init(name, icon: icon, details: details)
     }
     
     /// An array of all valid `WKInterfaceDeviceBatteryState` cases, arranged in a logical
@@ -57,6 +71,8 @@ public extension WKInterfaceDeviceBatteryState {
         .unplugged,
         .unknown
     ]
+    
+    static let navigationTitle = "Watch Battery States"
 }
 
 // MARK: - Preview

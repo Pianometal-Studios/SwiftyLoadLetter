@@ -20,6 +20,7 @@ import SwiftUI
     Iconable,
     Colorable,
     Describable,
+    Listable,
     Emojiable {
     
     /// The pressure level is within normal operating parameters.

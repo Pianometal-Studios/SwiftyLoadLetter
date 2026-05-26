@@ -26,9 +26,13 @@ public extension NWPath.LinkQuality {
         case .good:       "gauge.with.dots.needle.100percent"
         case .moderate:   "gauge.with.dots.needle.67percent"
         case .minimal:    "gauge.with.dots.needle.33percent"
-        case .unknown:    "gauge.with.dots.needle.0percent"
-        @unknown default: "gauge.open.with.lines.needle.84percent.exclamation"
+        case .unknown:    "gauge.open.with.lines.needle.84percent.exclamation"
+        @unknown default: "exclamationmark.triangle"
         }
+    }
+    
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
     }
     
     var name: String {
@@ -41,14 +45,10 @@ public extension NWPath.LinkQuality {
         }
     }
     
-    var object: IconableObject {
-        .init(name, icon: icon)
-    }
-    
     /// An array of all valid `NWPath.LinkQuality` cases, sorted from best to worst quality.
     ///
     /// - Returns: [.good, .moderate, .minimal, .unknown]
-    static let allCases: [NWPath.LinkQuality] = [
+    static let allCases: [Self] = [
         .good,
         .moderate,
         .minimal,

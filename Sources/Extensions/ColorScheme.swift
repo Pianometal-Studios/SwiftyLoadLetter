@@ -20,6 +20,10 @@ public extension ColorScheme {
         isDark ? "moon" : "sun.max"
     }
     
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
+    }
+    
     /// Indicates whether the current `ColorScheme` is Dark Mode.
     ///
     /// - Returns:

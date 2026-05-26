@@ -29,8 +29,12 @@ public extension NWInterface.InterfaceType {
         case .cellular:      "antenna.radiowaves.left.and.right"
         case .wiredEthernet: "cable.connector"
         case .loopback:      "arrow.uturn.backward"
-        @unknown default:    "questionmark"
+        @unknown default:    "exclamationmark.triangle"
         }
+    }
+    
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
     }
     
     var name: String {
@@ -42,10 +46,6 @@ public extension NWInterface.InterfaceType {
         case .loopback:      "Loopback"
         @unknown default:    "Undefined"
         }
-    }
-    
-    var object: IconableObject {
-        .init(name, icon: icon)
     }
     
     /// An array of all valid `NWInterface.InterfaceType` cases, sorted by typical usage frequency.

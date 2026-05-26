@@ -79,7 +79,7 @@ public extension View {
     /// - Parameter primitiveButtonStyle: A fallback button style used for platform-specific
     ///   behavior. Defaults to `.bordered`. On iOS, iPadOS, and watchOS, this determines
     ///   whether to use `.glass` or `.glassProminent`. On visionOS, this style is applied
-    ///   directly. On tvOS and macOS, this parameter is ignored in favor of platform-
+    ///   directly. On tvOS, this parameter is ignored in favor of platform-
     ///   appropriate styles (`.card` and `.link` respectively).
     ///
     /// - Returns: A view with the appropriate button style applied based on the platform
@@ -89,8 +89,6 @@ public extension View {
     ) -> some View {
 #if os(tvOS)
         buttonStyle(.card)
-#elseif os(macOS)
-        buttonStyle(.link)
 #else
         switch primitiveButtonStyle {
         case is BorderedProminentButtonStyle:

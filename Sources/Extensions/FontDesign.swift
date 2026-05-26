@@ -23,12 +23,14 @@ public extension Font.Design {
     /// An array of all available `Font.Design` cases, sorted by typical usage and preference order.
     ///
     /// - Returns: [.default, .serif, .rounded, .monospaced]
-    static let allCases: [Font.Design] = [
+    static let allCases: [Self] = [
         .default,
         .serif,
         .rounded,
         .monospaced
     ]
+    
+    static let navigationTitle = "Font Designs"
 }
 
 // MARK: - Preview
@@ -36,31 +38,34 @@ public extension Font.Design {
 #if DEBUG
 #Preview {
     @Previewable @State var design = Font.Design.default
-    VStack {
+    NavigationStack {
         VStack {
-            Text(design.name)
-                .font(.largeTitle)
-            Text("The quick brown fox jumps over the lazy dog.")
-                .font(.caption)
-        }
-        .contentTransition(.numericText())
-        .fontDesign(design)
-        .padding()
-        ForEach(Font.Design.allCases, id: \.self) { style in
-            Button {
-                withAnimation(.smooth) {
-                    design = style
-                }
-            } label: {
-                Text(style.name)
-                    .font(.title2)
-                    .fontDesign(style)
-                    .foregroundStyle(design == style ? .primary : .secondary)
-                    .padding()
+            VStack {
+                Text(design.name)
+                    .font(.largeTitle)
+                Text("The quick brown fox jumps over the lazy dog.")
+                    .font(.caption)
             }
-            .glassButton(or: .borderedProminent)
+            .contentTransition(.numericText())
+            .fontDesign(design)
+            .padding()
+            ForEach(Font.Design.allCases, id: \.self) { style in
+                Button {
+                    withAnimation(.smooth) {
+                        design = style
+                    }
+                } label: {
+                    Text(style.name)
+                        .font(.title2)
+                        .fontDesign(style)
+                        .foregroundStyle(design == style ? .primary : .secondary)
+                        .padding()
+                }
+                .glassButton(or: .borderedProminent)
+            }
         }
+        .navigationTitle(Font.Design.navigationTitle)
+        .tint(.primary)
     }
-    .tint(.primary)
 }
 #endif
