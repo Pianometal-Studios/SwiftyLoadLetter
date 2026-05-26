@@ -443,6 +443,6 @@ For questions or discussion that aren't bug reports, start a [Discussion](https:
 
 ## 📄 License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?logo=mitlicense)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-SwiftyLoadLetter is available under the MIT license. See [LICENSE.txt](LICENSE.txt) for details.
+SwiftyLoadLetter is available under the Apache License 2.0. See [LICENSE.txt](LICENSE.txt) for details.

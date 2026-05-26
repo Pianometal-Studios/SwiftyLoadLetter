@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 5/26/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 #if !os(watchOS)
