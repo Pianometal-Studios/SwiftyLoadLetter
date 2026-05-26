@@ -77,7 +77,7 @@ SwiftyLoadLetter's protocols are designed to be composed freely — kind of like
 ### Example: Building a conforming type
 
 ```swift
-enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable {
+enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listable {
 
     case home
     case library
@@ -114,6 +114,8 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable {
         case .settings: "Settings"
         }
     }
+    
+    static let navigationTitle = "Tabs"
 }
 
 // Case-insensitive search comes for free via Nameable
