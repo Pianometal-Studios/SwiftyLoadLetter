@@ -27,18 +27,19 @@ import SwiftUI
     
     public var color: Color {
         switch self {
-        case .connected:     .green
+        case .connected:     true.color
         case .connecting:    .blue
         case .disconnecting: .orange
-        case .disconnected:  .red
+        case .disconnected:  false.color
         }
     }
     
     public var icon: String {
         switch self {
-        case .connected:    true.icon
-        case .disconnected: false.icon
-        default:            "arrow.trianglehead.2.clockwise.rotate.90"
+        case .connected:     true.icon
+        case .disconnected:  false.icon
+        case .connecting:    "arrow.trianglehead.2.clockwise"
+        case .disconnecting: "arrow.trianglehead.2.counterclockwise"
         }
     }
     
