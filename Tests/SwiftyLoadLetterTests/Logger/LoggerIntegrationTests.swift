@@ -12,7 +12,7 @@ import os
         logger(.network, message: "API request started", type: .debug)
         logger(.network, message: "API request completed", type: .info)
         logger(.network, message: "API rate limit warning", type: .default)
-        logger(.network, error: NetworkError.timeout, type: .error)
+        logger(.network, error: NetworkError.timeout)
     }
     
     @Test("Multi-category logging scenario")
@@ -30,15 +30,15 @@ import os
     func errorPropagation() {
         let networkError = NetworkError.timeout
         let authError = AuthError.invalidToken
-        logger(.network, error: networkError, type: .error)
-        logger(.auth, error: authError, type: .error)
+        logger(.network, error: networkError)
+        logger(.auth, error: authError)
         logger(.general, message: "Handling multiple errors", type: .fault)
     }
     
     @Test("Error recovery logging pattern")
     func errorRecoveryPattern() {
         logger(.network, message: "Attempting API call", type: .debug)
-        logger(.network, error: NetworkError.connectionFailed, type: .error)
+        logger(.network, error: NetworkError.connectionFailed)
         logger(.network, message: "Retrying with exponential backoff", type: .default)
         logger(.network, message: "Retry successful", type: .info)
     }
@@ -178,8 +178,7 @@ import os
     func networkRetryPattern() {
         for attempt in 1...3 {
             logger(.network, message: "Request attempt \(attempt)", type: .debug)
-            logger(.network, error: NetworkError.timeout, type: .error)
-            
+            logger(.network, error: NetworkError.timeout)
             if attempt < 3 {
                 logger(.network, message: "Retrying in \(attempt * 2) seconds", type: .info)
             } else {
@@ -218,13 +217,13 @@ import os
     func concurrentErrorLogging() async {
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
-                logger(.network, error: NetworkError.timeout, type: .error)
+                logger(.network, error: NetworkError.timeout)
             }
             group.addTask {
-                logger(.auth, error: AuthError.invalidToken, type: .error)
+                logger(.auth, error: AuthError.invalidToken)
             }
             group.addTask {
-                logger(.swiftData, error: DataError.saveFailed, type: .error)
+                logger(.swiftData, error: DataError.saveFailed)
             }
         }
     }

@@ -49,7 +49,7 @@ public extension Collection where Element: Nameable {
     /// Returns the elements whose `name` contains the given search text, using a
     /// case‑insensitive, locale‑aware comparison.
     ///
-    /// /// The search checks if each element’s `name` contains the provided `text`.
+    /// The search checks if each element’s `name` contains the provided `text`.
     /// `@inlineable` is used to suggest to the compiler that it is allowed to inline this
     /// function. This can improve performance by eliminating the function call
     /// overhead, especially in performance-critical code paths or tight loops.

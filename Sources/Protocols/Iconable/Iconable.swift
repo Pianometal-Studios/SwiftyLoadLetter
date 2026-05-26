@@ -30,12 +30,8 @@ public protocol Iconable {
 
 #if DEBUG
 import SwiftUI
-private struct MyLabel: Nameable, Iconable {
-    let name = "Shield"
-    let icon = "shield.fill"
-}
+private let label = IconableObject("Defense", icon: "shield.fill")
 #Preview {
-    let label = MyLabel()
     Label(label.name, systemImage: label.icon)
 }
 #endif

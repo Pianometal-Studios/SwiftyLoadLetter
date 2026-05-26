@@ -46,10 +46,7 @@ public extension Locale {
     /// - Note: If the time zone abbreviation cannot be retrieved, an error is logged to the system logger.
     var timeZoneAbbreviation: String? {
         guard let abbreviation = calendar.timeZone.abbreviation() else {
-            logger(
-                .system,
-                message: "Failed to get time zone abbreviation",
-                type: .error)
+            logger(.system, message: "Failed to get time zone abbreviation")
             return nil
         }
         return abbreviation

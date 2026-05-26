@@ -43,6 +43,10 @@ public extension WKInterfaceDeviceBatteryState {
         }
     }
     
+    var object: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     /// An array of all valid `WKInterfaceDeviceBatteryState` cases, arranged in a logical
     /// order for display purposes.
     ///

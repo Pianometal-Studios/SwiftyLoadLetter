@@ -67,14 +67,10 @@ public struct ConnectionStateLabelView: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        List(ConnectionState.allCases.sorted()) {
-                ConnectionStateLabelView($0)
-                .bold()
-                .symbolVariant(.fill.circle)
-                .symbolColorRenderingMode(.gradient)
-                .foregroundStyle($0.color)
+        List(ConnectionState.allCases) {
+            ConnectionStateLabelView($0)
         }
-        .navigationTitle("Connection Badges")
+        .navigationTitle("Connection States")
     }
 }
 #endif

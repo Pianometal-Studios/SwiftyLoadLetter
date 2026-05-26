@@ -18,7 +18,8 @@ import SwiftUI
     Staticable,
     Searchable,
     Colorable,
-    Iconable {
+    Iconable,
+    Listable {
     
     case excellent
     case good
@@ -65,6 +66,8 @@ import SwiftUI
     /// - Returns: Closed range of valid signal quality levels
     public static let range = 1...allCases.count
     
+    public static let navigationTitle = "Signal Qualities"
+    
     /// Sorted in order of signal ``strength``
     public static func < (lhs: Self, rhs: Self) -> Bool {
         lhs.strength < rhs.strength
@@ -85,7 +88,7 @@ import SwiftUI
                     .foregroundStyle(quality.color)
             }
         }
-        .navigationTitle("Signal Quality")
+        .navigationTitle(SignalQuality.navigationTitle)
         .navigationSubtitle(subtitle: "Sorted by signal strength level.")
     }
 }

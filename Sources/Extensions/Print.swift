@@ -9,7 +9,7 @@
 import Foundation
 
 /// Prints the given items to the standard output only in DEBUG builds, prefixed with
-/// a `🖨️ SwiftyLoadLetter:` tag so output is identifiable and filterable in Xcode's console.
+/// a `🖨️ Debug:` tag so output is identifiable and filterable in Xcode's console.
 ///
 /// This helper mirrors Swift's `print` function but compiles to a no-op in
 /// non-DEBUG configurations, allowing you to sprinkle debug logging throughout
@@ -18,7 +18,7 @@ import Foundation
 /// ## Example
 /// ```swift
 /// printOnDebug("Something went wrong")
-/// // 🖨️ SwiftyLoadLetter: Something went wrong
+/// // 🖨️ Debug: Something went wrong
 /// ```
 ///
 /// - Parameters:
@@ -38,17 +38,17 @@ public func printOnDebug(
     let output = items
         .map { String(describing: $0) }
         .joined(separator: separator)
-    print("🖨️ SwiftyLoadLetter: \(output)", terminator: terminator)
+    print("🖨️ Debug: \(output)", terminator: terminator)
 #endif
 }
 
 /// Prints a human-readable description of an error to standard output only in DEBUG builds,
-/// prefixed with a `🖨️ SwiftyLoadLetter:` tag.
+/// prefixed with a `🖨️ Debug:` tag.
 ///
 /// ## Example
 /// ```swift
 /// printOnDebug(someError)
-/// // 🖨️ SwiftyLoadLetter: The operation couldn't be completed.
+/// // 🖨️ Debug: The operation couldn't be completed.
 /// ```
 ///
 /// - Parameter error: Accepts any value conforming to the `Error` protocol.

@@ -83,7 +83,7 @@ public struct ColorableCardView<Object: Nameable & Iconable & Describable & Colo
             }
             .padding()
         }
-        .navigationTitle("Card Views")
+        .navigationTitle("ColorableCardView")
     }
 }
 #endif

@@ -44,12 +44,10 @@ public struct ConnectionStateIconView: View {
         LazyVGrid(columns: GridItem.generate(ConnectionState.allCases.count)) {
             ForEach(ConnectionState.allCases.sorted()) {
                 ConnectionStateIconView($0)
-                    .symbolVariant(.fill.circle)
-                    .symbolColorRenderingMode(.gradient)
-                    .font(.largeTitle)
+                    .font(.largeTitle.bold())
             }
         }
-        .navigationTitle("Connection Badges")
+        .navigationTitle(ConnectionState.navigationTitle)
     }
 }
 #endif

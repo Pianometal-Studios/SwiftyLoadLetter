@@ -4,6 +4,40 @@
 
 Inspired by the legendary printer error that drove Peter, Michael, and Samir to the field with a baseball bat — `🖨️ SwiftyLoadLetter` is a Swift utility package for Apple platforms that fills in the gaps left by the standard library and SwiftUI. It provides composable protocols, type-safe extensions on Foundation and SwiftUI types, system-state enums with built-in UI properties, and SwiftUI view helpers — all designed to reduce boilerplate across every Apple platform. No cover sheets required.
 
+```
+┌───────────────────────────────────────────────────────────────────┐
+│                                                                   │
+│   ╔═══════════════════════════════════════════════════════════╗   │
+│   ║                                                           ║   │
+│   ║     ███████╗██╗    ██╗██╗███████╗████████╗██╗   ██╗       ║   │
+│   ║     ██╔════╝██║    ██║██║██╔════╝╚══██╔══╝╚██╗ ██╔╝       ║   │
+│   ║     ███████╗██║ █╗ ██║██║█████╗     ██║    ╚████╔╝        ║   │
+│   ║     ╚════██║██║███╗██║██║██╔══╝     ██║     ╚██╔╝         ║   │
+│   ║     ███████║╚███╔███╔╝██║██║        ██║      ██║          ║   │
+│   ║     ╚══════╝ ╚══╝╚══╝ ╚═╝╚═╝        ╚═╝      ╚═╝          ║   │
+│   ║                                                           ║   │
+│   ║            ╦  ┌─┐┌─┐┌┬┐  ╦  ┌─┐┌┬┐┌┬┐┌─┐┬─┐               ║   │
+│   ║            ║  │ │├─┤ ││  ║  ├┤  │  │ ├┤ ├┬┘               ║   │
+│   ║            ╩═╝└─┘┴ ┴─┴┘  ╩═╝└─┘ ┴  ┴ └─┘┴┴─               ║   │
+│   ║                                                           ║   │
+│   ╚═══════════════════════════════════════════════════════════╝   │
+│                                                                   │
+│            ___                                                    │
+│           /   \                                                   │
+│          | ( ) |   "Yeah, if you could just go ahead and use      │
+│           \___/     this package that'd be greaaaat..."           │
+│             |                                                     │
+│         ____┴____                                                 │
+│        |         |                                                │
+│        |   ___   |                                                │
+│        |  |TPS|  |                                                │
+│        |  |RPT|  |                                                │
+│        |__|___|__|                                                │
+│           |   |                                                   │
+│          _|   |_                                   "...yeah"      │
+│                                                                   │
+└───────────────────────────────────────────────────────────────────┘
+```
 ---
 
 ## ⚙️ Compatibility
@@ -77,7 +111,7 @@ SwiftyLoadLetter's protocols are designed to be composed freely — kind of like
 ### Example: Building a conforming type
 
 ```swift
-enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable {
+enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listable {
 
     case home
     case library
@@ -114,6 +148,8 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable {
         case .settings: "Settings"
         }
     }
+    
+    static let navigationTitle = "Tabs"
 }
 
 // Case-insensitive search comes for free via Nameable
@@ -155,7 +191,7 @@ Button(role: CommonAction.delete.role) {
 }
 ```
 
-Cases: `.add` `.cancel` `.close` `.confirm` `.debug` `.delete` `.edit` `.filter` `.help` `.info` `.save` `.settings` `.sort`
+Cases: `.add` `.cancel` `.close` `.confirm` `.debug` `.delete` `.edit` `.filter` `.help` `.info` `.reset` `.save` `.settings` `.sort` `.stop`
 
 ---
 
@@ -204,7 +240,7 @@ Cases: `.normal` `.warning` `.critical` `.unknown`
 
 | Modifier | Description |
 |---|---|
-| `.fadeInOut(from:)` | Asymmetric push + opacity transition. Removal uses the opposite edge automatically. |
+| `.magicReplace()` | Applies a content transition using the system symbol effect with a "magic replace" animation for SF Symbols. |
 | `.glass(isRegular:shape:isInteractive:tint:)` | Cross-platform glass material effect. No-op on visionOS. |
 | `.glassButton(or:)` | Platform-appropriate glass button style with visionOS fallback. |
 | `.redacted(_:)` | Boolean-driven `.placeholder` redaction — pass `true` to redact, `false` to reveal. |
@@ -221,8 +257,8 @@ Text("Loading...")
 Button("Submit") { submit() }
     .darken(when: isProcessing, disable: true)
 
-SomeView()
-    .fadeInOut(from: .bottom)
+Image(systemName: isLoading ? "hourglass" : "checkmark")
+    .magicReplace()
 
 VStack { ... }
     .glass(tint: .blue.opacity(0.2))
@@ -374,14 +410,14 @@ logger(.auth, error: someError, type: .error)
 
 ### `printOnDebug`
 
-A debug-only `print` replacement that prefixes all output with `🖨️ SwiftyLoadLetter:` for easy filtering in Xcode's console. Compiles to a no-op in release builds. Milton would have had a lot fewer stapler incidents if he'd had better diagnostic logging.
+A debug-only `print` replacement that prefixes all output with `🖨️ Debug:` for easy filtering in Xcode's console. Compiles to a no-op in release builds. Milton would have had a lot fewer stapler incidents if he'd had better diagnostic logging.
 
 ```swift
 printOnDebug("⚠️ Something unexpected happened")
-// 🖨️ SwiftyLoadLetter: ⚠️ Something unexpected happened
+// 🖨️ Debug: ⚠️ Something unexpected happened
 
 printOnDebug(someError)
-// 🖨️ SwiftyLoadLetter: The operation couldn't be completed.
+// 🖨️ Debug: The operation couldn't be completed.
 ```
 
 ---

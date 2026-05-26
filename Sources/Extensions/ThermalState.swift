@@ -73,6 +73,10 @@ public extension ProcessInfo.ThermalState {
         }
     }
     
+    var object: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     /// An array of all standard `ProcessInfo.ThermalState` cases, sorted by severity.
     ///
     /// - Returns: [.nominal, .fair, .serious, .critical]

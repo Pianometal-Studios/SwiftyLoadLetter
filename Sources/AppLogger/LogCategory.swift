@@ -144,11 +144,13 @@ public enum LogCategory:
         }
     }
     
-    /// Instance of logger for this category, lazily initialized with the app's bundle identifier as the subsystem and the category's emoji label as the category.
+    /// Instance of logger for this category, lazily initialized with the app's bundle identifier as the subsystem
+    /// and the category's emoji label as the category.
+    ///
     /// - Returns: The underlying `os.Logger` instance for this category.
     private var logger: Logger {
         Logger(
-            subsystem: MainBundle.identifier ?? "❌ No BundleID",
+            subsystem: MainBundle.identifier ?? "No BundleID",
             category: emojiLabel)
     }
     

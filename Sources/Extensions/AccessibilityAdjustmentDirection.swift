@@ -42,6 +42,10 @@ public extension AccessibilityAdjustmentDirection {
         }
     }
     
+    var object: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
     /// An array of all valid `AccessibilityAdjustmentDirection` cases, sorted in a logical
     /// order (increment followed by decrement).
     ///
