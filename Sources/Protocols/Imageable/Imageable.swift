@@ -40,37 +40,3 @@ public protocol Imageable {
     /// - Returns: An `ImageResource` representing the conforming type.
     @MainActor var image: ImageResource { get }
 }
-
-// MARK: - Imageable Object
-
-/// A simple struct that conforms to `Searchable` and `Imageable`, representing an
-/// object with a name and an associated image resource.	
-public struct ImageableObject: Searchable, Imageable, Describable, Sendable {
-    
-    public let id: UUID
-    public let name: String
-    public let image: ImageResource
-    public var details: String
-    
-    /// - Returns: A Boolean value indicating whether the `details` property contains non‑empty text.
-    public var hasDetails: Bool {
-        !details.isEmpty
-    }
-    
-    /// Creates a new `ImageableObject` with the specified name, image resource, and optional details.
-    ///
-    /// - Parameters:
-    ///   - name: The display name of the object.
-    ///   - image: The `ImageResource` representing the object's image.
-    ///   - details: An optional string providing additional information about the object (default is an empty string).
-    public init(
-        _ name: String,
-        image: ImageResource,
-        details: String = ""
-    ) {
-        self.id = .init()
-        self.name = name
-        self.image = image
-        self.details = details
-    }
-}
