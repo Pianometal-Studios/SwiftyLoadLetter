@@ -16,11 +16,17 @@ import UIKit
 /// Each case corresponds to one of Apple's OS families and
 /// provides convenient, platform-specific metadata such as a human-readable device name,
 /// an SF Symbols glyph identifier, and a canonical display name.
+///
+/// ## Conformances
+/// - `Staticable`: Provides coding, identification, and transfer capabilities.
+/// - `Searchable`: Enables use in searchable lists and UI elements.
+/// - `Iconable`: Supplies SF Symbol icons for visual representation.
 public enum AppleOS:
     String,
     Staticable,
     Searchable,
-    Iconable {
+    Iconable,
+    Listable {
     
     case iOS
     case iPadOS
@@ -68,25 +74,50 @@ public enum AppleOS:
     ///
     /// - Returns: `true` if the platform corresponds to the current operating system.
     @MainActor public var isCurrent: Bool {
-#if os(iOS) && canImport(UIKit)
+#if os(iOS)
+#if canImport(UIKit)
         if UIDevice.current.userInterfaceIdiom == .pad {
             return self == .iPadOS
         } else {
             return self == .iOS
         }
+#else
+        return self == .iOS
+#endif
 #elseif os(macOS)
-        self == .macOS
+        return self == .macOS
 #elseif os(tvOS)
-        self == .tvOS
+        return self == .tvOS
 #elseif os(watchOS)
-        self == .watchOS
+        return self == .watchOS
 #elseif os(visionOS)
-        self == .visionOS
+        return self == .visionOS
 #else
         logger(.system, message: "Current operating system is unknown.")
-        false
+        return false
 #endif
     }
+    
+    /// Indicates whether this OS supports touch input as a primary interaction method.
+    public var supportsTouchInput: Bool {
+        switch self {
+        case .iOS, .iPadOS, .visionOS: true
+        case .macOS, .tvOS, .watchOS:  false
+        }
+    }
+    
+    /// The current operating system.
+    ///
+    /// - Returns: The `AppleOS` case corresponding to the current operating system,
+    ///   or `nil` if the operating system cannot be determined.
+    @MainActor public static var current: AppleOS {
+        guard let os = Self.allCases.first(where: { $0.isCurrent }) else {
+            fatalError("Unable to determine current operating system.")
+        }
+        return os
+    }
+    
+    public static let navigationTitle: String = "Apple Operating Systems"
 }
 
 // MARK: - Preview
@@ -94,26 +125,31 @@ public enum AppleOS:
 #if DEBUG
 import SwiftUI
 #Preview {
-    List {
-        ForEach(AppleOS.allCases) { os in
-            LabeledContent {
-                if os.isCurrent {
-                    Image(systemName: "checkmark.seal.fill")
-                        .font(.title)
-                        .foregroundStyle(.green)
-                        .symbolRenderingMode(.hierarchical)
-                }
-            } label: {
-                Label {
-                    Text(os.name)
-                        .bold()
-                    Text(os.device)
-                } icon: {
-                    Image(systemName: os.icon)
-                        .font(.title2)
+    NavigationStack {
+        List {
+            ForEach(AppleOS.allCases) { os in
+                LabeledContent {
+                    if os.isCurrent {
+                        Image(systemName: "checkmark.seal")
+                            .font(.title)
+                            .foregroundStyle(.green)
+                            .symbolRenderingMode(.hierarchical)
+                            .symbolVariant(.fill)
+                    }
+                } label: {
+                    Label {
+                        Text(os.name)
+                            .bold()
+                        Text(os.device)
+                    } icon: {
+                        Image(systemName: os.icon)
+                            .font(.title2)
+                    }
                 }
             }
         }
+        .navigationTitle(AppleOS.navigationTitle)
+        .navigationSubtitle(subtitle: "Current: \(AppleOS.current.name)")
     }
 }
 #endif
