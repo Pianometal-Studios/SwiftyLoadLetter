@@ -4,6 +4,40 @@
 
 Inspired by the legendary printer error that drove Peter, Michael, and Samir to the field with a baseball bat — `🖨️ SwiftyLoadLetter` is a Swift utility package for Apple platforms that fills in the gaps left by the standard library and SwiftUI. It provides composable protocols, type-safe extensions on Foundation and SwiftUI types, system-state enums with built-in UI properties, and SwiftUI view helpers — all designed to reduce boilerplate across every Apple platform. No cover sheets required.
 
+```
+┌───────────────────────────────────────────────────────────────────┐
+│                                                                   │
+│   ╔═══════════════════════════════════════════════════════════╗   │
+│   ║                                                           ║   │
+│   ║     ███████╗██╗    ██╗██╗███████╗████████╗██╗   ██╗       ║   │
+│   ║     ██╔════╝██║    ██║██║██╔════╝╚══██╔══╝╚██╗ ██╔╝       ║   │
+│   ║     ███████╗██║ █╗ ██║██║█████╗     ██║    ╚████╔╝        ║   │
+│   ║     ╚════██║██║███╗██║██║██╔══╝     ██║     ╚██╔╝         ║   │
+│   ║     ███████║╚███╔███╔╝██║██║        ██║      ██║          ║   │
+│   ║     ╚══════╝ ╚══╝╚══╝ ╚═╝╚═╝        ╚═╝      ╚═╝          ║   │
+│   ║                                                           ║   │
+│   ║            ╦  ┌─┐┌─┐┌┬┐  ╦  ┌─┐┌┬┐┌┬┐┌─┐┬─┐               ║   │
+│   ║            ║  │ │├─┤ ││  ║  ├┤  │  │ ├┤ ├┬┘               ║   │
+│   ║            ╩═╝└─┘┴ ┴─┴┘  ╩═╝└─┘ ┴  ┴ └─┘┴┴─               ║   │
+│   ║                                                           ║   │
+│   ╚═══════════════════════════════════════════════════════════╝   │
+│                                                                   │
+│            ___                                                    │
+│           /   \                                                   │
+│          | ( ) |   "Yeah, if you could just go ahead and use      │
+│           \___/     this package that'd be greaaaat..."           │
+│             |                                                     │
+│         ____┴____                                                 │
+│        |         |                                                │
+│        |   ___   |                                                │
+│        |  |TPS|  |                                                │
+│        |  |RPT|  |                                                │
+│        |__|___|__|                                                │
+│           |   |                                                   │
+│          _|   |_                                   "...yeah"      │
+│                                                                   │
+└───────────────────────────────────────────────────────────────────┘
+```
 ---
 
 ## ⚙️ Compatibility
