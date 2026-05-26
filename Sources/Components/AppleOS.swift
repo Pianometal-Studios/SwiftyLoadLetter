@@ -83,7 +83,7 @@ public enum AppleOS:
 #elseif os(visionOS)
         self == .visionOS
 #else
-        printOnDebug("⚠️ Current operating system is unknown.")
+        logger(.system, message: "Current operating system is unknown.")
         false
 #endif
     }
