@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 4/11/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 import SwiftUI

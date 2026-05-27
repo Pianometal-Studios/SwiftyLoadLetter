@@ -3,13 +3,17 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 1/11/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 import Network
 import SwiftUI
 
 public extension NWPath.UnsatisfiedReason {
+    
+    var describableObject: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
     
     var details: String {
         switch self {
@@ -52,8 +56,12 @@ public extension NWPath.UnsatisfiedReason {
         case .wifiDenied:         "wifi.slash"
         case .localNetworkDenied: "house.slash"
         case .vpnInactive:        "shield.slash"
-        @unknown default:         "questionmark"
+        @unknown default:         "exclamationmark.triangle"
         }
+    }
+    
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
     }
     
     var name: String {
@@ -65,10 +73,6 @@ public extension NWPath.UnsatisfiedReason {
         case .vpnInactive:        "VPN Inactive"
         @unknown default:         "Undefined"
         }
-    }
-    
-    var object: DescribableObject {
-        .init(name, icon: icon, details: details)
     }
     
     ///An array of all recognized `NWPath.UnsatisfiedReason` cases that represent

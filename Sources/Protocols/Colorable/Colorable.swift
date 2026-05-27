@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 1/7/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 import SwiftUI
@@ -27,27 +27,12 @@ public protocol Colorable {
     var color: Color { get }
 }
 
-public extension Colorable where Self: Nameable & Iconable & Describable {
-    
-    /// Displays a message indicating that the content is unavailable, along with an icon
-    /// and a description.
-    ///
-    /// This view is intended to be used when the content is unavailable due to an error
-    /// or other issue, and it provides a visual indication of the problem along with a
-    /// description of the issue.
-    ///
-    /// - Returns: A view that displays a message indicating that the content is
-    ///   unavailable, along with an icon and a description.
-    @MainActor var contentUnavailableView: some View {
-        DescribableCardView(self, color: color)
-    }
-}
-
 // MARK: - Preview
 
 #if DEBUG
 #Preview {
-    PressureLevel.normal.contentUnavailableView
+    let object = PressureLevel.critical
+    DescribableCardView(object, color: object.color)
         .symbolVariant(.fill)
         .symbolColorRenderingMode(.gradient)
 }

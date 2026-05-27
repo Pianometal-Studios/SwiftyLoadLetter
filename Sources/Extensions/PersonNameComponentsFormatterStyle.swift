@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 1/30/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 import Foundation
@@ -25,7 +25,7 @@ public extension PersonNameComponentsFormatter.Style {
     /// by their raw value.
     ///
     /// - Returns: [`.default`, `.short`, `.medium`, `.long`, `.abbreviated`]
-    static let allCases: [PersonNameComponentsFormatter.Style] = [
+    static let allCases: [Self] = [
         .default,
         .short,
         .medium,

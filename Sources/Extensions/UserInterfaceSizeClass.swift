@@ -3,17 +3,12 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 1/8/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 import SwiftUI
 
 public extension UserInterfaceSizeClass {
-    
-    /// - Returns: `true` if the size class is `.compact`, otherwise `false`
-    var isCompact: Bool {
-        self == .compact
-    }
     
     var icon: String {
         switch self {
@@ -21,6 +16,15 @@ public extension UserInterfaceSizeClass {
         case .regular:    "rectangle.expand.vertical"
         @unknown default: "questionmark"
         }
+    }
+    
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
+    }
+    
+    /// - Returns: `true` if the size class is `.compact`, otherwise `false`
+    var isCompact: Bool {
+        self == .compact
     }
     
     var name: String {
@@ -31,17 +35,15 @@ public extension UserInterfaceSizeClass {
         }
     }
     
-    var object: IconableObject {
-        .init(name, icon: icon)
-    }
-    
     /// An array of all standard `UserInterfaceSizeClass` cases
     ///
     /// - Returns: [.compact, .regular]
-    static let allCases: [UserInterfaceSizeClass] = [
+    static let allCases: [Self] = [
         .compact,
         .regular
     ]
+    
+    static let navigationTitle = "UI Size Classes"
 }
 
 public extension UserInterfaceSizeClass? {
@@ -78,7 +80,7 @@ public extension UserInterfaceSizeClass? {
         List(UserInterfaceSizeClass.allCases, id: \.self) {
             Label($0.name, systemImage: $0.icon)
         }
-        .navigationTitle("UserInterfaceSizeClass")
+        .navigationTitle(UserInterfaceSizeClass.navigationTitle)
         .navigationSubtitle(subtitle: "All cases of UserInterfaceSizeClass")
     }
 }

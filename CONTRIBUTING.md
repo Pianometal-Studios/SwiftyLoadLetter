@@ -170,7 +170,7 @@ import Testing
 7. **Open the PR** against `main`. Describe what changed and why, and link the issue it resolves.
 8. **Respond to review feedback.** We'll try to be prompt; please be patient if there's a gap.
 
-By submitting a PR, you agree that your contribution is licensed under the project's [MIT license](LICENSE.txt).
+By submitting a PR, you agree that your contribution is licensed under the project's [Apache License 2.0](LICENSE.txt).
 
 ## Release Process
 

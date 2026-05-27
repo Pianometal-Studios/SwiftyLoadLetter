@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 1/8/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 import SwiftUI
@@ -18,6 +18,10 @@ public extension ColorScheme {
     
     var icon: String {
         isDark ? "moon" : "sun.max"
+    }
+    
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
     }
     
     /// Indicates whether the current `ColorScheme` is Dark Mode.

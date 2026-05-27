@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 3/23/26.
-//  MIT License
+//  Apache License 2.0
 //
 // -----------------------------------------------------------------------------
 //  ██████╗ ███████╗██╗      ██████╗  ██████╗ ████████╗██╗   ██╗██████╗ ███████╗
@@ -135,6 +135,8 @@ public extension OSLogType {
         .error,
         .fault
     ]
+    
+    static let navigationTitle = "OSLogTypes"
 }
 
 // MARK: - Preview
@@ -177,7 +179,7 @@ import SwiftUI
                 logger(.swift, message: type.emojiLabel)
             }
         }
-        .navigationTitle("OSLogTypes")
+        .navigationTitle(OSLogType.navigationTitle)
         .navigationSubtitle(subtitle: "Preview of extended properties")
     }
 }

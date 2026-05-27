@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 1/7/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 import SwiftUI
@@ -26,6 +26,10 @@ public extension Bool {
         self ? "checkmark" : "xmark"
     }
     
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
+    }
+    
     var name: String {
         self ? "Yes" : "No"
     }
@@ -45,7 +49,7 @@ public extension Bool {
     /// An array of all valid `Bool` cases, sorted by `true` first.
     ///
     /// - Returns: [true, false]
-    static let allCases: [Bool] = [true, false]
+    static let allCases: [Self] = [true, false]
 }
 
 // MARK: - Preview

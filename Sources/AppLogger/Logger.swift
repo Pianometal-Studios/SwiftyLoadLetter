@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 3/29/26.
-//  MIT License
+//  Apache License 2.0
 //
 // =================================================
 //         _

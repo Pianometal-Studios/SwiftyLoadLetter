@@ -3,7 +3,7 @@
 //  SwiftyLoadLetter
 //
 //  Created by Kyle Lovely on 4/6/26.
-//  MIT License
+//  Apache License 2.0
 //
 
 import SwiftUI
@@ -20,6 +20,7 @@ import SwiftUI
     Iconable,
     Colorable,
     Describable,
+    Listable,
     Emojiable {
     
     /// The pressure level is within normal operating parameters.

@@ -1,20 +1,21 @@
 //
-//  BatteryState.swift
+//  GCDeviceBatteryState.swift
 //  SwiftyLoadLetter
 //
-//  Created by Kyle Lovely on 1/11/26.
+//  Created by Kyle Lovely on 5/26/26.
 //  Apache License 2.0
 //
 
-#if os(iOS) || os(visionOS)
+#if !os(watchOS)
 
 import SwiftUI
+import GameController
 
-public extension UIDevice.BatteryState {
+public extension GCDeviceBattery.State {
     
     var color: Color {
         switch self {
-        case .unplugged:   .orange
+        case .discharging: .orange
         case .charging:    .blue
         case .full:        .green
         case .unknown:     .gray
@@ -28,21 +29,21 @@ public extension UIDevice.BatteryState {
     
     var details: String {
         switch self {
-        case .full:       "The battery is fully charged."
-        case .charging:   "The battery is currently being charged."
-        case .unplugged:  "The device is running on battery power."
-        case .unknown:    "The battery state is unknown."
-        @unknown default: "The battery state cannot be determined."
+        case .discharging: "The device is currently discharging."
+        case .charging:    "The device is currently charging."
+        case .full:        "The device is fully charged."
+        case .unknown:     "The battery state is unknown."
+        @unknown default:  "The battery state cannot be determined."
         }
     }
     
     var icon: String {
         switch self {
-        case .unknown:    "questionmark"
-        case .unplugged:  "powerplug.fill"
-        case .charging:   "battery.100percent.bolt"
-        case .full:       "battery.100percent"
-        @unknown default: "exclamationmark.triangle"
+        case .discharging: "powerplug.fill"
+        case .charging:    "battery.100percent.bolt"
+        case .full:        "battery.100percent"
+        case .unknown:     "questionmark"
+        @unknown default:  "exclamationmark.triangle"
         }
     }
     
@@ -52,11 +53,11 @@ public extension UIDevice.BatteryState {
     
     var name: String {
         switch self {
-        case .full:       "Full"
-        case .charging:   "Charging"
-        case .unplugged:  "Unplugged"
-        case .unknown:    "Unknown"
-        @unknown default: "Undefined"
+        case .discharging: "Discharging"
+        case .charging:    "Charging"
+        case .full:        "Full"
+        case .unknown:     "Unknown"
+        @unknown default:  "Undefined"
         }
     }
     
@@ -69,11 +70,11 @@ public extension UIDevice.BatteryState {
     static let allCases: [Self] = [
         .full,
         .charging,
-        .unplugged,
+        .discharging,
         .unknown
     ]
     
-    static let navigationTitle = "Battery States"
+    static let navigationTitle = "Controller Battery States"
 }
 
 // MARK: - Preview
@@ -81,7 +82,7 @@ public extension UIDevice.BatteryState {
 #if DEBUG
 #Preview {
     NavigationStack {
-        List(UIDevice.BatteryState.allCases, id: \.rawValue) { state in
+        List(GCDeviceBattery.State.allCases, id: \.rawValue) { state in
             Label {
                 Text(state.name)
                 Text(state.details)
