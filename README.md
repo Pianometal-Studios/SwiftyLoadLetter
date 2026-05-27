@@ -108,6 +108,23 @@ SwiftyLoadLetter's protocols are designed to be composed freely — kind of like
 | `Staticable` | `Codable` + `CaseIterable` + `Hashable` + `CodingKey` + `Sendable` + `RawRepresentable<String>` | For string-backed enums used as stable identifiers, configuration keys, or routing constants. Provides `customizationID` for `TabView` persistence. |
 | `Listable` | `static navigationTitle: String` | Provides a navigation title for list-based presentation of a type's instances. |
 
+### Protocol Helper Objects
+
+Concrete, ready-to-use value types that bundle a name with the most common metadata. Use them when you need a conforming instance on the fly without declaring a custom type.
+
+| Type | Conformances | Description |
+|---|---|---|
+| `IconableObject` | `Searchable`, `Iconable`, `Sendable`, `Codable` | Pairs a `name` with an SF Symbol `icon`. |
+| `DescribableObject` | `Searchable`, `Iconable`, `Describable`, `Sendable`, `Codable` | Pairs `name`, `icon`, and `details` for richer descriptions. |
+| `ImageableObject` | `Searchable`, `Imageable`, `Sendable` | Pairs a `name` with an asset-catalog `ImageResource`. |
+| `DescribableCardView` | SwiftUI View | Generic card view for any `Nameable & Iconable & Describable` value, rendered via `ContentUnavailableView`. |
+
+```swift
+let action = IconableObject("Sync", icon: "arrow.triangle.2.circlepath")
+let warning = DescribableObject("Low Memory", icon: "memorychip", details: "Free up RAM to continue.")
+DescribableCardView(warning, color: .orange)
+```
+
 ### Example: Building a conforming type
 
 ```swift
@@ -179,6 +196,20 @@ Cases: `.iOS` `.iPadOS` `.macOS` `.tvOS` `.watchOS` `.visionOS`
 
 ---
 
+### `CompassPoint`
+
+The four cardinal directions, each with an `abbreviation`, SF Symbol `icon`, `name`, and an `opposite` direction lookup. Conforms to `Staticable`, `Searchable`, `Iconable`, and `Listable`.
+
+```swift
+let heading = CompassPoint.north
+print(heading.abbreviation) // "N"
+print(heading.opposite.name) // "South"
+```
+
+Cases: `.north` `.south` `.east` `.west`
+
+---
+
 ### `CommonAction`
 
 A set of reusable UI actions, each with an SF Symbol `icon`, localized `name`, an optional `ButtonRole`, and a `TabPlacement`.
@@ -234,6 +265,34 @@ Cases: `.normal` `.warning` `.critical` `.unknown`
 
 ---
 
+### `SignalQuality`
+
+A `@frozen` enum representing signal strength categories for Wi-Fi or cellular connectivity. Each level provides a `color`, `icon`, `name`, and a numeric `strength` (1–4) used for ordering. Conforms to `Staticable`, `Searchable`, `Colorable`, `Iconable`, and `Listable`.
+
+```swift
+let quality = SignalQuality.good
+ProgressView(value: Double(quality.strength), total: Double(SignalQuality.range.upperBound))
+    .tint(quality.color)
+```
+
+Cases: `.excellent` `.good` `.fair` `.poor`
+
+---
+
+### `FrequencyBands`
+
+The Wi-Fi frequency bands with a `color`, `icon`, `name` (formatted GHz), numeric `frequency`, `details`, `isHighSpeed`, `isLowLatency`, and a `rangeQuality` mapped to `NWPath.LinkQuality`. Conforms to `Staticable`, `Nameable`, `Iconable`, `Colorable`, and `Listable`.
+
+```swift
+let band = FrequencyBands.sixZero
+Label(band.name, systemImage: band.icon)
+    .foregroundStyle(band.color)
+```
+
+Cases: `.twoFour` `.fiveZero` `.sixZero`
+
+---
+
 ## 🔧 Extensions
 
 ### SwiftUI — View Modifiers
@@ -241,6 +300,7 @@ Cases: `.normal` `.warning` `.critical` `.unknown`
 | Modifier | Description |
 |---|---|
 | `.magicReplace()` | Applies a content transition using the system symbol effect with a "magic replace" animation for SF Symbols. |
+| `.fadeInOut(from:)` | Asymmetric push-and-fade transition — pushes in from the given edge on insertion, out toward the opposite edge on removal. |
 | `.glass(isRegular:shape:isInteractive:tint:)` | Cross-platform glass material effect. No-op on visionOS. |
 | `.glassButton(or:)` | Platform-appropriate glass button style with visionOS fallback. |
 | `.redacted(_:)` | Boolean-driven `.placeholder` redaction — pass `true` to redact, `false` to reveal. |
@@ -301,6 +361,31 @@ Text(75.0.percentage.asPercent()) // "75%"
 
 ---
 
+### Foundation — Duration
+
+| API | Description |
+|---|---|
+| `Duration.seconds` | `@inlinable` `Double` representation in seconds, preserving sub-second precision. Useful for charts and numeric calculations. |
+
+```swift
+Duration.milliseconds(1_250).seconds   // 1.25
+Duration.nanoseconds(500).seconds      // 5e-7
+```
+
+---
+
+### Foundation — Locale
+
+| API | Description |
+|---|---|
+| `Locale.name` | Localized name of the current locale (e.g., `"English (United States)"`). |
+| `Locale.currencyIdentifier` | ISO 4217 currency code for the current locale (e.g., `"USD"`). |
+| `Locale.currencySign` | Localized currency symbol (e.g., `"$"`, `"€"`). |
+| `Locale.timeZoneName` | Human-readable time zone identifier — `America/New_York` → `"America - New York"`. |
+| `Locale.timeZoneAbbreviation` | Short time zone abbreviation (e.g., `"PST"`, `"EST"`). |
+
+---
+
 ### Foundation — Other
 
 | API | Description |
@@ -326,10 +411,32 @@ Text(75.0.percentage.asPercent()) // "75%"
 | `NWPath.LinkQuality` | `color`, `icon`, `name`, `allCases` |
 | `NWPath.UnsatisfiedReason` | `icon`, `name`, `details`, `hasReason`, `allCases` |
 | `NWInterface.InterfaceType` | `color`, `icon`, `name`, `allCases` |
+| `NWInterface.RadioType` | `color`, `icon`, `iconableObject`, `name`, `is5G`, `isCellular`, `isWifi`, `allCases` |
+| `NWInterface.RadioType.Cellular` | `color`, `icon`, `iconableObject`, `describableObject`, `name`, `details`, `is5G`, `allCases` |
+| `NWInterface.RadioType.WiFi` | `color`, `icon`, `iconableObject`, `name`, `generation`, `adoptedYear`, `maxSpeed`, `frequencyBands`, `allCases` |
+| `NWInterface.RadioType.Cellular.NewRadio5GVariant` | `color`, `icon`, `iconableObject`, `describableObject`, `name`, `details`, `isHighSpeed`, `isLowLatency`, `rangeQuality`, `penetrationLevel`, `allCases` |
 
 ```swift
 Label(path.status.name, systemImage: path.status.icon)
     .foregroundStyle(path.status.color)
+
+let wifi = NWInterface.RadioType.WiFi.ax
+Text("\(wifi.name) • Wi-Fi \(wifi.generation) • up to \(wifi.maxSpeed.formatted()) Mbps")
+```
+
+---
+
+### GameController
+
+| Type | Platforms | Properties Added |
+|---|---|---|
+| `GCControllerPlayerIndex` | iOS, iPadOS, macOS, tvOS, visionOS | `icon`, `name`, `allCases`, `navigationTitle` |
+| `GCDeviceBattery.State` | iOS, iPadOS, macOS, tvOS, visionOS | `color`, `icon`, `iconableObject`, `describableObject`, `name`, `details`, `allCases` |
+
+```swift
+Label(controller.playerIndex.name, systemImage: controller.playerIndex.icon)
+Label(controller.battery.state.name, systemImage: controller.battery.state.icon)
+    .foregroundStyle(controller.battery.state.color)
 ```
 
 ---
