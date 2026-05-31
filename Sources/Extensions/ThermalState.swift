@@ -73,9 +73,9 @@ public extension ProcessInfo.ThermalState {
     /// representation of the severity of the `ThermalState`.
     var percentage: Double {
         switch self {
-        case .nominal:    20
-        case .fair:       40
-        case .serious:    80
+        case .nominal:    25
+        case .fair:       50
+        case .serious:    75
         case .critical:   100
         @unknown default: 0
         }
@@ -115,6 +115,7 @@ public extension ProcessInfo.ThermalState {
             .listRowBackground(state.color.opacity(0.1))
         }
         .navigationTitle(ProcessInfo.ThermalState.navigationTitle)
+        .navigationSubtitle(subtitle: "All ProcessInfo Thermal States")
     }
 }
 #endif
