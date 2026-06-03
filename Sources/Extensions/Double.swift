@@ -80,6 +80,15 @@ public extension Double {
         !self.isSignalingNaN
     }
     
+    /// - Returns: A style format in which numbers are spelled out in the language defined by the number formatter locale.
+    var name: String {
+        guard let text = NumberFormatter.spellOut.string(from: .init(floatLiteral: self)) else {
+            logger(.general, message: "Cannot spell out phase name for \(self)")
+            return self.formatted()
+        }
+        return text.localizedCapitalized
+    }
+    
     /// Interprets the value as a whole-number percentage and converts it to its fractional form.
     ///
     /// This property divides the receiver by 100. For example, `25.percentage` yields `0.25`,
