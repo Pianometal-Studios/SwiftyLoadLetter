@@ -108,8 +108,10 @@ public enum AppleOS:
     
     /// The current operating system.
     ///
-    /// - Returns: The `AppleOS` case corresponding to the current operating system,
-    ///   or `nil` if the operating system cannot be determined.
+    /// - Returns: The ``AppleOS`` case corresponding to the current operating system.
+    ///
+    /// - Important: Traps with a fatal error if the current operating system
+    ///   cannot be determined.
     @MainActor public static var current: AppleOS {
         guard let os = Self.allCases.first(where: { $0.isCurrent }) else {
             fatalError("Unable to determine current operating system.")

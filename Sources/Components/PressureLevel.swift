@@ -85,7 +85,11 @@ import SwiftUI
         }
     }
     
-    /// - Returns: An array of all valid `PressureLevel` cases, sorted in a logical order from least to most severe.
+    /// A numeric rank used to order cases from least to most severe,
+    /// where `.normal` is `0` and `.unknown` is `3`.
+    ///
+    /// Backs the `Comparable` conformance so `allCases.sorted()` yields
+    /// `normal`, `warning`, `critical`, `unknown`.
     public var sortOrder: Int {
         switch self {
         case .normal:   0
