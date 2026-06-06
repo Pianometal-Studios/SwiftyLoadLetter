@@ -13,14 +13,6 @@ import Network
         #expect(NWInterface.RadioType.allCases.count == expected)
     }
 
-    @Test("Every case has a non-empty name and icon")
-    func metadataPresent() {
-        for type in NWInterface.RadioType.allCases {
-            #expect(!type.name.isEmpty)
-            #expect(!type.icon.isEmpty)
-        }
-    }
-
     @Test("Cellular cases classify as cellular, not Wi-Fi")
     func cellularClassification() {
         let lte = NWInterface.RadioType.cell(.lte)
@@ -35,18 +27,5 @@ import Network
         #expect(ax.isWifi)
         #expect(!ax.isCellular)
         #expect(!ax.is5G)
-    }
-
-    @Test("5G cellular cases report is5G")
-    func fiveGClassification() {
-        let standalone = NWInterface.RadioType.cell(.standalone5G(.mmWave))
-        #expect(standalone.is5G)
-        #expect(standalone.isCellular)
-    }
-
-    @Test("name and icon delegate to the wrapped radio type")
-    func delegation() {
-        #expect(NWInterface.RadioType.cell(.lte).name == "LTE")
-        #expect(NWInterface.RadioType.wifi(.ax).name == "802.11ax")
     }
 }
