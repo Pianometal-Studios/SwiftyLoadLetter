@@ -11,6 +11,7 @@ import SwiftUI
 
 public extension NWInterface.RadioType.WiFi {
     
+    /// - Returns: The year this 802.11 standard was ratified, as a display string.
     var adoptedYear: String {
         switch self {
         case .a:          "1999"
@@ -35,6 +36,7 @@ public extension NWInterface.RadioType.WiFi {
         }
     }
     
+    /// - Returns: The radio frequency bands this standard can operate on.
     var frequencyBands: [FrequencyBands] {
         switch self {
         case .a:          [.fiveZero]
@@ -47,6 +49,7 @@ public extension NWInterface.RadioType.WiFi {
         }
     }
     
+    /// - Returns: The Wi-Fi generation number — e.g. `6` for 802.11ax (Wi-Fi 6) — or `0` if unknown.
     var generation: Int {
         switch self {
         case .a:          2
@@ -77,6 +80,7 @@ public extension NWInterface.RadioType.WiFi {
         }
     }
     
+    /// The theoretical maximum link speed, in megabits per second (Mbps).
     var maxSpeed: Int {
         switch self {
         case .a:          54

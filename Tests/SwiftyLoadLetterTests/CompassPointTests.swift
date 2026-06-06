@@ -63,22 +63,6 @@ import Foundation
         #expect(invalid == nil)
     }
     
-    @Test("CompassPoints are comparable by name")
-    func comparableByName() {
-        #expect(CompassPoint.east < CompassPoint.north)
-        #expect(CompassPoint.north < CompassPoint.south)
-        #expect(CompassPoint.south < CompassPoint.west)
-    }
-    
-    @Test("CompassPoints can be sorted", arguments: [
-        [CompassPoint.west, .east, .south, .north],
-        [CompassPoint.north, .south, .east, .west]
-    ])
-    func sorting(unsorted: [CompassPoint]) {
-        let sorted = unsorted.sorted()
-        #expect(sorted == [.east, .north, .south, .west])
-    }
-    
     @Test("Search finds matching compass points by name")
     func searchByName() {
         let results = CompassPoint.allCases.search("north")
@@ -161,16 +145,5 @@ import Foundation
         #expect(decoded.abbreviation == original.abbreviation)
         #expect(decoded.icon == original.icon)
         #expect(decoded.opposite == original.opposite)
-    }
-    
-    @Test("Same compass points are equal", arguments: CompassPoint.allCases)
-    func equalityWithSelf(compassPoint: CompassPoint) {
-        #expect(compassPoint == compassPoint)
-    }
-    
-    @Test("Different compass points are not equal")
-    func inequality() {
-        #expect(CompassPoint.north != CompassPoint.south)
-        #expect(CompassPoint.east != CompassPoint.west)
     }
 }

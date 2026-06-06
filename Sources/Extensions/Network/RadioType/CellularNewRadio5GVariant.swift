@@ -55,7 +55,7 @@ public extension NWInterface.RadioType.Cellular.NewRadio5GVariant {
         }
     }
     
-    /// - Returns: `true` if the 5G variant is mmWave, otherwise `false`
+    /// - Returns: `true` if the variant delivers peak throughput (mmWave), otherwise `false`.
     var isHighSpeed: Bool {
         switch self {
         case .sub6GHz:    false
@@ -72,7 +72,8 @@ public extension NWInterface.RadioType.Cellular.NewRadio5GVariant {
         }
     }
     
-    /// - Returns: The link quality associated with the frequency band, which can be used to indicate the expected performance of a Wi-Fi connection on that band.
+    /// - Returns: The expected `NWPath.LinkQuality` over this band's range —
+    ///   sub-6 GHz reaches farther (`.good`) while mmWave is short-range (`.minimal`).
     var rangeQuality: NWPath.LinkQuality {
         switch self {
         case .sub6GHz:    .good

@@ -83,7 +83,7 @@ public extension Double {
     /// - Returns: A style format in which numbers are spelled out in the language defined by the number formatter locale.
     var name: String {
         guard let text = NumberFormatter.spellOut.string(from: .init(floatLiteral: self)) else {
-            logger(.general, message: "Cannot spell out phase name for \(self)")
+            logger(.general, message: "Cannot spell out name for \(self)")
             return self.formatted()
         }
         return text.localizedCapitalized

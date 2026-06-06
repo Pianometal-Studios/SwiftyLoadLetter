@@ -94,7 +94,7 @@ public extension NWInterface.RadioType.Cellular {
     static let navigationTitle = "Cellular Types"
 }
 
-// MARK: - PReview
+// MARK: - Preview
 
 #if DEBUG
 #Preview {
