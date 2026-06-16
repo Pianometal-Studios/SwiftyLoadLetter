@@ -75,15 +75,16 @@ The version hosted on the [Swift Package Index](https://swiftpackageindex.com/Pi
 ## Project Structure
 
 ```
-Sources/SwiftyLoadLetter/
-├── AppLogger/      Logging system: LogCategory, OSLogType, free-function helpers
-├── Components/     Concrete enums (PressureLevel, PersonNameComponent, etc.)
-├── Extensions/     Type extensions, organized by framework
-│   ├── Battery/    UIDevice.BatteryState, WKInterfaceDeviceBatteryState
-│   ├── Edge/       Edge, HorizontalEdge, VerticalEdge, EdgeOrientation
-│   └── Network/    NWPath.Status, NWPath.LinkQuality, etc.
-├── Protocols/      Composable protocols (Nameable, Iconable, Emojiable, ...)
-└── Views/          SwiftUI views (LiquidMeshBackground)
+Sources/
+├── AppLogger/             Logging system: LogCategory, OSLogType, free-function helpers
+├── Components/            Concrete enums (PressureLevel, PersonNameComponent, etc.)
+├── Extensions/            Type extensions, organized by framework
+│   ├── Battery/           UIDevice.BatteryState, WKInterfaceDeviceBatteryState
+│   ├── Edge/              Edge, HorizontalEdge, VerticalEdge, EdgeOrientation
+│   └── Network/           NWPath.Status, NWPath.LinkQuality, etc.
+├── Protocols/             Composable protocols (Nameable, Iconable, Emojiable, ...)
+├── Views/                 SwiftUI views (LiquidMeshBackground)
+└── SwiftyLoadLetter.docc/ DocC catalog: landing page and articles
 
 Tests/SwiftyLoadLetterTests/
 └── (mirrors Sources/ structure where practical)
