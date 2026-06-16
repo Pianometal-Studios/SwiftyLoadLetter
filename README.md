@@ -94,13 +94,9 @@ targets: [
 
 ## 📚 Documentation
 
-[![Documentation](https://img.shields.io/badge/Documentation-DocC-blue.svg?logo=swift)](https://pianometal-studios.github.io/SwiftyLoadLetter/documentation/swiftyloadletter)
+SwiftyLoadLetter ships a full [DocC](https://www.swift.org/documentation/docc/) catalog covering every public symbol, with articles on getting started and composing the protocols. Build it in Xcode via **Product → Build Documentation** (⌃⌘D).
 
-Full, browsable API documentation is built with [DocC](https://www.swift.org/documentation/docc/) and hosted on GitHub Pages:
-
-**→ [SwiftyLoadLetter Documentation](https://pianometal-studios.github.io/SwiftyLoadLetter/documentation/swiftyloadletter)**
-
-The sections below are a quick tour. The DocC site has the complete reference — every symbol, with articles on getting started and composing the protocols. You can also build it locally in Xcode via **Product → Build Documentation** (⌃⌘D).
+The sections below are a quick tour.
 
 ---
 
