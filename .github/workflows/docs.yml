@@ -10,11 +10,9 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-# Allow the GITHUB_TOKEN to deploy to Pages.
+# Least privilege at the top level; the deploy job widens its own scope below.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # Allow one concurrent Pages deployment. Do not cancel an in-progress run —
 # interrupting actions/deploy-pages mid-deploy can leave Pages inconsistent.
@@ -39,11 +37,15 @@ jobs:
           xcodebuild -version
           swift --version
 
+      # Build for iOS — the single destination that exposes the most public surface
+      # (UIKit, GameController, and the cross-platform SwiftUI/Foundation extensions).
+      # Note: watchOS-only and tvOS-only symbols (e.g. WKInterfaceDeviceBatteryState,
+      # tvOS-specific button styles) are not captured by a single-platform build.
       - name: Build documentation archive
         run: |
           xcodebuild docbuild \
             -scheme SwiftyLoadLetter \
-            -destination 'generic/platform=macOS' \
+            -destination 'generic/platform=iOS' \
             -derivedDataPath .derivedData
 
       - name: Transform for static hosting
@@ -56,7 +58,9 @@ jobs:
           # Redirect the site root to the documentation landing page.
           echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=documentation/swiftyloadletter/"></head></html>' > _site/index.html
 
+      # Only the deploy path needs the artifact; skip the upload on PR validation runs.
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
@@ -67,6 +71,10 @@ jobs:
     # publishes from main and manual dispatch, never from pull requests.
     if: github.event_name != 'pull_request'
     needs: build
+    # Deploy-only privileges, scoped to this job rather than the whole workflow.
+    permissions:
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     environment:
       name: github-pages
