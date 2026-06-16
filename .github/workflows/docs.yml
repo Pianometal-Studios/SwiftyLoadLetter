@@ -6,6 +6,8 @@ name: Documentation
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 # Allow the GITHUB_TOKEN to deploy to Pages.
@@ -14,17 +16,28 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment; cancel in-progress runs for the same ref.
+# Allow one concurrent Pages deployment. Do not cancel an in-progress run —
+# interrupting actions/deploy-pages mid-deploy can leave Pages inconsistent.
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     name: Build DocC
-    runs-on: macos-latest
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
+
+      # The package targets the .v26 platforms and uses SwiftSetting.defaultIsolation,
+      # which require the Xcode 26 / Swift 6.3 toolchain. Select the newest installed
+      # Xcode 26.x with a plain shell step (the local_only Actions policy blocks
+      # third-party setup actions such as maxim-lobanov/setup-xcode).
+      - name: Select Xcode 26
+        run: |
+          sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+          xcodebuild -version
+          swift --version
 
       - name: Build documentation archive
         run: |
@@ -50,6 +63,9 @@ jobs:
 
   deploy:
     name: Deploy to Pages
+    # Build runs on every trigger (so PRs validate the docs build); deploy only
+    # publishes from main and manual dispatch, never from pull requests.
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

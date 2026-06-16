@@ -15,9 +15,14 @@ on:
 jobs:
   test:
     name: Test (macOS)
-    runs-on: macos-latest
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
+      - name: Select Xcode 26
+        run: |
+          sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+          xcodebuild -version
+          swift --version
       - name: Build
         run: swift build -v
       - name: Run tests
@@ -25,7 +30,7 @@ jobs:
 
   build:
     name: Build (${{ matrix.platform }})
-    runs-on: macos-latest
+    runs-on: macos-26
     strategy:
       fail-fast: false
       matrix:
@@ -42,6 +47,11 @@ jobs:
             destination: platform=macOS,variant=Mac Catalyst
     steps:
       - uses: actions/checkout@v4
+      - name: Select Xcode 26
+        run: |
+          sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+          xcodebuild -version
+          swift --version
       - name: Build for ${{ matrix.platform }}
         run: |
           xcodebuild build \
