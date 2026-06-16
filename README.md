@@ -92,6 +92,18 @@ targets: [
 
 ---
 
+## 📚 Documentation
+
+[![Documentation](https://img.shields.io/badge/Documentation-DocC-blue.svg?logo=swift)](https://pianometal-studios.github.io/SwiftyLoadLetter/documentation/swiftyloadletter)
+
+Full, browsable API documentation is built with [DocC](https://www.swift.org/documentation/docc/) and hosted on GitHub Pages:
+
+**→ [SwiftyLoadLetter Documentation](https://pianometal-studios.github.io/SwiftyLoadLetter/documentation/swiftyloadletter)**
+
+The sections below are a quick tour. The DocC site has the complete reference — every symbol, with articles on getting started and composing the protocols. You can also build it locally in Xcode via **Product → Build Documentation** (⌃⌘D).
+
+---
+
 ## 🧩 Protocols
 
 SwiftyLoadLetter's protocols are designed to be composed freely — kind of like pieces of flair, except you actually want these. Conform to one or several depending on what your type needs to express.

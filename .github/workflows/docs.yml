@@ -1,0 +1,61 @@
+# Builds the DocC documentation and deploys it to GitHub Pages.
+# See: https://www.swift.org/documentation/docc/
+
+name: Documentation
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+# Allow the GITHUB_TOKEN to deploy to Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; cancel in-progress runs for the same ref.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build DocC
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build documentation archive
+        run: |
+          xcodebuild docbuild \
+            -scheme SwiftyLoadLetter \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath .derivedData
+
+      - name: Transform for static hosting
+        run: |
+          ARCHIVE=$(find .derivedData -type d -name 'SwiftyLoadLetter.doccarchive' | head -1)
+          echo "Using archive: $ARCHIVE"
+          "$(xcrun --find docc)" process-archive transform-for-static-hosting "$ARCHIVE" \
+            --output-path _site \
+            --hosting-base-path SwiftyLoadLetter
+          # Redirect the site root to the documentation landing page.
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=documentation/swiftyloadletter/"></head></html>' > _site/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
