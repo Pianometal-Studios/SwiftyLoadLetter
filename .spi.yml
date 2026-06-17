@@ -1,0 +1,13 @@
+# Swift Package Index manifest.
+#
+# Enables auto-generated, auto-hosted, and auto-updating DocC documentation,
+# rebuilt on every push, at:
+#   https://swiftpackageindex.com/Pianometal-Studios/SwiftyLoadLetter/documentation
+#
+# Requires the package to be listed on the Swift Package Index. No GitHub
+# Actions or GitHub Pages setup is involved — SPI builds and hosts the docs.
+version: 1
+builder:
+  configs:
+    - documentation_targets: [SwiftyLoadLetter]
+      platform: ios

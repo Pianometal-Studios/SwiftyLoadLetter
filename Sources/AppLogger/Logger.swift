@@ -43,7 +43,7 @@ import os
 ///   - `.debug` and `.info` are not persisted to disk and are best for development-time diagnostics.
 ///   - `.notice` and higher are persisted and suitable for production telemetry of significant events.
 ///
-/// - SeeAlso: ``LogCategory``, ``LogCategory/log(_:type:)``
+/// - SeeAlso: ``LogCategory``
 public func logger(
     _ category: LogCategory,
     message: String,

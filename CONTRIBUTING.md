@@ -66,18 +66,25 @@ swift test
 
 The test suite uses **Swift Testing** (`@Suite`, `@Test`, `#expect`) — not XCTest. New tests should follow that pattern.
 
+### Building the documentation
+
+The public API is documented with DocC. To read it locally, open the package in Xcode and choose **Product → Build Documentation** (⌃⌘D) — no extra tooling or dependencies required.
+
+The version hosted on the [Swift Package Index](https://swiftpackageindex.com/Pianometal-Studios/SwiftyLoadLetter/documentation) is generated automatically from the [`.spi.yml`](.spi.yml) manifest whenever the package is updated.
+
 ## Project Structure
 
 ```
-Sources/SwiftyLoadLetter/
-├── AppLogger/      Logging system: LogCategory, OSLogType, free-function helpers
-├── Components/     Concrete enums (PressureLevel, PersonNameComponent, etc.)
-├── Extensions/     Type extensions, organized by framework
-│   ├── Battery/    UIDevice.BatteryState, WKInterfaceDeviceBatteryState
-│   ├── Edge/       Edge, HorizontalEdge, VerticalEdge, EdgeOrientation
-│   └── Network/    NWPath.Status, NWPath.LinkQuality, etc.
-├── Protocols/      Composable protocols (Nameable, Iconable, Emojiable, ...)
-└── Views/          SwiftUI views (LiquidMeshBackground)
+Sources/
+├── AppLogger/             Logging system: LogCategory, OSLogType, free-function helpers
+├── Components/            Concrete enums (PressureLevel, PersonNameComponent, etc.)
+├── Extensions/            Type extensions, organized by framework
+│   ├── Battery/           UIDevice.BatteryState, WKInterfaceDeviceBatteryState
+│   ├── Edge/              Edge, HorizontalEdge, VerticalEdge, EdgeOrientation
+│   └── Network/           NWPath.Status, NWPath.LinkQuality, etc.
+├── Protocols/             Composable protocols (Nameable, Iconable, Emojiable, ...)
+├── Views/                 SwiftUI views (LiquidMeshBackground)
+└── SwiftyLoadLetter.docc/ DocC catalog: landing page and articles
 
 Tests/SwiftyLoadLetterTests/
 └── (mirrors Sources/ structure where practical)

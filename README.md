@@ -48,19 +48,14 @@ Inspired by the legendary printer error that drove Peter, Michael, and Samir to 
 
 ### Swift
 
-![Language Version](https://img.shields.io/badge/Language_Version-6.3-orange?logo=swift)
+[![Swift Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPianometal-Studios%2FSwiftyLoadLetter%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Pianometal-Studios/SwiftyLoadLetter)
 ![Approachable Concurrency](https://img.shields.io/badge/Approachable_Concurrency-Yes-darkgreen?logo=swift)
 ![Strict Concurrency Checking](https://img.shields.io/badge/Strict_Concurrency_Checking-Complete-darkblue?logo=swift)
 ![Default Actor Isolation](https://img.shields.io/badge/Default_Actor_Isolation-nil-darkred?logo=swift)
 
 ### Platforms
 
-![iOS 26.0](https://img.shields.io/badge/iOS-26.0-blue.svg?logo=apple)
-![iPadOS 26.0](https://img.shields.io/badge/iPadOS-26.0-blue.svg?logo=apple)
-![macOS 26.0](https://img.shields.io/badge/macOS-26.0-blue.svg?logo=apple)
-![tvOS 26.0](https://img.shields.io/badge/tvOS-26.0-blue.svg?logo=apple)
-![visionOS 26.0](https://img.shields.io/badge/visionOS-26.0-blue.svg?logo=apple)
-![watchOS 26.0](https://img.shields.io/badge/watchOS-26.0-blue.svg?logo=apple)
+[![Platforms](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPianometal-Studios%2FSwiftyLoadLetter%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/Pianometal-Studios/SwiftyLoadLetter)
 
 ---
 
@@ -89,6 +84,18 @@ targets: [
     .target(name: "MyTarget", dependencies: [.byName(name: "SwiftyLoadLetter")])
 ]
 ```
+
+---
+
+## 📚 Documentation
+
+[![Documentation](https://img.shields.io/badge/Documentation-DocC-blue.svg?logo=swift)](https://swiftpackageindex.com/Pianometal-Studios/SwiftyLoadLetter/documentation)
+
+Full, browsable API documentation — every public symbol, plus articles on getting started and composing the protocols — is hosted on the [Swift Package Index](https://swiftpackageindex.com/Pianometal-Studios/SwiftyLoadLetter/documentation) and kept up to date automatically as the package changes.
+
+Prefer it offline? Build the [DocC](https://www.swift.org/documentation/docc/) catalog in Xcode via **Product → Build Documentation** (⌃⌘D).
+
+The sections below are a quick tour.
 
 ---
 
