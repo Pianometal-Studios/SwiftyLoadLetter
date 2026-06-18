@@ -53,6 +53,8 @@ Inspired by the legendary printer error that drove Peter, Michael, and Samir to 
 ![Strict Concurrency Checking](https://img.shields.io/badge/Strict_Concurrency_Checking-Complete-darkblue?logo=swift)
 ![Default Actor Isolation](https://img.shields.io/badge/Default_Actor_Isolation-nil-darkred?logo=swift)
 
+Built in **Swift 6 language mode** with these upcoming features enabled: `ExistentialAny`, `InferIsolatedConformances`, `MemberImportVisibility`, and `NonisolatedNonsendingByDefault`.
+
 ### Platforms
 
 [![Platforms](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FPianometal-Studios%2FSwiftyLoadLetter%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/Pianometal-Studios/SwiftyLoadLetter)
