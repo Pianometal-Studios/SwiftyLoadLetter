@@ -310,14 +310,14 @@ private struct TestStruct: Codable {
         self.third = third
     }
     
-    init(from decoder: Decoder) throws {
+    init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: TestEnum.self)
         first = try container.decode(String.self, forKey: .first)
         second = try container.decode(String.self, forKey: .second)
         third = try container.decode(String.self, forKey: .third)
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: TestEnum.self)
         try container.encode(first, forKey: .first)
         try container.encode(second, forKey: .second)
