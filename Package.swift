@@ -39,6 +39,15 @@ import PackageDescription
 
 private let name = "SwiftyLoadLetter"
 
+/// - Returns: An array of Swift settings for the package targets.
+private let swiftSettings: [SwiftSetting] = [
+    .defaultIsolation(nil),
+    .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+    .enableUpcomingFeature("InferIsolatedConformances"),
+    .enableUpcomingFeature("ExistentialAny"),
+    .enableUpcomingFeature("MemberImportVisibility"),
+]
+
 let package = Package(
     name: name,
     defaultLocalization: "en",
@@ -65,11 +74,3 @@ let package = Package(
     ],
     swiftLanguageModes: [.v6],
 )
-
-/// - Returns: An array of Swift settings for the package targets.
-private let swiftSettings: [SwiftSetting] = [
-    .defaultIsolation(nil),
-    .enableUpcomingFeature("StrictConcurrency"),
-    .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-    .enableUpcomingFeature("InferIsolatedConformances"),
-]
