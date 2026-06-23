@@ -17,6 +17,7 @@ public extension View {
     /// - On removal, the view is pushed out toward the opposite edge while fading out.
     ///
     /// ## Example
+    ///
     /// ```swift
     /// SomeView()
     ///     .fadeInOut(from: .bottom)
@@ -27,7 +28,7 @@ public extension View {
     ///
     /// - Returns: A view modified with the described transition.
     func fadeInOut(from edge: Edge) -> some View {
-        transition(
+        unsafe transition(
             .asymmetric(
                 insertion: .push(from: edge)
                     .combined(with: .opacity),

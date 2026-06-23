@@ -39,13 +39,15 @@ import PackageDescription
 
 private let name = "SwiftyLoadLetter"
 
-/// - Returns: An array of Swift settings for the package targets.
+/// An array of Swift settings for the package targets.
 private let swiftSettings: [SwiftSetting] = [
     .defaultIsolation(nil),
+    .strictMemorySafety(),
     .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
     .enableUpcomingFeature("InferIsolatedConformances"),
     .enableUpcomingFeature("ExistentialAny"),
     .enableUpcomingFeature("MemberImportVisibility"),
+    .enableUpcomingFeature("ImmutableWeakCaptures"),
 ]
 
 let package = Package(
