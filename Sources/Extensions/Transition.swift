@@ -28,12 +28,12 @@ public extension View {
     ///
     /// - Returns: A view modified with the described transition.
     func fadeInOut(from edge: Edge) -> some View {
-        unsafe transition(
+        transition(
             .asymmetric(
                 insertion: .push(from: edge)
-                    .combined(with: .opacity),
+                    .combined(with: unsafe .opacity),
                 removal: .push(from: edge.opposite)
-                    .combined(with: .opacity)
+                    .combined(with: unsafe .opacity)
             )
         )
     }
