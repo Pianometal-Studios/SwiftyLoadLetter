@@ -27,6 +27,7 @@ public enum CommonAction:
     case filter
     case help
     case info
+    case refresh
     case reset
     case save
     case settings
@@ -44,6 +45,7 @@ public enum CommonAction:
         case .filter:         "line.3.horizontal.decrease"
         case .help:           "questionmark"
         case .info:           "info"
+        case .refresh:        "arrow.clockwise"
         case .reset:          "arrow.counterclockwise"
         case .settings:       "gear"
         case .sort:           "arrow.up.arrow.down"
@@ -63,6 +65,7 @@ public enum CommonAction:
         case .filter:   "Filter"
         case .help:     "Help"
         case .info:     "Info"
+        case .refresh:  "Refresh"
         case .reset:    "Reset"
         case .save:     "Save"
         case .settings: "Settings"
