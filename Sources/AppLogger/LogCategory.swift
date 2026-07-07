@@ -51,8 +51,7 @@ public enum LogCategory:
     Staticable,
     Searchable,
     Describable,
-    Listable,
-    Emojiable {
+    Listable {
     
     /// App Store Connect interactions and API calls, including authentication, data retrieval, and
     /// error handling.
@@ -151,7 +150,7 @@ public enum LogCategory:
     private var logger: Logger {
         Logger(
             subsystem: MainBundle.identifier ?? "No BundleID",
-            category: emojiLabel)
+            category: "\(emoji) \(name)")
     }
     
     public var name: String {
@@ -183,7 +182,7 @@ public enum LogCategory:
     func log(_ message: String, type: OSLogType = .default) {
         logger.log(level: type, "\(type.emoji) \(message, privacy: .auto)")
 #if DEBUG
-        printOnDebug(emojiLabel, type.emojiLabel, "ℹ️ \(message)")
+        printOnDebug("\(emoji) \(name)", "\(type.emoji) \(type.name)", "ℹ️ \(message)")
 #endif
     }
     
@@ -198,12 +197,9 @@ import SwiftUI
     NavigationStack {
         List(LogCategory.allCases.sorted()) { category in
             LabeledContent { EmptyView() } label: {
-                Text(category.emojiLabel)
+                Text("\(category.emoji) \(category.name)")
                     .bold()
                 Text(category.details)
-            }
-            .onAppear {
-                logger(.swift, message: category.emojiLabel)
             }
         }
         .navigationTitle(LogCategory.navigationTitle)
