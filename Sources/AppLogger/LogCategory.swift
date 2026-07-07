@@ -61,6 +61,10 @@ public enum LogCategory:
     /// auth-related errors.
     case auth
     
+    /// GitHub-related events and operations, including API requests, webhooks, CI status
+    /// notifications, release publishing, issue/PR activity, and rate-limit handling.
+    case github
+    
     /// Bluetooth connectivity events, including device discovery, connection status changes,
     /// data transmission, and Bluetooth-related errors.
     case bluetooth
@@ -102,7 +106,7 @@ public enum LogCategory:
     
     public var details: String {
         switch self {
-        case .asc:        
+        case .asc:
             "Logs related to App Store Connect interactions and API calls."
         case .network:
             "Network-related logs, such as API requests and responses."
@@ -110,6 +114,8 @@ public enum LogCategory:
             "Logs related to Firebase services and interactions."
         case .auth:
             "Authentication events, including sign-in and sign-out."
+        case .github:
+            "Logs related to GitHub services and interactions."
         case .revenueCat:
             "Logs pertaining to RevenueCat purchases and subscriptions."
         case .swift:
@@ -133,6 +139,7 @@ public enum LogCategory:
         case .network:    "🌐"
         case .firebase:   "🔥"
         case .auth:       "🔐"
+        case .github:     "🐙"
         case .revenueCat: "💰"
         case .swift:      "🖼️"
         case .swiftData:  "💾"
@@ -159,6 +166,7 @@ public enum LogCategory:
         case .network:    "Network"
         case .firebase:   "Firebase"
         case .auth:       "Auth"
+        case .github:     "GitHub"
         case .revenueCat: "RevenueCat"
         case .swift:      "Swift"
         case .swiftData:  "SwiftData"
@@ -207,3 +215,4 @@ import SwiftUI
     }
 }
 #endif
+

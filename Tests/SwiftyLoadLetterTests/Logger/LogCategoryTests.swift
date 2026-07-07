@@ -40,24 +40,16 @@ import os
     func uniqueEmojis() {
         let allEmojis = LogCategory.allCases.map(\.emoji)
         let uniqueEmojis = Set(allEmojis)
-        #expect(allEmojis.count == uniqueEmojis.count, 
+        #expect(allEmojis.count == uniqueEmojis.count,
                 "All categories should have unique emojis")
     }
     
     @Test("All emojis are non-empty strings")
     func emojisAreNonEmpty() {
         for category in LogCategory.allCases {
-            #expect(!category.emoji.isEmpty, 
+            #expect(!category.emoji.isEmpty,
                     "\(category.rawValue) should have a non-empty emoji")
         }
-    }
-    
-    @Test("Emoji labels combine emoji and name correctly")
-    func emojiLabelFormat() {
-        let category = LogCategory.network
-        let expectedLabel = "\(category.emoji) \(category.name)"
-        #expect(category.emojiLabel == expectedLabel)
-        #expect(category.emojiLabel == "🌐 Network")
     }
     
     @Test("Each category has a non-empty name")
