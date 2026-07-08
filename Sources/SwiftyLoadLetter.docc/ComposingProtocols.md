@@ -5,7 +5,7 @@ Stack small, single-purpose protocols to describe exactly what a type can expres
 ## Overview
 
 SwiftyLoadLetter's protocols are intentionally narrow. Each one adds a single
-capability — a name, an icon, a color, an emoji — and they're designed to be mixed
+capability — a name, an icon, a color, an image — and they're designed to be mixed
 freely. A type conforms to as many as it needs, and gains the corresponding default
 behaviour without restating boilerplate.
 
@@ -18,7 +18,6 @@ behaviour without restating boilerplate.
 | ``Colorable`` | `color: Color` | An associated SwiftUI `Color` for theming and tinting. |
 | ``Iconable`` | `icon: String` | An SF Symbol name, ready for `Image(systemName:)`. |
 | ``Imageable`` | `image: ImageResource` | An asset-catalog image for types backed by named assets. |
-| ``Emojiable`` | `emoji: String` | A single-emoji representation, plus a free `emojiLabel` when combined with ``Nameable``. |
 | ``Searchable`` | composition | ``Nameable`` + `Identifiable` + `Hashable` + `Comparable` for searchable lists. |
 | ``Staticable`` | composition | For string-backed enums used as stable identifiers; provides `customizationID`. |
 | ``Listable`` | `static navigationTitle` | A navigation title for list-based presentation. |
@@ -26,11 +25,12 @@ behaviour without restating boilerplate.
 ## How composition pays off
 
 Because the protocols layer, conforming to a combination unlocks behaviour that
-none of them provides alone. ``Emojiable`` gives you `emoji`; ``Nameable`` gives you
-`name`; conform to **both** and you get `emojiLabel` for free:
+none of them provides alone. ``Iconable`` gives you `icon`; ``Colorable`` gives you
+`color`; conform to **both** (alongside ``Nameable``) and a value is immediately
+ready to drop into a styled `Label`:
 
 ```swift
-enum LogArea: String, Nameable, Emojiable {
+enum LogArea: String, Nameable, Iconable, Colorable {
     case network, auth
 
     var name: String {
@@ -40,15 +40,23 @@ enum LogArea: String, Nameable, Emojiable {
         }
     }
 
-    var emoji: String {
+    var icon: String {
         switch self {
-        case .network: "🌐"
-        case .auth:    "🔐"
+        case .network: "network"
+        case .auth:    "lock"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .network: .blue
+        case .auth:    .red
         }
     }
 }
 
-print(LogArea.network.emojiLabel)   // "🌐 Network"
+Label(LogArea.network.name, systemImage: LogArea.network.icon)
+    .foregroundStyle(LogArea.network.color)
 ```
 
 Similarly, ``Searchable`` is itself a composition — conforming to it means a type is

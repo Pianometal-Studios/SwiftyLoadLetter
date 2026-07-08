@@ -51,8 +51,7 @@ public enum LogCategory:
     Staticable,
     Searchable,
     Describable,
-    Listable,
-    Emojiable {
+    Listable {
     
     /// App Store Connect interactions and API calls, including authentication, data retrieval, and
     /// error handling.
@@ -61,6 +60,10 @@ public enum LogCategory:
     /// Authentication events, such as sign-in attempts, sign-outs, token refreshes, and
     /// auth-related errors.
     case auth
+    
+    /// GitHub-related events and operations, including API requests, webhooks, CI status
+    /// notifications, release publishing, issue/PR activity, and rate-limit handling.
+    case github
     
     /// Bluetooth connectivity events, including device discovery, connection status changes,
     /// data transmission, and Bluetooth-related errors.
@@ -103,7 +106,7 @@ public enum LogCategory:
     
     public var details: String {
         switch self {
-        case .asc:        
+        case .asc:
             "Logs related to App Store Connect interactions and API calls."
         case .network:
             "Network-related logs, such as API requests and responses."
@@ -111,6 +114,8 @@ public enum LogCategory:
             "Logs related to Firebase services and interactions."
         case .auth:
             "Authentication events, including sign-in and sign-out."
+        case .github:
+            "Logs related to GitHub services and interactions."
         case .revenueCat:
             "Logs pertaining to RevenueCat purchases and subscriptions."
         case .swift:
@@ -134,6 +139,7 @@ public enum LogCategory:
         case .network:    "🌐"
         case .firebase:   "🔥"
         case .auth:       "🔐"
+        case .github:     "🐙"
         case .revenueCat: "💰"
         case .swift:      "🖼️"
         case .swiftData:  "💾"
@@ -151,7 +157,7 @@ public enum LogCategory:
     private var logger: Logger {
         Logger(
             subsystem: MainBundle.identifier ?? "No BundleID",
-            category: emojiLabel)
+            category: "\(emoji) \(name)")
     }
     
     public var name: String {
@@ -160,6 +166,7 @@ public enum LogCategory:
         case .network:    "Network"
         case .firebase:   "Firebase"
         case .auth:       "Auth"
+        case .github:     "GitHub"
         case .revenueCat: "RevenueCat"
         case .swift:      "Swift"
         case .swiftData:  "SwiftData"
@@ -183,7 +190,7 @@ public enum LogCategory:
     func log(_ message: String, type: OSLogType = .default) {
         logger.log(level: type, "\(type.emoji) \(message, privacy: .auto)")
 #if DEBUG
-        printOnDebug(emojiLabel, type.emojiLabel, "ℹ️ \(message)")
+        printOnDebug("\(emoji) \(name)", "\(type.emoji) \(type.name)", "ℹ️ \(message)")
 #endif
     }
     
@@ -198,12 +205,9 @@ import SwiftUI
     NavigationStack {
         List(LogCategory.allCases.sorted()) { category in
             LabeledContent { EmptyView() } label: {
-                Text(category.emojiLabel)
+                Text("\(category.emoji) \(category.name)")
                     .bold()
                 Text(category.details)
-            }
-            .onAppear {
-                logger(.swift, message: category.emojiLabel)
             }
         }
         .navigationTitle(LogCategory.navigationTitle)
@@ -211,3 +215,4 @@ import SwiftUI
     }
 }
 #endif
+

@@ -9,13 +9,13 @@ and SwiftUI types, system-state enums with built-in UI properties, and SwiftUI v
 helpers — all designed to reduce boilerplate across every Apple platform.
 
 The package is built around a small set of **composable protocols** —
-``Nameable``, ``Iconable``, ``Colorable``, ``Emojiable``, and friends. Conform a type
+``Nameable``, ``Iconable``, ``Colorable``, and friends. Conform a type
 to one or several, and gain free behaviour: a case-insensitive `search()` on any
-collection of ``Nameable`` values, an `emojiLabel` for Console-friendly logging, a
-stable `customizationID` for `TabView` persistence, and more.
+collection of ``Nameable`` values, a stable `customizationID` for `TabView`
+persistence, and more.
 
 ```swift
-enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listable {
+enum Tab: String, Staticable, Searchable, Iconable, Colorable, Listable {
     case home, library, settings
 
     var icon: String {
@@ -34,7 +34,7 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listab
         }
     }
 
-    // color, emoji omitted for brevity
+    // color omitted for brevity
 
     static let navigationTitle = "Tabs"
 }
@@ -72,7 +72,6 @@ and a strongly-typed **logging** layer built on `os.Logger`.
 - ``Colorable``
 - ``Iconable``
 - ``Imageable``
-- ``Emojiable``
 - ``Searchable``
 - ``Staticable``
 - ``Listable``

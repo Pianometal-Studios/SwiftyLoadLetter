@@ -10,7 +10,7 @@ import SwiftUI
 
 /// Represents the current pressure level of a hardware component, such as memory or CPU.
 ///
-/// Each level provides associated properties for color, emoji, icon, name, and details to
+/// Each level provides associated properties for color, icon, name, and details to
 /// facilitate consistent UI representation across the app. The `unknown` case handles any
 /// unexpected or unrecognized pressure levels gracefully.
 @frozen public enum PressureLevel:
@@ -20,8 +20,7 @@ import SwiftUI
     Iconable,
     Colorable,
     Describable,
-    Listable,
-    Emojiable {
+    Listable {
     
     /// The pressure level is within normal operating parameters.
     case normal
@@ -55,15 +54,6 @@ import SwiftUI
             "Pressure is critical. Immediate action required to prevent instability."
         case .unknown:
             "Pressure level is unknown. This may indicate an error retrieving the information."
-        }
-    }
-    
-    public var emoji: String {
-        switch self {
-        case .normal:   "✅"
-        case .warning:  "⚠️"
-        case .critical: "🚨"
-        case .unknown:  "❓"
         }
     }
     
@@ -113,7 +103,7 @@ import SwiftUI
     NavigationStack {
         List(PressureLevel.allCases.sorted()) { level in
             Label {
-                Text(level.emojiLabel)
+                Text(level.name)
                     .bold()
                 Text(level.details)
             } icon: {

@@ -28,6 +28,7 @@ public enum CommonAction:
     case help
     case info
     case refresh
+    case restore
     case reset
     case save
     case settings
@@ -47,6 +48,7 @@ public enum CommonAction:
         case .info:           "info"
         case .refresh:        "arrow.clockwise"
         case .reset:          "arrow.counterclockwise"
+        case .restore:        "arrow.clockwise.circle"
         case .settings:       "gear"
         case .sort:           "arrow.up.arrow.down"
         case .stop:           "stop"
@@ -67,6 +69,7 @@ public enum CommonAction:
         case .info:     "Info"
         case .refresh:  "Refresh"
         case .reset:    "Reset"
+        case .restore:  "Restore Purchases"
         case .save:     "Save"
         case .settings: "Settings"
         case .sort:     "Sort"
@@ -77,11 +80,11 @@ public enum CommonAction:
     /// - Returns: `ButtonRole` associated with the action, if applicable.
     public var role: ButtonRole? {
         switch self {
-        case .cancel:                .cancel
-        case .close:                 .close
-        case .confirm, .save:        .confirm
-        case .delete, .reset, .stop: .destructive
-        default:                     nil
+        case .cancel:                   .cancel
+        case .close:                    .close
+        case .confirm, .save, .restore: .confirm
+        case .delete, .reset, .stop:    .destructive
+        default:                        nil
         }
     }
     
