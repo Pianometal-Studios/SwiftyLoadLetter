@@ -10,7 +10,7 @@ import SwiftUI
 
 /// Represents the current pressure level of a hardware component, such as memory or CPU.
 ///
-/// Each level provides associated properties for color, emoji, icon, name, and details to
+/// Each level provides associated properties for color, icon, name, and details to
 /// facilitate consistent UI representation across the app. The `unknown` case handles any
 /// unexpected or unrecognized pressure levels gracefully.
 @frozen public enum PressureLevel:

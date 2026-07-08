@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-// MARK: - ColorScheme
-
 public extension ColorScheme {
     
     var color: Color {

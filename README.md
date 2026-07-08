@@ -80,7 +80,7 @@ https://github.com/Pianometal-Studios/SwiftyLoadLetter.git
 dependencies: [
     .package(
         url: "https://github.com/Pianometal-Studios/SwiftyLoadLetter.git",
-        .upToNextMinor(from: .init(1, 0, 0))
+        .upToNextMajor(from: .init(1, 0, 0))
     ),
 ],
 targets: [
@@ -113,15 +113,14 @@ SwiftyLoadLetter's protocols are designed to be composed freely — kind of like
 | `Colorable` | `color: Color` | An associated SwiftUI `Color` for theming, tinting, or visualization. |
 | `Iconable` | `icon: String` | An SF Symbol name, ready for `Image(systemName:)`. |
 | `Imageable` | `image: ImageResource` | An asset catalog image resource for types backed by named assets. |
-| `Emojiable` | `emoji: String` | A single-emoji visual representation. When combined with `Nameable`, gains a free `emojiLabel` (`"🖨️ SwiftyLoadLetter"`) for Console.app/Xcode-friendly labels. |
 | `Searchable` | `Nameable` + `Identifiable` + `Hashable` + `Comparable` | Full composition for models that appear in searchable lists and autocomplete UIs. |
-| `Staticable` | `Codable` + `CaseIterable` + `Hashable` + `CodingKey` + `Sendable` + `RawRepresentable<String>` | For string-backed enums used as stable identifiers, configuration keys, or routing constants. Provides `customizationID` for `TabView` persistence. |
+| `Staticable` | `Identifiable` + `Codable` + `CaseIterable` + `Hashable` + `CodingKey` + `Sendable` + `Transferable` + `RawRepresentable<String>` | For string-backed enums used as stable identifiers, configuration keys, or routing constants. Provides `customizationID` for `TabView` persistence and default `Transferable` support for drag-and-drop/copy-paste. |
 | `Listable` | `static navigationTitle: String` | Provides a navigation title for list-based presentation of a type's instances. |
 
 ### Example: Building a conforming type
 
 ```swift
-enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listable {
+enum Tab: String, Staticable, Searchable, Iconable, Colorable, Listable {
 
     case home
     case library
@@ -132,14 +131,6 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listab
         case .home:     .blue
         case .library:  .purple
         case .settings: .gray
-        }
-    }
-
-    var emoji: String {
-        switch self {
-        case .home:     "🏠"
-        case .library:  "📚"
-        case .settings: "⚙️"
         }
     }
 
@@ -165,8 +156,8 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listab
 // Case-insensitive search comes for free via Nameable
 let results = Tab.allCases.search("lib") // [.library]
 
-// "📚 Library" comes for free via Emojiable + Nameable
-Text(Tab.library.emojiLabel)
+// Sorting comes for free via Nameable's Comparable conformance
+let sorted = Tab.allCases.sorted() // [.home, .library, .settings]
 ```
 
 ---
@@ -201,13 +192,13 @@ Button(role: CommonAction.delete.role) {
 }
 ```
 
-Cases: `.add` `.cancel` `.close` `.confirm` `.debug` `.delete` `.edit` `.filter` `.help` `.info` `.reset` `.save` `.settings` `.sort` `.stop`
+Cases: `.add` `.cancel` `.close` `.confirm` `.debug` `.delete` `.edit` `.filter` `.help` `.info` `.refresh` `.reset` `.restore` `.save` `.settings` `.sort` `.stop`
 
 ---
 
 ### `ConnectionState`
 
-General-purpose network connection state each with a `color` and `name`.
+General-purpose network connection states, each with a `color`, `icon`, and `name`.
 
 ```swift
 Label(state.name, systemImage: "circle.fill")
@@ -233,7 +224,7 @@ Cases: `.namePrefix` `.givenName` `.middleName` `.familyName` `.nameSuffix` `.ni
 
 ### `PressureLevel`
 
-A `@frozen` enum representing system pressure levels for memory, CPU, or any hardware component. Conforms to `Staticable`, `Searchable`, `Iconable`, `Colorable`, `Describable`, and `Emojiable` — with `color`, `icon`, `emoji`, `name`, and `details`.
+A `@frozen` enum representing system pressure levels for memory, CPU, or any hardware component. Conforms to `Staticable`, `Searchable`, `Iconable`, `Colorable`, `Describable`, and `Listable` — with `color`, `icon`, `name`, and `details`.
 
 ```swift
 let level = memoryUsageFraction.pressureLevel // via Double.pressureLevel
@@ -255,10 +246,10 @@ Cases: `.normal` `.warning` `.critical` `.unknown`
 | `.glassButton(or:)` | Platform-appropriate glass button style with visionOS fallback. |
 | `.redacted(_:)` | Boolean-driven `.placeholder` redaction — pass `true` to redact, `false` to reveal. |
 | `.darken(when:disable:)` | Desaturates and dims the view when `true`. Optionally disables the view when dimmed. |
-| `.lightUp(_:)` | _**Deprecated**_ — use `.darken(when:)` and invert the logic. |
 | `.segmentedPicker()` | `.segmented` style on all platforms, `.automatic` on watchOS. |
 | `.listRowSeparatorHidden()` | Hides list row separators on iOS, macOS, and visionOS. No-op elsewhere. |
 | `.navigationSubtitle(subtitle:)` | Sets a navigation subtitle on iOS and macOS. No-op elsewhere. |
+| `.fadeInOut(from:)` | Asymmetric push + fade transition; inserts from the given edge, removes toward its opposite. |
 
 ```swift
 Text("Loading...")
@@ -316,7 +307,6 @@ Text(75.0.percentage.asPercent()) // "75%"
 | API | Description |
 |---|---|
 | `UInt64.toByteCount` | Converts to `Int64` for use with `ByteCountFormatter`. |
-| `Data.hexString` | Space-separated hex string. `[0x01, 0xFF]` → `"01 FF"`. Useful for BLE debugging. |
 | `URL.create(_:)` | Validates a string has both a parseable `URL` and a non-empty host. |
 | `String.toURL` | Convenience wrapper for `URL.create(_:)`. |
 | `Formatters.byteCount` | Shared `ByteCountFormatter` (`.useAll`, `.memory`), safe for off-main use. |
@@ -336,6 +326,10 @@ Text(75.0.percentage.asPercent()) // "75%"
 | `NWPath.LinkQuality` | `color`, `icon`, `name`, `allCases` |
 | `NWPath.UnsatisfiedReason` | `icon`, `name`, `details`, `hasReason`, `allCases` |
 | `NWInterface.InterfaceType` | `color`, `icon`, `name`, `allCases` |
+| `NWInterface.RadioType` | `color`, `icon`, `name`, `is5G`, `isCellular`, `isWifi`, `allCases` |
+| `NWInterface.RadioType.Cellular` | `color`, `icon`, `name`, `details`, `is5G`, `allCases` |
+| `NWInterface.RadioType.WiFi` | `color`, `icon`, `name`, `adoptedYear`, `frequencyBands`, `generation`, `maxSpeed`, `allCases` |
+| `NWInterface.RadioType.Cellular.NewRadio5GVariant` | `color`, `icon`, `name`, `details`, `isLowLatency`, `isHighSpeed`, `rangeQuality`, `penetrationLevel`, `allCases` |
 
 ```swift
 Label(path.status.name, systemImage: path.status.icon)
@@ -350,8 +344,7 @@ Label(path.status.name, systemImage: path.status.icon)
 |---|---|
 | `ProcessInfo.ThermalState` | `color`, `icon`, `name`, `details`, `percentage`, `allCases` |
 | `DispatchSource.MemoryPressureEvent` | `pressureLevel` → `PressureLevel` |
-| `OSLogType` | `color`, `icon`, `name`, `details`, `emoji`, `emojiLabel`, `severity`, `isPersistedInProduction`, `allCases` |
-| `CBManagerState` | `icon`, `name`, `details`, `allCases` |
+| `OSLogType` | `color`, `name`, `details`, `emoji`, `emojiLabel`, `severity`, `isPersistedInProduction`, `allCases` |
 
 ```swift
 ProgressView(value: thermalState.percentage, total: 100)
@@ -386,6 +379,8 @@ let level = memoryEvent.pressureLevel
 |---|---|---|
 | `UIDevice.BatteryState` | iOS, visionOS | `icon`, `name`, `details`, `allCases` |
 | `WKInterfaceDeviceBatteryState` | watchOS | `icon`, `name`, `details`, `allCases` |
+| `GCDeviceBattery.State` | Not watchOS | `color`, `icon`, `name`, `details`, `allCases` |
+| `GCControllerPlayerIndex` | Not watchOS | `icon`, `name`, `allCases` |
 
 ---
 
@@ -410,7 +405,7 @@ ContentView()
 ## 🛠️ Utilities
 
 **Logging**
-- `LogCategory` — Strongly-typed logging categories (`asc`, `auth`, `bluetooth`, `firebase`, `general`, `location`, `network`, `revenueCat`, `swift`, `swiftData`, `system`) bound to `os.Logger` with emoji prefixes for Console.app scanning. Conforms to `Staticable`, `Searchable`, `Describable`, `Listable`, and `Emojiable`.
+- `LogCategory` — Strongly-typed logging categories (`asc`, `auth`, `bluetooth`, `firebase`, `general`, `github`, `location`, `network`, `revenueCat`, `swift`, `swiftData`, `system`) bound to `os.Logger` with emoji prefixes for Console.app scanning. Conforms to `Staticable`, `Searchable`, `Describable`, and `Listable`.
 - `logger(_:message:type:)` / `logger(_:error:type:)` — Free-function entry points with consistent formatting and debug-build mirroring to the console.
 
 ```swift

@@ -20,7 +20,7 @@ https://github.com/Pianometal-Studios/SwiftyLoadLetter.git
 dependencies: [
     .package(
         url: "https://github.com/Pianometal-Studios/SwiftyLoadLetter.git",
-        .upToNextMinor(from: .init(1, 0, 0))
+        .upToNextMajor(from: .init(1, 0, 0))
     ),
 ],
 targets: [
@@ -37,7 +37,7 @@ A string-backed enum that drives a `TabView` is a common case:
 import SwiftUI
 import SwiftyLoadLetter
 
-enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listable {
+enum Tab: String, Staticable, Searchable, Iconable, Colorable, Listable {
     case home, library, settings
 
     var color: Color {
@@ -45,14 +45,6 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable, Emojiable, Listab
         case .home:     .blue
         case .library:  .purple
         case .settings: .gray
-        }
-    }
-
-    var emoji: String {
-        switch self {
-        case .home:     "🏠"
-        case .library:  "📚"
-        case .settings: "⚙️"
         }
     }
 
@@ -81,9 +73,6 @@ With that in place you immediately get free behaviour:
 ```swift
 // Case-insensitive search across a collection — from Nameable.
 let matches = Tab.allCases.search("lib")        // [.library]
-
-// "📚 Library" — from Emojiable + Nameable.
-Text(Tab.library.emojiLabel)
 
 // A stable, bundle-prefixed id for TabView customization — from Staticable.
 let id = Tab.home.customizationID

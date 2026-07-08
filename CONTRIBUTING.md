@@ -78,11 +78,17 @@ The version hosted on the [Swift Package Index](https://swiftpackageindex.com/Pi
 Sources/
 ├── AppLogger/             Logging system: LogCategory, OSLogType, free-function helpers
 ├── Components/            Concrete enums (PressureLevel, PersonNameComponent, etc.)
+│   └── ConnectionState/   ConnectionState enum plus its icon/label SwiftUI views
 ├── Extensions/            Type extensions, organized by framework
 │   ├── Battery/           UIDevice.BatteryState, WKInterfaceDeviceBatteryState
 │   ├── Edge/              Edge, HorizontalEdge, VerticalEdge, EdgeOrientation
-│   └── Network/           NWPath.Status, NWPath.LinkQuality, etc.
-├── Protocols/             Composable protocols (Nameable, Iconable, Emojiable, ...)
+│   ├── GameController/    GCControllerPlayerIndex, GCDeviceBatteryState
+│   └── Network/           NWPath.Status, NWPath.LinkQuality, RadioType/, etc.
+├── Protocols/             Composable protocols (Nameable, Iconable, Colorable, ...)
+│   ├── Colorable/         Colorable protocol
+│   ├── Describable/       Describable protocol, DescribableObject, DescribableCardView
+│   ├── Iconable/          Iconable protocol, IconableObject
+│   └── Imageable/         Imageable protocol, ImageableObject
 ├── Views/                 SwiftUI views (LiquidMeshBackground)
 └── SwiftyLoadLetter.docc/ DocC catalog: landing page and articles
 
