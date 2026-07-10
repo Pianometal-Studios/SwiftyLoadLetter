@@ -17,10 +17,11 @@ behaviour without restating boilerplate.
 | ``Describable`` | `details: String` | A longer user-facing description to complement the short `name`. |
 | ``Colorable`` | `color: Color` | An associated SwiftUI `Color` for theming and tinting. |
 | ``Iconable`` | `icon: String` | An SF Symbol name, ready for `Image(systemName:)`. |
-| ``Imageable`` | `image: ImageResource` | An asset-catalog image for types backed by named assets. |
+| ``Imageable`` | `@MainActor image: ImageResource` | An asset-catalog image for types backed by named assets; the requirement is main-actor isolated. |
 | ``Searchable`` | composition | ``Nameable`` + `Identifiable` + `Hashable` + `Comparable` for searchable lists. |
-| ``Staticable`` | composition | For string-backed enums used as stable identifiers; provides `customizationID`. |
-| ``Listable`` | `static navigationTitle` | A navigation title for list-based presentation. |
+| ``Staticable`` | composition | For `String`-backed enums shareable across concurrency domains: bundles `Identifiable`, `Codable`, `CaseIterable`, `Hashable`, `CodingKey`, `Sendable`, and `Transferable`, and provides default `id`, `customizationID`, and `transferRepresentation`. |
+| ``Listable`` | `static navigationTitle` | A navigation title for list-based presentation, plus a default `collection` name (sanitized and lowercased) derived from it. |
+| ``NestedObject`` | composition | `Codable` + `Sendable` + `Identifiable` + `Hashable` for nested, non-top-level persistent value objects. |
 
 ## How composition pays off
 
@@ -65,9 +66,14 @@ across any collection of those values.
 
 ## Components conform too
 
-The package's own ``PressureLevel``, ``ConnectionState``, ``CommonAction``, and the
-`Network.framework` extensions all conform to these protocols. That's why you can
-drop a `path.status` or a `pressureLevel` straight into a `Label` and style it:
+The package's own enums — ``PressureLevel``, ``ConnectionState``, ``CommonAction``,
+``SignalQuality``, ``FrequencyBands``, and friends — formally conform to these
+protocols, so they inherit the same free behaviour your own types do.
+
+The `Network.framework` and system-state extensions (such as `NWPath.Status` and
+`ProcessInfo.ThermalState`) don't declare conformance, but they expose the very same
+`name` / `icon` / `color` / `details` surface directly. Either way, a value drops
+straight into a styled `Label`:
 
 ```swift
 Label(state.name, systemImage: state.icon)

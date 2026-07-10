@@ -112,10 +112,11 @@ SwiftyLoadLetter's protocols are designed to be composed freely — kind of like
 | `Describable` | `details: String` | A longer user-facing description, complementing `Nameable`'s short title. |
 | `Colorable` | `color: Color` | An associated SwiftUI `Color` for theming, tinting, or visualization. |
 | `Iconable` | `icon: String` | An SF Symbol name, ready for `Image(systemName:)`. |
-| `Imageable` | `image: ImageResource` | An asset catalog image resource for types backed by named assets. |
+| `Imageable` | `@MainActor image: ImageResource` | An asset catalog image resource for types backed by named assets. The requirement is main-actor isolated. |
 | `Searchable` | `Nameable` + `Identifiable` + `Hashable` + `Comparable` | Full composition for models that appear in searchable lists and autocomplete UIs. |
 | `Staticable` | `Identifiable` + `Codable` + `CaseIterable` + `Hashable` + `CodingKey` + `Sendable` + `Transferable` + `RawRepresentable<String>` | For string-backed enums used as stable identifiers, configuration keys, or routing constants. Provides `customizationID` for `TabView` persistence and default `Transferable` support for drag-and-drop/copy-paste. |
-| `Listable` | `static navigationTitle: String` | Provides a navigation title for list-based presentation of a type's instances. |
+| `Listable` | `static navigationTitle: String` | Provides a navigation title for list-based presentation of a type's instances, plus a default `collection` property — a sanitized, lowercased name derived from `navigationTitle` (whitespace and punctuation stripped), handy as a database/collection key. |
+| `NestedObject` | `Codable` + `Sendable` + `Identifiable` + `Hashable` | Marker for nested, non-top-level persistent value objects (embedded records, subrecords), bundling the common infrastructure conformances so nested models don't restate them. |
 
 ### Example: Building a conforming type
 
@@ -160,6 +161,16 @@ let results = Tab.allCases.search("lib") // [.library]
 let sorted = Tab.allCases.sorted() // [.home, .library, .settings]
 ```
 
+### Ready-made conforming types
+
+When you just need a lightweight, `Codable`, searchable value — rather than conforming a bespoke type — reach for one of the built-in objects. These are also what the `iconableObject` / `describableObject` convenience accessors (on the system-state extensions below) hand back.
+
+| Type | Conforms to | Initializer |
+|---|---|---|
+| `IconableObject` | `Searchable`, `Iconable` | `init(_ name: String, icon: String)` |
+| `DescribableObject` | `Searchable`, `Iconable`, `Describable` | `init(_ name: String, icon: String, details: String)` |
+| `ImageableObject` | `Searchable`, `Imageable` | `init(_ name: String, image: ImageResource)` |
+
 ---
 
 ## 🗂️ Components
@@ -168,12 +179,14 @@ Ready-made enumerations that model common app and system concepts, all conformin
 
 ### `AppleOS`
 
-An enumeration of Apple's OS families with `device` name, SF Symbol `icon`, `name`, and a `@MainActor`-isolated `isCurrent` property.
+An enumeration of Apple's OS families with a `device` name, SF Symbol `icon`, `name`, and a `supportsTouchInput` flag. The `@MainActor`-isolated `isCurrent` property and `AppleOS.current` static accessor resolve the running platform.
 
 ```swift
 if AppleOS.visionOS.isCurrent {
     // show Vision Pro–specific UI
 }
+
+let idiom = AppleOS.current // e.g. .iPadOS on iPad
 ```
 
 Cases: `.iOS` `.iPadOS` `.macOS` `.tvOS` `.watchOS` `.visionOS`
@@ -196,6 +209,19 @@ Cases: `.add` `.cancel` `.close` `.confirm` `.debug` `.delete` `.edit` `.filter`
 
 ---
 
+### `CompassPoint`
+
+The four cardinal directions, each with a single-letter `abbreviation`, SF Symbol `icon`, `name`, and its `opposite`.
+
+```swift
+CompassPoint.north.abbreviation // "N"
+CompassPoint.north.opposite     // .south
+```
+
+Cases: `.north` `.south` `.east` `.west`
+
+---
+
 ### `ConnectionState`
 
 General-purpose network connection states, each with a `color`, `icon`, and `name`.
@@ -209,9 +235,22 @@ Cases: `.disconnected` `.connecting` `.connected` `.disconnecting`
 
 ---
 
+### `FrequencyBands`
+
+The Wi-Fi frequency bands, each with a `color`, `icon`, `name` (e.g. `"5 GHz"`), `details`, numeric `frequency`, `isHighSpeed` / `isLowLatency` flags, and a `rangeQuality` (`NWPath.LinkQuality`).
+
+```swift
+FrequencyBands.sixZero.frequency    // 6.0
+FrequencyBands.sixZero.isLowLatency // true
+```
+
+Cases: `.twoFour` `.fiveZero` `.sixZero`
+
+---
+
 ### `PersonNameComponent`
 
-Type-safe access to individual fields of `PersonNameComponents`, with localized form field `placeholder`s and `value(from:)` extraction.
+Type-safe access to individual fields of `PersonNameComponents`, with localized form field `placeholder`s and `value(from:)` extraction. The static `formatter(_:)` and `string(_:style:)` helpers render full names with locale-aware rules.
 
 ```swift
 let first = PersonNameComponent.givenName.value(from: components) // "Michael"
@@ -224,7 +263,7 @@ Cases: `.namePrefix` `.givenName` `.middleName` `.familyName` `.nameSuffix` `.ni
 
 ### `PressureLevel`
 
-A `@frozen` enum representing system pressure levels for memory, CPU, or any hardware component. Conforms to `Staticable`, `Searchable`, `Iconable`, `Colorable`, `Describable`, and `Listable` — with `color`, `icon`, `name`, and `details`.
+A `@frozen` enum representing system pressure levels for memory, CPU, or any hardware component. Conforms to `Staticable`, `Searchable`, `Iconable`, `Colorable`, `Describable`, and `Listable` — with `color`, `icon`, `name`, and `details`. It's `Comparable` via a `sortOrder`, so levels sort from least to most severe.
 
 ```swift
 let level = memoryUsageFraction.pressureLevel // via Double.pressureLevel
@@ -235,7 +274,24 @@ Cases: `.normal` `.warning` `.critical` `.unknown`
 
 ---
 
+### `SignalQuality`
+
+A `@frozen` enum modeling signal strength (Wi-Fi, cellular, etc.), each with a `color`, `icon`, `name`, and numeric `strength`. It's `Comparable` — ordered by `strength` — and exposes a static `range` of valid levels.
+
+```swift
+Label(quality.name, systemImage: quality.icon)
+    .foregroundStyle(quality.color)
+
+let best = SignalQuality.allCases.max() // .excellent
+```
+
+Cases: `.excellent` `.good` `.fair` `.poor`
+
+---
+
 ## 🔧 Extensions
+
+> Most of the UI-friendly system-state extensions below also expose an `iconableObject` / `describableObject` accessor — wrapping their `name` / `icon` / `details` into a ready-made [`IconableObject` / `DescribableObject`](#ready-made-conforming-types) — and, where applicable, a static `navigationTitle`.
 
 ### SwiftUI — View Modifiers
 
@@ -290,6 +346,7 @@ Image(.hero)
 |---|---|
 | `.asPercent(_ fractionLength:)` | Localized percent string. `0.25.asPercent()` → `"25%"`. |
 | `.currency(_ identifier:)` | Localized currency string with locale-aware fallback. |
+| `.name` | The number spelled out. `42.0.name` → `"Forty-Two"`. |
 | `.percentage` | Divides by 100. `25.0.percentage` → `0.25`. |
 | `.isValid` | `true` if finite, non-NaN, and non-signaling. |
 | `.pressureLevel` | Maps `0...1` to `PressureLevel`. Returns `.unknown` for invalid values. |
@@ -307,9 +364,16 @@ Text(75.0.percentage.asPercent()) // "75%"
 | API | Description |
 |---|---|
 | `UInt64.toByteCount` | Converts to `Int64` for use with `ByteCountFormatter`. |
+| `Duration.seconds` | The duration as a fractional `Double` of seconds, preserving sub-second precision. |
+| `Locale.currencyIdentifier` | ISO 4217 currency code for the locale (e.g. `"USD"`), or `nil`. |
+| `Locale.currencySign` | Localized currency symbol (e.g. `"$"`), or `nil`. |
+| `Locale.name` | Localized display name of the locale (e.g. `"English (United States)"`), or `nil`. |
+| `Locale.timeZoneName` | Human-readable time-zone name (e.g. `"America - New York"`). |
+| `Locale.timeZoneAbbreviation` | Short time-zone abbreviation (e.g. `"PST"`), or `nil`. |
 | `URL.create(_:)` | Validates a string has both a parseable `URL` and a non-empty host. |
 | `String.toURL` | Convenience wrapper for `URL.create(_:)`. |
 | `Formatters.byteCount` | Shared `ByteCountFormatter` (`.useAll`, `.memory`), safe for off-main use. |
+| `NumberFormatter.spellOut` | Shared `.spellOut`-style `NumberFormatter`. |
 | `MainBundle.identifier` | Safe accessor for `Bundle.main.bundleIdentifier` with debug logging. |
 | `MainBundle.infoDictionary` | Safe accessor for `Bundle.main.infoDictionary`. |
 | `MainBundle.infoDictionary(_ key:)` | Typed `String` lookup for a specific Info.plist key. |
@@ -377,8 +441,8 @@ let level = memoryEvent.pressureLevel
 
 | Type | Platform | Properties Added |
 |---|---|---|
-| `UIDevice.BatteryState` | iOS, visionOS | `icon`, `name`, `details`, `allCases` |
-| `WKInterfaceDeviceBatteryState` | watchOS | `icon`, `name`, `details`, `allCases` |
+| `UIDevice.BatteryState` | iOS, visionOS | `color`, `icon`, `name`, `details`, `allCases` |
+| `WKInterfaceDeviceBatteryState` | watchOS | `color`, `icon`, `name`, `details`, `allCases` |
 | `GCDeviceBattery.State` | Not watchOS | `color`, `icon`, `name`, `details`, `allCases` |
 | `GCControllerPlayerIndex` | Not watchOS | `icon`, `name`, `allCases` |
 
@@ -398,6 +462,27 @@ ContentView()
             color2: .purple,
             isAnimating: $isAnimating)
     }
+```
+
+---
+
+### `DescribableCardView`
+
+Renders any `Nameable & Iconable & Describable` value as a card built on `ContentUnavailableView` — an icon-and-name header over a details description.
+
+```swift
+DescribableCardView(PressureLevel.critical, color: .red)
+```
+
+---
+
+### `ConnectionStateIconView` & `ConnectionStateLabelView`
+
+Drop-in views for a `ConnectionState`: the first renders just a tinted SF Symbol, the second a full `Label` pairing the icon with its name.
+
+```swift
+ConnectionStateIconView(.connected)
+ConnectionStateLabelView(.connecting)
 ```
 
 ---

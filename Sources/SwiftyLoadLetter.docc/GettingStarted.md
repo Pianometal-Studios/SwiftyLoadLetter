@@ -28,6 +28,10 @@ targets: [
 ]
 ```
 
+> Important: SwiftyLoadLetter is built with the Swift 6 language mode and requires
+> Swift 6.3 (Xcode 26) or later, with a minimum deployment target of iOS 26,
+> macOS 26, Mac Catalyst 26, tvOS 26, visionOS 26, or watchOS 26.
+
 ## Your first conforming type
 
 Most of the package's value comes from conforming your own types to its protocols.
@@ -84,6 +88,7 @@ Beyond your own types, the package decorates common system values with UI metada
 so you don't have to write the same `switch` over and over:
 
 ```swift
+import SwiftUI
 import Network
 import SwiftyLoadLetter
 
@@ -95,8 +100,8 @@ func statusLabel(for path: NWPath) -> some View {
 
 ```swift
 // Localized formatting helpers on Double.
-Text(0.42.asPercent())      // "42%"
-Text(1234.56.currency())    // "$1,234.56"
+0.42.asPercent()      // "42%"
+1234.56.currency()    // "$1,234.56"
 ```
 
 ## Next steps

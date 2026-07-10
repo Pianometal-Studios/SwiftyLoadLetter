@@ -34,7 +34,13 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable, Listable {
         }
     }
 
-    // color omitted for brevity
+    var color: Color {
+        switch self {
+        case .home:     .blue
+        case .library:  .purple
+        case .settings: .gray
+        }
+    }
 
     static let navigationTitle = "Tabs"
 }
@@ -50,7 +56,7 @@ metadata to system enums such as `NWPath.Status` and `ProcessInfo.ThermalState`,
 and a strongly-typed **logging** layer built on `os.Logger`.
 
 > Note: SwiftyLoadLetter has no third-party dependencies and targets
-> iOS, iPadOS, macOS, tvOS, visionOS, and watchOS 26.0+.
+> iOS (including iPadOS), Mac Catalyst, macOS, tvOS, visionOS, and watchOS 26.0+.
 
 > Note: The package builds in Swift 6 language mode with default actor
 > isolation set to `nil` (nonisolated by default) and strict memory safety
@@ -75,6 +81,7 @@ and a strongly-typed **logging** layer built on `os.Logger`.
 - ``Searchable``
 - ``Staticable``
 - ``Listable``
+- ``NestedObject``
 
 ### Protocol Companions
 
