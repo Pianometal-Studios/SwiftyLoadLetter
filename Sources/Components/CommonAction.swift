@@ -15,6 +15,7 @@ public enum CommonAction:
     String,
     Staticable,
     Searchable,
+    Listable,
     Iconable {
     
     case add
@@ -98,6 +99,8 @@ public enum CommonAction:
         default:        .automatic
         }
     }
+    
+    public static let navigationTitle = "Common Actions"
 }
 
 // MARK: - Preview
@@ -105,21 +108,14 @@ public enum CommonAction:
 #if DEBUG
 #Preview {
     NavigationStack {
-        ScrollView {
-            LazyVGrid(columns: GridItem.generate(2)) {
-                ForEach(CommonAction.allCases) { action in
-                    Button(role: action.role) {
-                        logger(.swift, message: action.name)
-                    } label: {
-                        Label(
-                            action.name,
-                            systemImage: action.icon)
-                        .padding()
-                    }
-                }
-            }
+        List(CommonAction.allCases) { action in
+            Button(
+                action.name,
+                systemImage: action.icon,
+                role: action.role)
+            { logger(.swift, message: action.name) }
         }
-        .navigationTitle("Common Actions")
+        .navigationTitle(CommonAction.navigationTitle)
     }
 }
 #endif
