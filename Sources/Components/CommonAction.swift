@@ -19,6 +19,7 @@ public enum CommonAction:
     Iconable {
     
     case add
+    case back
     case cancel
     case close
     case confirm
@@ -28,6 +29,7 @@ public enum CommonAction:
     case filter
     case help
     case info
+    case next
     case refresh
     case restore
     case reset
@@ -40,6 +42,7 @@ public enum CommonAction:
     public var icon: String {
         switch self {
         case .add:            "plus"
+        case .back:           "arrow.backward"
         case .cancel, .close: "xmark"
         case .confirm, .save: "checkmark"
         case .debug:          "ladybug"
@@ -48,6 +51,7 @@ public enum CommonAction:
         case .filter:         "line.3.horizontal.decrease"
         case .help:           "questionmark"
         case .info:           "info"
+        case .next:           "arrow.forward"
         case .refresh:        "arrow.clockwise"
         case .reset:          "arrow.counterclockwise"
         case .restore:        "arrow.clockwise.circle"
@@ -61,6 +65,7 @@ public enum CommonAction:
     public var name: String {
         switch self {
         case .add:      "Add"
+        case .back:     "Back"
         case .cancel:   "Cancel"
         case .close:    "Close"
         case .confirm:  "Confirm"
@@ -70,6 +75,7 @@ public enum CommonAction:
         case .filter:   "Filter"
         case .help:     "Help"
         case .info:     "Info"
+        case .next:     "Next"
         case .refresh:  "Refresh"
         case .reset:    "Reset"
         case .restore:  "Restore Purchases"
@@ -84,9 +90,9 @@ public enum CommonAction:
     /// - Returns: `ButtonRole` associated with the action, if applicable.
     public var role: ButtonRole? {
         switch self {
-        case .cancel:                          .cancel
+        case .cancel, .back:                   .cancel
         case .close:                           .close
-        case .confirm, .save, .restore:        .confirm
+        case .confirm, .save, .restore, .next: .confirm
         case .delete, .reset, .stop, .signOut: .destructive
         default:                               nil
         }
