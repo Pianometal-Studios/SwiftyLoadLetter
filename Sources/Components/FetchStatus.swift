@@ -23,10 +23,10 @@ public import SwiftUI
     /// A fetch is in flight.
     case loading
     
-    /// A fetch completed; ``MemberProfileStore/profiles`` holds the result.
+    /// A fetch has been completed successfully.
     case loaded
     
-    /// A fetch failed. The roster still renders from static data.
+    /// The fetch has failed.
     case failed
     
     public var color: Color {
