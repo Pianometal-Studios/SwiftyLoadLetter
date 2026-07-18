@@ -38,4 +38,38 @@ public extension View {
         self
 #endif
     }
+    
+    /// Configures the navigation title and subtitle from a model that provides a name and description.
+    ///
+    /// This convenience modifier sets the primary navigation title to `object.name` and, when supported
+    /// by the platform, applies `object.details` as a secondary navigation subtitle via `navigationSubtitle(subtitle:)`.
+    /// On platforms that don't support navigation subtitles, only the title is applied.
+    ///
+    /// ## Example
+    ///
+    /// ```swift
+    /// struct Fruit: Nameable, Describable {
+    ///     var name: String
+    ///     var details: String
+    /// }
+    ///
+    /// struct FruitDetailView: View {
+    ///     let fruit: Fruit
+    ///     var body: some View {
+    ///         Text(fruit.details)
+    ///             .navigationDescribable(fruit)
+    ///     }
+    /// }
+    /// ```
+    ///
+    /// - Parameter object: A value conforming to `Nameable` and `Describable` whose `name` and `details`
+    ///   are used to populate the navigation UI.
+    ///
+    /// - Returns: A view with its navigation title set to the object's name and, on supported platforms,
+    ///   its navigation subtitle set to the object's details.
+    func navigationDescribable<T: Nameable & Describable>(_ object: T) -> some View {
+        self
+            .navigationTitle(object.name)
+            .navigationSubtitle(subtitle: object.details)
+    }
 }
