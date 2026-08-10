@@ -25,11 +25,14 @@ public enum CommonAction:
     case confirm
     case debug
     case delete
+    case down
     case edit
     case filter
     case help
     case info
     case next
+    case ok
+    case previous
     case refresh
     case restore
     case reset
@@ -38,27 +41,30 @@ public enum CommonAction:
     case signOut
     case sort
     case stop
+    case up
     
     public var icon: String {
         switch self {
-        case .add:            "plus"
-        case .back:           "arrow.backward"
-        case .cancel, .close: "xmark"
-        case .confirm, .save: "checkmark"
-        case .debug:          "ladybug"
-        case .delete:         "trash"
-        case .edit:           "pencil"
-        case .filter:         "line.3.horizontal.decrease"
-        case .help:           "questionmark"
-        case .info:           "info"
-        case .next:           "arrow.forward"
-        case .refresh:        "arrow.clockwise"
-        case .reset:          "arrow.counterclockwise"
-        case .restore:        "arrow.clockwise.circle"
-        case .settings:       "gear"
-        case .signOut:        "rectangle.portrait.and.arrow.right"
-        case .sort:           "arrow.up.arrow.down"
-        case .stop:           "stop"
+        case .add:                 "plus"
+        case .back, .previous:     "arrow.backward"
+        case .cancel, .close:      "xmark"
+        case .confirm, .save, .ok: "checkmark"
+        case .debug:               "ladybug"
+        case .delete:              "trash"
+        case .down:                "chevron.down"
+        case .edit:                "pencil"
+        case .filter:              "line.3.horizontal.decrease"
+        case .help:                "questionmark"
+        case .info:                "info"
+        case .next:                "arrow.forward"
+        case .refresh:             "arrow.clockwise"
+        case .reset:               "arrow.counterclockwise"
+        case .restore:             "arrow.clockwise.circle"
+        case .settings:            "gear"
+        case .signOut:             "rectangle.portrait.and.arrow.right"
+        case .sort:                "arrow.up.arrow.down"
+        case .stop:                "stop"
+        case .up:                  "chevron.up"
         }
     }
     
@@ -71,11 +77,14 @@ public enum CommonAction:
         case .confirm:  "Confirm"
         case .debug:    "Debug"
         case .delete:   "Delete"
+        case .down:     "Down"
         case .edit:     "Edit"
         case .filter:   "Filter"
         case .help:     "Help"
         case .info:     "Info"
         case .next:     "Next"
+        case .ok:       "OK"
+        case .previous: "Previous"
         case .refresh:  "Refresh"
         case .reset:    "Reset"
         case .restore:  "Restore Purchases"
@@ -84,17 +93,18 @@ public enum CommonAction:
         case .signOut:  "Sign Out"
         case .sort:     "Sort"
         case .stop:     "Stop"
+        case .up:       "Up"
         }
     }
     
     /// - Returns: `ButtonRole` associated with the action, if applicable.
     public var role: ButtonRole? {
         switch self {
-        case .cancel, .back:                   .cancel
-        case .close:                           .close
-        case .confirm, .save, .restore, .next: .confirm
-        case .delete, .reset, .stop, .signOut: .destructive
-        default:                               nil
+        case .cancel, .back, .previous:             .cancel
+        case .close:                                .close
+        case .confirm, .save, .restore, .next, .ok: .confirm
+        case .delete, .reset, .stop, .signOut:      .destructive
+        default:                                    nil
         }
     }
     
