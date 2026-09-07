@@ -377,6 +377,17 @@ Text(75.0.percentage.asPercent()) // "75%"
 | `MainBundle.identifier` | Safe accessor for `Bundle.main.bundleIdentifier` with debug logging. |
 | `MainBundle.infoDictionary` | Safe accessor for `Bundle.main.infoDictionary`. |
 | `MainBundle.infoDictionary(_ key:)` | Typed `String` lookup for a specific Info.plist key. |
+| `MainBundle.appVersion` | Release version string (`CFBundleShortVersionString`). |
+| `MainBundle.build` | Build number (`CFBundleVersion`). |
+| `MainBundle.appName` | User-facing display name (`CFBundleDisplayName`). |
+| `MainBundle.name` | Short bundle name (`CFBundleName`). |
+| `MainBundle.typeIdentifier` | Bundle package type (`CFBundlePackageType`), e.g. `"APPL"`. |
+| `MainBundle.isAppExtension` | `true` when the running bundle is an app extension. |
+| `MainBundle.Keys` | The Info.plist keys above, each `rawValue` the literal key string. |
+| `TargetEnvironment.isDebug` | `true` in builds compiled with the `DEBUG` flag. |
+| `TargetEnvironment.isPreview` | `true` while rendering a SwiftUI preview in Xcode. |
+| `TargetEnvironment.isTestFlight()` | Async StoreKit `AppTransaction` check for a TestFlight build. |
+| `TargetEnvironment.isiOSAppOnVisionPro` | `true` for an iOS app running on Apple Vision Pro. |
 | `UTType.fromBundle` | App-scoped `UTType` from the bundle identifier. |
 | `Staticable.customizationID` | Bundle-prefixed stable ID for `TabView` customization. |
 
@@ -387,9 +398,9 @@ Text(75.0.percentage.asPercent()) // "75%"
 | Type | Properties Added |
 |---|---|
 | `NWPath.Status` | `color`, `icon`, `name`, `details`, `isConnected`, `allCases` |
-| `NWPath.LinkQuality` | `color`, `icon`, `name`, `allCases` |
-| `NWPath.UnsatisfiedReason` | `icon`, `name`, `details`, `hasReason`, `allCases` |
-| `NWInterface.InterfaceType` | `color`, `icon`, `name`, `allCases` |
+| `NWPath.LinkQuality` | `color`, `icon`, `name`, `percentage`, `allCases` |
+| `NWPath.UnsatisfiedReason` | `color`, `icon`, `name`, `details`, `hasReason`, `allCases` |
+| `NWInterface.InterfaceType` | `color`, `icon`, `name`, `details`, `allCases` |
 | `NWInterface.RadioType` | `color`, `icon`, `name`, `is5G`, `isCellular`, `isWifi`, `allCases` |
 | `NWInterface.RadioType.Cellular` | `color`, `icon`, `name`, `details`, `is5G`, `allCases` |
 | `NWInterface.RadioType.WiFi` | `color`, `icon`, `name`, `adoptedYear`, `frequencyBands`, `generation`, `maxSpeed`, `allCases` |
@@ -423,7 +434,8 @@ let level = memoryEvent.pressureLevel
 
 | Type | Properties Added |
 |---|---|
-| `ColorScheme` / `ColorScheme?` | `color`, `icon`, `name`, `isDark` |
+| `ColorScheme` / `ColorScheme?` | `color`, `icon`, `name`, `details`, `isDark` |
+| `ColorSchemeContrast` | `color`, `icon`, `name`, `details` |
 | `DynamicTypeSize` | `name`, `details` |
 | `Font.Design` | `name`, `allCases` |
 | `Edge` | `opposite` |
@@ -443,6 +455,9 @@ let level = memoryEvent.pressureLevel
 |---|---|---|
 | `UIDevice.BatteryState` | iOS, visionOS | `color`, `icon`, `name`, `details`, `allCases` |
 | `WKInterfaceDeviceBatteryState` | watchOS | `color`, `icon`, `name`, `details`, `allCases` |
+| `WKInterfaceDeviceCrownOrientation` | watchOS | `icon`, `name`, `allCases` |
+| `WKInterfaceDeviceWristLocation` | watchOS | `icon`, `name`, `allCases` |
+| `WKExtendedRuntimeSessionState` | watchOS | `color`, `icon`, `name`, `details`, `allCases` |
 | `GCDeviceBattery.State` | Not watchOS | `color`, `icon`, `name`, `details`, `allCases` |
 | `GCControllerPlayerIndex` | Not watchOS | `icon`, `name`, `allCases` |
 

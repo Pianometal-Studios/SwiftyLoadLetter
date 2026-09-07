@@ -45,6 +45,18 @@ public extension NWPath.LinkQuality {
         }
     }
     
+    /// - Returns: Value between 0 and 100 that provides an approximate visual
+    /// representation of the strength of the `LinkQuality`.
+    var percentage: Double {
+        switch self {
+        case .good:       100
+        case .moderate:   67
+        case .minimal:    33
+        case .unknown:    0
+        @unknown default: 0
+        }
+    }
+    
     /// An array of all valid `NWPath.LinkQuality` cases, sorted from best to worst quality.
     ///
     /// - Returns: [.good, .moderate, .minimal, .unknown]

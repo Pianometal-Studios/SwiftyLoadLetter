@@ -11,6 +11,17 @@ import SwiftUI
 
 public extension NWPath.UnsatisfiedReason {
     
+    /// A color conveying whether the reason represents a concrete, user-actionable cause.
+    ///
+    /// This property tracks `hasReason`: the recognized denial and inactive states read as
+    /// `.red`, while `.notAvailable` — which signifies that no specific reason is provided —
+    /// and any future case read as `.gray`.
+    ///
+    /// - Returns: `.red` when `hasReason` is `true`; otherwise `.gray`.
+    var color: Color {
+        hasReason ? .red : .gray
+    }
+    
     var describableObject: DescribableObject {
         .init(name, icon: icon, details: details)
     }
@@ -102,7 +113,7 @@ public extension NWPath.UnsatisfiedReason {
                 } icon: {
                     Image(systemName: reason.icon)
                         .symbolVariant(.fill)
-                        .foregroundStyle(reason.hasReason ? .red : .gray)
+                        .foregroundStyle(reason.color)
                 }
             }
         }
