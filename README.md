@@ -298,7 +298,7 @@ Cases: `.excellent` `.good` `.fair` `.poor`
 | Modifier | Description |
 |---|---|
 | `.magicReplace()` | Applies a content transition using the system symbol effect with a "magic replace" animation for SF Symbols. |
-| `.glass(isRegular:shape:isInteractive:tint:)` | Cross-platform glass material effect. No-op on visionOS. |
+| `.glass(isRegular:shape:isInteractive:tint:)` | Cross-platform glass material effect. Applies `shape` as the hit area so taps land anywhere on the drawn glass. No-op on visionOS. |
 | `.glassButton(or:)` | Platform-appropriate glass button style with visionOS fallback. |
 | `.redacted(_:)` | Boolean-driven `.placeholder` redaction — pass `true` to redact, `false` to reveal. |
 | `.darken(when:disable:)` | Desaturates and dims the view when `true`. Optionally disables the view when dimmed. |
@@ -474,10 +474,11 @@ ContentView()
     .background {
         LiquidMeshBackground(
             color1: .blue,
-            color2: .purple,
-            isAnimating: $isAnimating)
+            color2: .purple)
     }
 ```
+
+> The view starts and owns its own animation, and honors **Reduce Motion**. Don't write its animation flag from outside — `init(color1:color2:isAnimating:)` is deprecated because an external write replaces the repeat-forever transaction and freezes the drift.
 
 ---
 
