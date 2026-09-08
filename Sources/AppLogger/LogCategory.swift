@@ -150,13 +150,26 @@ public enum LogCategory:
         }
     }
     
+    /// The subsystem every category’s underlying `os.Logger` is bound to, read once from the
+    /// app’s main bundle.
+    ///
+    /// This reads `Bundle.main.bundleIdentifier` directly rather than through
+    /// ``MainBundle/identifier``, which logs a diagnostic when the identifier is missing.
+    /// Building a logger is what needs this value, so routing it through an accessor that logs
+    /// made the two call each other — ``log(_:type:)`` → ``logger`` → `MainBundle.identifier`
+    /// → ``logger(_:message:type:)`` → ``log(_:type:)`` — recursing until the stack overflowed.
+    /// A host with no bundle identifier, such as a command-line tool or a SwiftPM test bundle,
+    /// took that path on its very first log call, so the logging layer must not depend on a
+    /// layer that itself logs.
+    private static let subsystem = Bundle.main.bundleIdentifier ?? "No BundleID"
+    
     /// Instance of logger for this category, lazily initialized with the app's bundle identifier as the subsystem
     /// and the category's emoji label as the category.
     ///
     /// - Returns: The underlying `os.Logger` instance for this category.
     private var logger: Logger {
         Logger(
-            subsystem: MainBundle.identifier ?? "No BundleID",
+            subsystem: Self.subsystem,
             category: "\(emoji) \(name)")
     }
     
