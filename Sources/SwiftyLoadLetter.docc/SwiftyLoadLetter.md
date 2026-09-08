@@ -121,4 +121,5 @@ and a strongly-typed **logging** layer built on `os.Logger`.
 ### Bundle & Formatting Utilities
 
 - ``MainBundle``
+- ``TargetEnvironment``
 - ``Formatters``

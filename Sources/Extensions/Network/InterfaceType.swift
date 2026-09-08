@@ -22,6 +22,21 @@ public extension NWInterface.InterfaceType {
         }
     }
     
+    var describableObject: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+    
+    var details: String {
+        switch self {
+        case .other:         "Connected through an interface that is not a standard type."
+        case .wifi:          "Connected through a Wi-Fi network."
+        case .cellular:      "Connected through a cellular network."
+        case .wiredEthernet: "Connected through a wired Ethernet connection."
+        case .loopback:      "Connected through the device's own loopback interface."
+        @unknown default:    "Cannot determine the interface type."
+        }
+    }
+    
     var icon: String {
         switch self {
         case .other:         "questionmark"
