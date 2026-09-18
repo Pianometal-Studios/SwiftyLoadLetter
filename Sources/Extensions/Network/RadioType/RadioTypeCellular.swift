@@ -6,8 +6,8 @@
 //  Apache License 2.0
 //
 
-import Network
-import SwiftUI
+public import Network
+public import SwiftUI
 
 public extension NWInterface.RadioType.Cellular {
     

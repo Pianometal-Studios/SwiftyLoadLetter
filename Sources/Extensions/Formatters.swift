@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import Foundation
+public import Foundation
 
 /// A namespace for shared formatter instances.
 public enum Formatters {

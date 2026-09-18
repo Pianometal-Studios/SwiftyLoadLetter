@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Dispatch
+public import Dispatch
 
 public extension DispatchSource.MemoryPressureEvent {
     

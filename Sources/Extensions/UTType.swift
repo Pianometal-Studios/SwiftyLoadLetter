@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import UniformTypeIdentifiers
+public import UniformTypeIdentifiers
 
 public extension UTType {
     

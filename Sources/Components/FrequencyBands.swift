@@ -6,8 +6,8 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
-import Network
+public import SwiftUI
+public import Network
 
 /// Represents the frequency bands used by Wi-Fi networks, along with their associated properties such as color, icon, name, and signal quality.
 public enum FrequencyBands:

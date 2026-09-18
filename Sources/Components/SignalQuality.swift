@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// A simple enumeration representing the quality of a signal, such as Wi-Fi or cellular connectivity.
 ///

@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// An enum representing general connection states, such as those used in device or network connections.
 ///

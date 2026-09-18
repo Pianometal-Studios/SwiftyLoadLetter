@@ -18,8 +18,8 @@
 //                        🪵 OSLogType + Extensions 🔗
 // -----------------------------------------------------------------------------
 
-import SwiftUI
-import os
+public import SwiftUI
+public import os
 
 public extension OSLogType {
     
@@ -142,7 +142,6 @@ public extension OSLogType {
 // MARK: - Preview
 
 #if DEBUG
-import SwiftUI
 #Preview {
     NavigationStack {
         List(OSLogType.allCases, id: \.self) { type in

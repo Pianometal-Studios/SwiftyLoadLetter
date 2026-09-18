@@ -8,7 +8,7 @@
 
 #if os(watchOS)
 
-import WatchKit
+public import WatchKit
 import SwiftUI
 
 public extension WKInterfaceDeviceCrownOrientation {

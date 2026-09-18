@@ -18,7 +18,7 @@
 // =================================================
 
 import Foundation
-import os
+public import os
 
 /// Logs a message using the app’s centralized logging system.
 ///

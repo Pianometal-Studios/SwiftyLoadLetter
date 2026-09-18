@@ -47,6 +47,7 @@ private let swiftSettings: [SwiftSetting] = [
     .enableUpcomingFeature("InferIsolatedConformances"),
     .enableUpcomingFeature("ExistentialAny"),
     .enableUpcomingFeature("MemberImportVisibility"),
+    .enableUpcomingFeature("InternalImportsByDefault"),
     .enableUpcomingFeature("ImmutableWeakCaptures"),
 ]
 

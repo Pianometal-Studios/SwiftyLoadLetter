@@ -6,8 +6,8 @@
 //  Apache License 2.0
 //
 
-import Network
-import SwiftUI
+public import Network
+public import SwiftUI
 
 /// UI-friendly extensions on `NWInterface.RadioType` and its nested
 /// `WiFi`, `Cellular`, and `Cellular.NewRadio5GVariant` enums.

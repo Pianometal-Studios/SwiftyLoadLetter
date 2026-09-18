@@ -8,7 +8,7 @@
 
 #if os(iOS) || os(visionOS)
 
-import SwiftUI
+public import SwiftUI
 
 public extension UIDevice.BatteryState {
     

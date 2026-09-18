@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import Foundation
+public import Foundation
 
 /// A strongly-typed enumeration of the individual components that can make up a person’s name.
 ///

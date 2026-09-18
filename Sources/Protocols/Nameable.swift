@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import Foundation
+public import Foundation
 
 /// A simple protocol that represents any type that can be identified by a human‑readable name.
 ///

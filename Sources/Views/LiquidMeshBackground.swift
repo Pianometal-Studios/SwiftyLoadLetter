@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// Renders a soft, animated “liquid mesh” background using two
 /// blurred circles that drift over time. The effect creates gentle, organic movement suitable
