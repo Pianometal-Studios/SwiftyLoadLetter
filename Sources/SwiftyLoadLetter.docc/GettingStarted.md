@@ -29,8 +29,8 @@ targets: [
 ```
 
 > Important: SwiftyLoadLetter is built with the Swift 6 language mode and requires
-> Swift 6.3 (Xcode 26) or later, with a minimum deployment target of iOS 26,
-> macOS 26, Mac Catalyst 26, tvOS 26, visionOS 26, or watchOS 26.
+> Swift 6.4 (Xcode 27) or later, with a minimum deployment target of iOS 27,
+> macOS 27, tvOS 27, visionOS 27, or watchOS 27.
 
 ## Your first conforming type
 

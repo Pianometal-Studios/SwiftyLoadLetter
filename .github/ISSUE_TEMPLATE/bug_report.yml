@@ -40,7 +40,7 @@ body:
     attributes:
       label: OS version
       description: The OS version you're running.
-      placeholder: "e.g. iOS 26.1, macOS 26.0"
+      placeholder: "e.g. iOS 27.1, macOS 27.0"
     validations:
       required: true
 
@@ -48,7 +48,7 @@ body:
     id: xcode-version
     attributes:
       label: Xcode version
-      placeholder: "e.g. Xcode 26.0 (Build 17A300)"
+      placeholder: "e.g. Xcode 27.0 (Build 27A266a)"
     validations:
       required: true
 

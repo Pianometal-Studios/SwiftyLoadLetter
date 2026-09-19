@@ -29,7 +29,8 @@ public extension View {
     ///     var body: some View {
     ///         VStack {
     ///             TextField("Name", text: $name)
-    ///                 .textFieldStyle(.roundedBorder)
+    ///                 .textFieldStyle(.bordered)
+    ///                 .textInputBorderShape(.roundedRectangle)
     ///         }
     ///         .clearButtonMode()
     ///     }

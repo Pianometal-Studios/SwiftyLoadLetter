@@ -51,4 +51,32 @@ public extension View {
         pickerStyle(.automatic)
 #endif
     }
+    
+    /// Applies an appropriate `PickerStyle` to the view, preferring a row of tabs where supported.
+    ///
+    /// The tabs style presents each option as a tab across the top of the picker, which suits a
+    /// small number of peer views better than a segmented control does. It is unavailable on
+    /// watchOS, where the wheel-style `.automatic` picker is the only sensible fit, so call sites
+    /// need no platform check of their own.
+    ///
+    /// ## Example
+    /// ```swift
+    /// Picker("Section", selection: $section) {
+    ///     ForEach(Section.allCases) { section in
+    ///         Text(section.name).tag(section)
+    ///     }
+    /// }
+    /// .tabsPicker()
+    /// ```
+    ///
+    /// - Returns: A view that applies a platform-appropriate picker style.
+    ///   - `.automatic` on watchOS
+    ///   - `.tabs` on all other platforms
+    @ViewBuilder func tabsPicker() -> some View {
+#if !os(watchOS)
+        pickerStyle(.tabs)
+#else
+        pickerStyle(.automatic)
+#endif
+    }
 }

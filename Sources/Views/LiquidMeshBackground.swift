@@ -40,8 +40,7 @@ public import SwiftUI
 ///   derived from that flag, and the repeat-forever transaction attached to the view’s own
 ///   animated write *is* the engine that keeps them oscillating — so a later write to the same
 ///   value, animated or not, replaces that transaction and parks the drift at its end offsets.
-///   That is why ``init(color1:color2:isAnimating:)`` is deprecated in favor of
-///   ``init(color1:color2:)``.
+///   That is why the flag is private and ``init(color1:color2:)`` is the only initializer.
 ///
 /// - Authors: [@anderstabell](https://github.com/anderstabell)
 public struct LiquidMeshBackground: View {
@@ -51,12 +50,8 @@ public struct LiquidMeshBackground: View {
     
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     
-    /// Backs ``isAnimating`` when the view owns its animation flag.
-    @State private var localIsAnimating = false
-    
-    /// The binding passed to ``init(color1:color2:isAnimating:)``, or `nil` when the view owns
-    /// its animation flag.
-    private let externalIsAnimating: Binding<Bool>?
+    /// The animated value the circle offsets are derived from.
+    @State private var isAnimating = false
     
     public var body: some View {
         
@@ -85,22 +80,6 @@ public struct LiquidMeshBackground: View {
                 stopAnimation()
             } else {
                 startAnimation()
-            }
-        }
-    }
-    
-    /// The animated value the circle offsets are derived from.
-    ///
-    /// Reads and writes route to the binding from ``init(color1:color2:isAnimating:)`` when one
-    /// was supplied — so call sites using the deprecated initializer keep behaving exactly as
-    /// they do today — and to ``localIsAnimating`` otherwise.
-    private var isAnimating: Bool {
-        get { externalIsAnimating?.wrappedValue ?? localIsAnimating }
-        nonmutating set {
-            if let externalIsAnimating {
-                externalIsAnimating.wrappedValue = newValue
-            } else {
-                localIsAnimating = newValue
             }
         }
     }
@@ -187,33 +166,6 @@ public struct LiquidMeshBackground: View {
     ) {
         self.color1 = color1
         self.color2 = color2
-        externalIsAnimating = nil
-    }
-    
-    /// Creates a liquid mesh background whose animation flag is bound to external state.
-    ///
-    /// - Parameters:
-    ///   - color1: The base color for the first circle, which is larger and more blurred.
-    ///   - color2: The base color for the second circle, which is smaller and less blurred.
-    ///   - isAnimating: A binding to the animated value the circle offsets are derived from.
-    ///
-    /// - Warning: `isAnimating` is not a control switch — it is the animated value that drives
-    ///   the whole effect, and the view already sets it for itself on appear. A write from
-    ///   outside the view replaces the pending repeat-forever transaction and freezes the
-    ///   drift. Because SwiftUI runs a child’s `onAppear` before its parent’s, a parent that
-    ///   also writes the binding from `onAppear` lands second and wins — and because the two
-    ///   writes often land in separate frames in the Simulator and in a single update on a
-    ///   cold device launch, the freeze looks fine in development and fails on hardware. Use
-    ///   ``init(color1:color2:)`` instead and delete the orphaned state.
-    @available(*, deprecated, message: "The view starts itself; writing this binding from outside replaces the repeat-forever transaction and freezes the drift. Use init(color1:color2:).")
-    public init(
-        color1: Color,
-        color2: Color,
-        isAnimating: Binding<Bool>
-    ) {
-        self.color1 = color1
-        self.color2 = color2
-        externalIsAnimating = isAnimating
     }
 }
 
