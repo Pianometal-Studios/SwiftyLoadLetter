@@ -56,7 +56,7 @@ metadata to system enums such as `NWPath.Status` and `ProcessInfo.ThermalState`,
 and a strongly-typed **logging** layer built on `os.Logger`.
 
 > Note: SwiftyLoadLetter has no third-party dependencies and targets
-> iOS (including iPadOS), Mac Catalyst, macOS, tvOS, visionOS, and watchOS 26.0+.
+> iOS (including iPadOS), macOS, tvOS, visionOS, and watchOS 27.0+.
 
 > Note: The package builds in Swift 6 language mode with default actor
 > isolation set to `nil` (nonisolated by default) and strict memory safety
@@ -90,14 +90,19 @@ and a strongly-typed **logging** layer built on `os.Logger`.
 - ``DescribableObject``
 - ``ImageableObject``
 - ``DescribableCardView``
+- ``ColorableLabelView``
 
 ### System & App Concepts
 
+- ``AlertSeverity``
 - ``AppleOS``
 - ``CommonAction``
 - ``CompassPoint``
 - ``ConnectionState``
+- ``ConnectivityStatus``
+- ``FetchStatus``
 - ``FrequencyBands``
+- ``LoadState``
 - ``PersonNameComponent``
 - ``PressureLevel``
 - ``SignalQuality``

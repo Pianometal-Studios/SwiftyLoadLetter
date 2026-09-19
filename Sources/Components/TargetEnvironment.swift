@@ -45,13 +45,9 @@ import StoreKit
     
     /// Indicates whether an iPhone or iPad app is running on Apple Vision Pro.
     ///
-    /// - Returns: `true` for a compatible iOS app running on visionOS; otherwise `false`,
-    ///   including on systems that predate `ProcessInfo.isiOSAppOnVision`.
+    /// - Returns: `true` for a compatible iOS app running on visionOS; otherwise `false`.
     public static var isiOSAppOnVisionPro: Bool {
-        guard #available(iOS 26.1, macOS 26.1, tvOS 26.1, watchOS 26.1, visionOS 26.1, *) else {
-            return false
-        }
-        return ProcessInfo.processInfo.isiOSAppOnVision
+        ProcessInfo.processInfo.isiOSAppOnVision
     }
     
     /// Indicates whether the app was installed through TestFlight.

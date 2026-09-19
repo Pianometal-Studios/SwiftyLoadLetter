@@ -44,7 +44,7 @@ Inspired by the legendary printer error that drove Peter, Michael, and Samir to 
 
 ### Xcode
 
-![Xcode](https://img.shields.io/badge/Xcode-26.0-blue?logo=xcode)
+![Xcode](https://img.shields.io/badge/Xcode-27.0-blue?logo=xcode)
 
 ### Swift
 
@@ -303,8 +303,10 @@ Cases: `.excellent` `.good` `.fair` `.poor`
 | `.redacted(_:)` | Boolean-driven `.placeholder` redaction — pass `true` to redact, `false` to reveal. |
 | `.darken(when:disable:)` | Desaturates and dims the view when `true`. Optionally disables the view when dimmed. |
 | `.segmentedPicker()` | `.segmented` style on all platforms, `.automatic` on watchOS. |
+| `.tabsPicker()` | `.tabs` style on all platforms, `.automatic` on watchOS. |
 | `.listRowSeparatorHidden()` | Hides list row separators on iOS, macOS, and visionOS. No-op elsewhere. |
 | `.navigationSubtitle(subtitle:)` | Sets a navigation subtitle on iOS and macOS. No-op elsewhere. |
+| `.crossFadeNavigation()` | Cross-fades a destination as it is pushed and popped. No-op on macOS. |
 | `.fadeInOut(from:)` | Asymmetric push + fade transition; inserts from the given edge, removes toward its opposite. |
 
 ```swift
@@ -405,6 +407,7 @@ Text(75.0.percentage.asPercent()) // "75%"
 | `NWInterface.RadioType.Cellular` | `color`, `icon`, `name`, `details`, `is5G`, `allCases` |
 | `NWInterface.RadioType.WiFi` | `color`, `icon`, `name`, `adoptedYear`, `frequencyBands`, `generation`, `maxSpeed`, `allCases` |
 | `NWInterface.RadioType.Cellular.NewRadio5GVariant` | `color`, `icon`, `name`, `details`, `isLowLatency`, `isHighSpeed`, `rangeQuality`, `penetrationLevel`, `allCases` |
+| `DTLS.PeerAuthentication` | `color`, `icon`, `name`, `details`, `allCases` |
 
 ```swift
 Label(path.status.name, systemImage: path.status.icon)
@@ -420,6 +423,7 @@ Label(path.status.name, systemImage: path.status.icon)
 | `ProcessInfo.ThermalState` | `color`, `icon`, `name`, `details`, `percentage`, `allCases` |
 | `DispatchSource.MemoryPressureEvent` | `pressureLevel` → `PressureLevel` |
 | `OSLogType` | `color`, `name`, `details`, `emoji`, `emojiLabel`, `severity`, `isPersistedInProduction`, `allCases` |
+| `ObservationTracking.Event.Kind` | `color`, `icon`, `name`, `details`, `allCases` |
 
 ```swift
 ProgressView(value: thermalState.percentage, total: 100)
@@ -446,6 +450,9 @@ let level = memoryEvent.pressureLevel
 | `Bool` | `color`, `emoji`, `emojiLabel`, `icon`, `name`, `labelView()`, `allCases` |
 | `Color` | `name`, `allCases`, `random` |
 | `PersonNameComponentsFormatter.Style` | `name`, `allCases` |
+| `GestureInputKinds` | `color`, `icon`, `name`, `details`, `kinds`, `allCases` |
+| `TextInputBorderShape` | `color`, `icon`, `name`, `details`, `allCases` |
+| `NavigationTransition` | `eraseToAnyNavigationTransition()` |
 
 ---
 
@@ -478,7 +485,7 @@ ContentView()
     }
 ```
 
-> The view starts and owns its own animation, and honors **Reduce Motion**. Don't write its animation flag from outside — `init(color1:color2:isAnimating:)` is deprecated because an external write replaces the repeat-forever transaction and freezes the drift.
+> The view starts and owns its own animation, and honors **Reduce Motion**. Its animation flag is private: an external write would replace the repeat-forever transaction and freeze the drift, so `init(color1:color2:)` is the only initializer.
 
 ---
 

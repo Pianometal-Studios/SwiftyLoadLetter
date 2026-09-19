@@ -40,9 +40,9 @@ If you're not sure whether something fits, open a Discussion first — saves eve
 
 ### Requirements
 
-- **Xcode 26.0** or later
-- **Swift 6.3** language mode with Approachable Concurrency (Complete strict concurrency checking)
-- Targets: **iOS / iPadOS / macOS / tvOS / visionOS / watchOS 26.0+**
+- **Xcode 27.0** or later
+- **Swift 6.4** toolchain, building in **Swift 6 language mode** with Approachable Concurrency (Complete strict concurrency checking)
+- Targets: **iOS / iPadOS / macOS / tvOS / visionOS / watchOS 27.0+**
 
 ### Getting the project running
 
@@ -150,7 +150,7 @@ A runnable usage example in the doc comment is strongly preferred — it makes t
 
 ### Concurrency
 
-- The package uses Swift 6.3 language mode with Approachable Concurrency and **Complete** strict concurrency checking. 
+- The package builds with the Swift 6.4 toolchain in Swift 6 language mode, with Approachable Concurrency and **Complete** strict concurrency checking. 
 - Default actor isolation is `nonisolated`.
 - Don't add `@MainActor` annotations unless the type or member genuinely needs to be main-isolated.
 

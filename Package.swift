@@ -1,4 +1,4 @@
-// swift-tools-version: 6.3
+// swift-tools-version: 6.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 //
 // ┌───────────────────────────────────────────────────────────────────┐
@@ -55,12 +55,11 @@ let package = Package(
     name: name,
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v26),
-        .macOS(.v26),
-        .macCatalyst(.v26),
-        .visionOS(.v26),
-        .tvOS(.v26),
-        .watchOS(.v26)
+        .iOS(.v27),
+        .macOS(.v27),
+        .visionOS(.v27),
+        .tvOS(.v27),
+        .watchOS(.v27)
     ],
     products: [
         .library(name: name, targets: [name]),
