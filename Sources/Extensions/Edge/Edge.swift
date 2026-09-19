@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 public extension Edge {
     

@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// A set of common, reusable actions that standardize action representations across app development.
 ///

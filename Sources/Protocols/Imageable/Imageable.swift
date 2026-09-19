@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// A lightweight protocol that marks a type as capable of providing a SwiftUI image resource.
 ///

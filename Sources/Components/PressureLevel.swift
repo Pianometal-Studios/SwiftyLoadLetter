@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// Represents the current pressure level of a hardware component, such as memory or CPU.
 ///

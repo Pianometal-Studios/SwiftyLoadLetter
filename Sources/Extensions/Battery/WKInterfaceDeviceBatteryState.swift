@@ -8,8 +8,8 @@
 
 #if os(watchOS)
 
-import WatchKit
-import SwiftUI
+public import WatchKit
+public import SwiftUI
 
 public extension WKInterfaceDeviceBatteryState {
     

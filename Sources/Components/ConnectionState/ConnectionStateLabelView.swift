@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// A SwiftUI view that displays a labeled icon representing a connection state.
 ///

@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// Displays an object's information in a card format using `ContentUnavailableView`.
 ///

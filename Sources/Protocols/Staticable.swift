@@ -8,7 +8,7 @@
 
 import Foundation
 import UniformTypeIdentifiers
-import CoreTransferable
+public import CoreTransferable
 import os
 
 /// A convenience protocol that unifies common static, value-like requirements for types,

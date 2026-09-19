@@ -8,8 +8,8 @@
 
 #if !os(watchOS)
 
-import SwiftUI
-import GameController
+public import SwiftUI
+public import GameController
 
 public extension GCDeviceBattery.State {
     

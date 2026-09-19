@@ -9,7 +9,7 @@
 #if !os(watchOS)
 
 import Foundation
-import GameController
+public import GameController
 
 public extension GCControllerPlayerIndex {
     

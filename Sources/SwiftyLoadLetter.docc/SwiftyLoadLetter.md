@@ -61,8 +61,9 @@ and a strongly-typed **logging** layer built on `os.Logger`.
 > Note: The package builds in Swift 6 language mode with default actor
 > isolation set to `nil` (nonisolated by default) and strict memory safety
 > enabled, and turns on the `ExistentialAny`, `ImmutableWeakCaptures`,
-> `InferIsolatedConformances`, `MemberImportVisibility`, and
-> `NonisolatedNonsendingByDefault` upcoming features.
+> `InferIsolatedConformances`, `InternalImportsByDefault`,
+> `MemberImportVisibility`, and `NonisolatedNonsendingByDefault`
+> upcoming features.
 
 ## Topics
 

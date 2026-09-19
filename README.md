@@ -54,7 +54,7 @@ Inspired by the legendary printer error that drove Peter, Michael, and Samir to 
 ![Default Actor Isolation](https://img.shields.io/badge/Default_Actor_Isolation-nil-darkred?logo=swift)
 ![Strict Memory Safety](https://img.shields.io/badge/Strict_Memory_Safety-Yes-darkgreen?logo=swift)
 
-Built in **Swift 6 language mode** with strict memory safety and these upcoming features enabled: `ExistentialAny`, `ImmutableWeakCaptures`, `InferIsolatedConformances`, `MemberImportVisibility`, and `NonisolatedNonsendingByDefault`.
+Built in **Swift 6 language mode** with strict memory safety and these upcoming features enabled: `ExistentialAny`, `ImmutableWeakCaptures`, `InferIsolatedConformances`, `InternalImportsByDefault`, `MemberImportVisibility`, and `NonisolatedNonsendingByDefault`.
 
 ### Platforms
 

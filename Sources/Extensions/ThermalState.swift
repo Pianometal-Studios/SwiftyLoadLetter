@@ -12,7 +12,7 @@
 // -----------------------------------------
 //
 
-import SwiftUI
+public import SwiftUI
 
 public extension ProcessInfo.ThermalState {
     

@@ -6,7 +6,7 @@
 //  Apache License 2.0
 //
 
-import SwiftUI
+public import SwiftUI
 
 /// A simple struct that conforms to `Searchable` and `Imageable`, representing an
 /// object with a name and an associated image resource.
