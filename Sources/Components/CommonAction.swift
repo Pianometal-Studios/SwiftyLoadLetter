@@ -41,6 +41,7 @@ public enum CommonAction:
     case signOut
     case sort
     case stop
+    case tryAgain
     case up
     
     public var icon: String {
@@ -57,7 +58,7 @@ public enum CommonAction:
         case .help:                "questionmark"
         case .info:                "info"
         case .next:                "arrow.forward"
-        case .refresh:             "arrow.clockwise"
+        case .refresh, .tryAgain:  "arrow.clockwise"
         case .reset:               "arrow.counterclockwise"
         case .restore:             "arrow.clockwise.circle"
         case .settings:            "gear"
@@ -93,11 +94,12 @@ public enum CommonAction:
         case .signOut:  "Sign Out"
         case .sort:     "Sort"
         case .stop:     "Stop"
+        case .tryAgain: "Try Again"
         case .up:       "Up"
         }
     }
     
-    /// - Returns: `ButtonRole` associated with the action, if applicable.
+    /// `ButtonRole` associated with the action, if applicable.
     public var role: ButtonRole? {
         switch self {
         case .cancel, .back, .previous:             .cancel
@@ -108,7 +110,7 @@ public enum CommonAction:
         }
     }
     
-    /// - Returns: `TabPlacement` associated with the action.
+    /// `TabPlacement` associated with the action.
     public var tabPlacement: TabPlacement {
         switch self {
         case .settings: .pinned

@@ -69,8 +69,8 @@ let package = Package(
             name: name,
             swiftSettings: swiftSettings),
         .testTarget(
-            name: "SwiftyLoadLetterTests",
-            dependencies: ["SwiftyLoadLetter"],
+            name: "\(name)Tests",
+            dependencies: [.target(name: name)],
             swiftSettings: swiftSettings
         ),
     ],

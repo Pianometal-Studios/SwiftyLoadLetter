@@ -205,7 +205,7 @@ Button(role: CommonAction.delete.role) {
 }
 ```
 
-Cases: `.add` `.cancel` `.close` `.confirm` `.debug` `.delete` `.edit` `.filter` `.help` `.info` `.refresh` `.reset` `.restore` `.save` `.settings` `.sort` `.stop`
+Cases: `.add` `.back` `.cancel` `.close` `.confirm` `.debug` `.delete` `.down` `.edit` `.filter` `.help` `.info` `.next` `.ok` `.previous` `.refresh` `.reset` `.restore` `.save` `.settings` `.signOut` `.sort` `.stop` `.tryAgain` `.up`
 
 ---
 
