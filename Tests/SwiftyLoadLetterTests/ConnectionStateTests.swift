@@ -2,7 +2,7 @@ import Testing
 import Foundation
 @testable import SwiftyLoadLetter
 
-/// Tests for the `ConnectionState` enum and its name and icon mappings.
+/// Tests for the `ConnectionState` enum and its raw-value and `Codable` round-trips.
 @Suite("ConnectionState") struct ConnectionStateTests {
 
     @Test("Raw value round-trips", arguments: ConnectionState.allCases)
