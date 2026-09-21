@@ -70,7 +70,7 @@ let package = Package(
             swiftSettings: swiftSettings),
         .testTarget(
             name: "\(name)Tests",
-            dependencies: ["SwiftyLoadLetter"],
+            dependencies: [.target(name: name)],
             swiftSettings: swiftSettings
         ),
     ],

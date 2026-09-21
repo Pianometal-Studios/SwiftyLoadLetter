@@ -2,7 +2,7 @@ import Testing
 import SwiftUI
 @testable import SwiftyLoadLetter
 
-/// Tests for the `CommonAction` enum and its icon, name, and role mappings.
+/// Tests for the `CommonAction` enum and its raw-value and `Codable` round-trips.
 @Suite("CommonAction") struct CommonActionTests {
 
     @Test("Raw value round-trips", arguments: CommonAction.allCases)
