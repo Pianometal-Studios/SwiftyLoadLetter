@@ -61,12 +61,12 @@ public extension GCDeviceBattery.State {
         }
     }
     
-    /// An array of all standard `UIDevice.BatteryState` cases, sorted by typical user relevance.
+    /// An array of all standard `GCDeviceBattery.State` cases, sorted by typical user relevance.
     ///
-    /// - Returns: [`.full`, `.charging`, `.unplugged`, `.unknown`]
+    /// - Returns: [`.full`, `.charging`, `.discharging`, `.unknown`]
     ///
     /// - Note: This array is provided for convenience and does not include any potential future
-    /// cases that may be added to `UIDevice.BatteryState`.
+    /// cases that may be added to `GCDeviceBattery.State`.
     static let allCases: [Self] = [
         .full,
         .charging,

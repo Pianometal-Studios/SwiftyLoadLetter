@@ -9,7 +9,7 @@
 import Foundation
 
 /// A simple struct that conforms to `Searchable`, `Iconable`, and `Describable`, representing an
-/// object with a name, an optional SF Symbol icon, and a descriptive details string.
+/// object with a name, an SF Symbol icon, and a descriptive details string.
 public struct DescribableObject: Searchable, Iconable, Describable, Sendable, Codable {
     
     public let id: String
@@ -17,7 +17,7 @@ public struct DescribableObject: Searchable, Iconable, Describable, Sendable, Co
     public let icon: String
     public var details: String
  
-    /// Initializes a new `DescribableObject` with the specified name, optional icon, and details.
+    /// Initializes a new `DescribableObject` with the specified name, icon, and details.
     ///
     /// - Parameters:
     ///   - name: The display name of the object.

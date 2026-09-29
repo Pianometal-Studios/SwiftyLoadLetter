@@ -10,7 +10,7 @@ public import SwiftUI
 
 public extension View {
     
-    /// Conditionally applies the `.placeholder` redaction effect. based on a Boolean flag.
+    /// Conditionally applies the `.placeholder` redaction effect based on a Boolean flag.
     ///
     /// This is a convenience overload of SwiftUI’s `redacted(reason:)` modifier that
     /// toggles the placeholder redaction state on or off.

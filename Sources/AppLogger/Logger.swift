@@ -22,15 +22,15 @@ public import os
 
 /// Logs a message using the app’s centralized logging system.
 ///
-/// This convenience function routes messages to a strongly-typed `LogCategory` category,
-/// defaulting to `.general`. It supports all `OSLogType` levels and automatically formats
-/// output for Console.app with consistent subsystem and category labeling.
+/// This convenience function routes messages to a strongly-typed `LogCategory` category.
+/// It supports all `OSLogType` levels and automatically formats output for Console.app
+/// with consistent subsystem and category labeling.
 ///
 /// ## Example
 ///   ```swift
 ///   logger(.network, message: "Request started", type: .debug)
-///   logger(.auth, message: "User signed in", type: .notice)
-///   logger(message: "Background task completed") // uses .general and .debug
+///   logger(.auth, message: "User signed in", type: .default)
+///   logger(.general, message: "Background task completed") // uses .debug
 ///   ```
 ///
 /// - Parameters:
@@ -41,7 +41,7 @@ public import os
 ///
 /// - Important:
 ///   - `.debug` and `.info` are not persisted to disk and are best for development-time diagnostics.
-///   - `.notice` and higher are persisted and suitable for production telemetry of significant events.
+///   - `.default` and higher are persisted and suitable for production telemetry of significant events.
 ///
 /// - SeeAlso: ``LogCategory``
 public func logger(
@@ -54,15 +54,15 @@ public func logger(
 /// Logs an error using the app’s centralized logging system and prints the localized description
 /// to the console in debug builds.
 ///
-/// This convenience function routes error messages to a strongly-typed `LogCategory` category,
-/// defaulting to `.general`. It extracts the localized description from the error and logs it
-/// at the specified `OSLogType` level, automatically formatting output for Console.app with
-/// consistent subsystem and category labeling.
+/// This convenience function routes error messages to a strongly-typed `LogCategory` category.
+/// It extracts the localized description from the error and logs it at the specified
+/// `OSLogType` level, automatically formatting output for Console.app with consistent
+/// subsystem and category labeling.
 ///
 /// ## Example
 /// ```swift
 /// logger(.network, error: someError, type: .error)
-/// logger(error: someError) // uses .general and .debug
+/// logger(.general, error: someError) // uses .error
 /// ```
 /// - Parameters:
 ///   - category: The `LogCategory` category to log under.
@@ -72,7 +72,7 @@ public func logger(
 ///
 /// - Important:
 ///   - `.debug` and `.info` are not persisted to disk and are best for development-time diagnostics.
-///   - `.notice` and higher are persisted and suitable for production telemetry of significant events.
+///   - `.default` and higher are persisted and suitable for production telemetry of significant events.
 ///
 /// - SeeAlso: ``LogCategory``, ``logger(_:message:type:)``
 public func logger(

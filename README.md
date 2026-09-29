@@ -80,7 +80,7 @@ https://github.com/Pianometal-Studios/SwiftyLoadLetter.git
 dependencies: [
     .package(
         url: "https://github.com/Pianometal-Studios/SwiftyLoadLetter.git",
-        .upToNextMajor(from: .init(1, 0, 0))
+        .upToNextMajor(from: .init(2, 0, 0))
     ),
 ],
 targets: [
@@ -163,7 +163,7 @@ let sorted = Tab.allCases.sorted() // [.home, .library, .settings]
 
 ### Ready-made conforming types
 
-When you just need a lightweight, `Codable`, searchable value — rather than conforming a bespoke type — reach for one of the built-in objects. These are also what the `iconableObject` / `describableObject` convenience accessors (on the system-state extensions below) hand back.
+When you just need a lightweight, searchable value — rather than conforming a bespoke type — reach for one of the built-in objects. These are also what the `iconableObject` / `describableObject` convenience accessors (on the system-state extensions below) hand back. `IconableObject` and `DescribableObject` are `Codable`; `ImageableObject` is not.
 
 | Type | Conforms to | Initializer |
 |---|---|---|
