@@ -29,16 +29,19 @@ import os
 /// map to dedicated `os.Logger` instances. Each case provides:
 /// - A human-readable `name` (e.g., "Network").
 /// - An emoji `emoji` prefix for quick visual scanning in Console.app.
-/// - A combined `category` string ("🌐 Network") used when creating the underlying logger.
-/// - A lazily created `logger` bound to the app’s bundle identifier as the subsystem.
+///
+/// A case’s `emoji` and `name` are combined ("🌐 Network") as the category of its underlying
+/// `os.Logger`, which is bound to the app’s bundle identifier as the subsystem.
 ///
 /// ## Usage
-/// - `debug(_:)` and `info(_:)`: Not persisted to disk; best for development-time diagnostics.
-/// - `notice(_:)`, `warning(_:)`, `error(_:)`, `fault(_:)`, `critical(_:)`: Persisted to disk and
-///   appropriate for production telemetry, with increasing urgency.
+/// The `logger(_:message:type:)` and `logger(_:error:type:)` functions take a category and an
+/// `OSLogType` severity:
+/// - `.debug` and `.info`: Not persisted to disk; best for development-time diagnostics.
+/// - `.default`, `.error`, and `.fault`: Persisted to disk and appropriate for production
+///   telemetry, with increasing urgency.
 ///
-/// - SeeAlso: LogCategory integrates with the free-form `logger(_:,message:type:)` and
-/// `logger(_:,error:type:)` helper functions to standardize message formatting and ensure
+/// - SeeAlso: LogCategory integrates with the free-form `logger(_:message:type:)` and
+/// `logger(_:error:type:)` helper functions to standardize message formatting and ensure
 /// consistent subsystem/category labeling across the app.
 ///
 /// - Note: The subsystem is derived from the app’s bundle identifier; if unavailable, a fallback

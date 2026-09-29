@@ -19,8 +19,8 @@ public import Foundation
 /// - Mapping a component to a localized display name via `name`
 /// - Providing form field placeholders via `placeholder`
 /// - Extracting a specific value from `PersonNameComponents` with `value(from:)`
-/// - Formatting full names with locale-aware rules using the static `formatter(_:locale:)`
-///   and `name(_:style:)` helpers
+/// - Formatting full names with locale-aware rules using the static `formatter(_:)`
+///   and `string(_:style:)` helpers
 ///
 /// - SeeAlso: `PersonNameComponents`, `PersonNameComponentsFormatter`
 ///

@@ -11,9 +11,9 @@ public import Dispatch
 
 public extension DispatchSource.MemoryPressureEvent {
     
-    /// Converts a `DispatchSource.MemoryPressureEvent` to a `MemoryPressureLevel`.
+    /// Converts a `DispatchSource.MemoryPressureEvent` to a `PressureLevel`.
     ///
-    /// - Returns: The corresponding `MemoryPressureLevel` for the event.
+    /// - Returns: The corresponding `PressureLevel` for the event.
     var pressureLevel: PressureLevel {
         switch self {
         case .normal:   .normal

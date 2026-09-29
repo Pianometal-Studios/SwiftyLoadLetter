@@ -20,7 +20,7 @@ https://github.com/Pianometal-Studios/SwiftyLoadLetter.git
 dependencies: [
     .package(
         url: "https://github.com/Pianometal-Studios/SwiftyLoadLetter.git",
-        .upToNextMajor(from: .init(1, 0, 0))
+        .upToNextMajor(from: .init(2, 0, 0))
     ),
 ],
 targets: [

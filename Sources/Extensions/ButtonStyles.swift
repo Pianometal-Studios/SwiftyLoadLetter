@@ -22,10 +22,7 @@ public extension View {
     /// - **tvOS**: Uses `.card` button style, which provides the appropriate appearance
     ///   for TV interfaces. The fallback parameter is ignored.
     ///
-    /// - **macOS**: Uses `.link` button style, which is the standard approach for Mac
-    ///   applications. The fallback parameter is ignored.
-    ///
-    /// - **iOS, iPadOS, watchOS**: Applies `.glass` or `.glassProminent` button styles
+    /// - **iOS, iPadOS, macOS, watchOS**: Applies `.glass` or `.glassProminent` button styles
     ///   based on the fallback parameter:
     ///   - When fallback is `.borderedProminent`: Uses `.glassProminent` for emphasis
     ///   - For all other fallback styles: Uses `.glass` for a subtle appearance
@@ -77,10 +74,9 @@ public extension View {
     /// ```
     ///
     /// - Parameter primitiveButtonStyle: A fallback button style used for platform-specific
-    ///   behavior. Defaults to `.bordered`. On iOS, iPadOS, and watchOS, this determines
-    ///   whether to use `.glass` or `.glassProminent`. On visionOS, this style is applied
-    ///   directly. On tvOS, this parameter is ignored in favor of platform-
-    ///   appropriate styles (`.card` and `.link` respectively).
+    ///   behavior. Defaults to `.bordered`. On iOS, iPadOS, macOS, and watchOS, this
+    ///   determines whether to use `.glass` or `.glassProminent`. On visionOS, this style is
+    ///   applied directly. On tvOS, this parameter is ignored in favor of the `.card` style.
     ///
     /// - Returns: A view with the appropriate button style applied based on the platform
     ///   and fallback style configuration.

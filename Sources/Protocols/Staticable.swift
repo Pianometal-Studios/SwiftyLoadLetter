@@ -70,7 +70,7 @@ public extension Staticable {
     ///
     /// - Returns:
     ///   - If `Bundle.main.bundleIdentifier` is available, returns "<bundleID>.<rawValue>".
-    ///   - If the bundle identifier is unavailable, logs a debug warning and returns `rawValue`.
+    ///   - If the bundle identifier is unavailable, logs an error and returns `rawValue`.
     var customizationID: String {
         guard let bundleIdentifier = MainBundle.identifier else {
             logger(

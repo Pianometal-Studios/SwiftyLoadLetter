@@ -16,7 +16,7 @@ public struct ImageableObject: Searchable, Imageable, Sendable {
     public let name: String
     public let image: ImageResource
     
-    /// Creates a new `ImageableObject` with the specified name, image resource, and optional details.
+    /// Creates a new `ImageableObject` with the specified name and image resource.
     ///
     /// - Parameters:
     ///   - name: The display name of the object.
