@@ -10,6 +10,11 @@ public import SwiftUI
 
 /// A simple struct that conforms to `Searchable` and `Imageable`, representing an
 /// object with a name and an associated image resource.
+///
+/// Unlike ``IconableObject`` and ``DescribableObject``, each initializer gives it a fresh `id`, so
+/// two built from the same name and image are different objects. Build it once, as a stored or
+/// `static` property, wherever identity matters, such as a `ForEach`, a selection or an
+/// animation's value.
 public struct ImageableObject: Searchable, Imageable, Sendable {
     
     public let id: UUID

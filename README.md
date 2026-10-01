@@ -163,7 +163,7 @@ let sorted = Tab.allCases.sorted() // [.home, .library, .settings]
 
 ### Ready-made conforming types
 
-When you just need a lightweight, searchable value — rather than conforming a bespoke type — reach for one of the built-in objects. These are also what the `iconableObject` / `describableObject` convenience accessors (on the system-state extensions below) hand back. `IconableObject` and `DescribableObject` are `Codable`; `ImageableObject` is not.
+When you just need a lightweight, searchable value — rather than conforming a bespoke type — reach for one of the built-in objects. These are also what the `iconableObject` / `describableObject` convenience accessors (on the system-state extensions below) hand back. `IconableObject` and `DescribableObject` are `Codable`; `ImageableObject` is not. `IconableObject` and `DescribableObject` take their identity from their name and icon, so two built from the same pair are equal and building one inline in a view's `body` is fine. `ImageableObject` gets a fresh identity from each initializer, so build it once wherever identity matters.
 
 | Type | Conforms to | Initializer |
 |---|---|---|
