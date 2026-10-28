@@ -7,8 +7,56 @@
 //
 
 public import Foundation
+#if os(iOS) || os(tvOS) || os(visionOS)
+import UIKit
+#endif
 
 public extension URL {
+    
+    /// The app's page in the Settings app.
+    ///
+    /// ## Example
+    /// ```swift
+    /// @Environment(\.openURL) private var openURL
+    ///
+    /// if let url = URL.appSettings {
+    ///     Button("Open Settings") { openURL(url) }
+    /// }
+    /// ```
+    ///
+    /// - Returns: `UIApplication.openSettingsURLString` as a `URL` on iOS, iPadOS, Mac
+    ///   Catalyst, tvOS, and visionOS; `nil` on macOS and watchOS, which have no per-app page.
+    static var appSettings: URL? {
+#if os(iOS) || os(tvOS) || os(visionOS)
+        URL(string: UIApplication.openSettingsURLString)
+#else
+        nil
+#endif
+    }
+    
+    /// The app's notification settings in the Settings app, or the Notifications pane on macOS.
+    ///
+    /// ## Example
+    /// ```swift
+    /// @Environment(\.openURL) private var openURL
+    ///
+    /// if let url = URL.notificationSettings {
+    ///     Button("Notification Settings") { openURL(url) }
+    /// }
+    /// ```
+    ///
+    /// - Returns: `UIApplication.openNotificationSettingsURLString` as a `URL` on iOS, iPadOS,
+    ///   Mac Catalyst, tvOS, and visionOS; the Notifications pane of System Settings, which
+    ///   isn't specific to the app, on macOS; `nil` on watchOS.
+    static var notificationSettings: URL? {
+#if os(iOS) || os(tvOS) || os(visionOS)
+        URL(string: UIApplication.openNotificationSettingsURLString)
+#elseif os(macOS)
+        URL(string: "x-apple.systempreferences:com.apple.Notifications-Settings.extension")
+#else
+        nil
+#endif
+    }
     
     /// Attempts to construct a valid, contactable URL from the provided string.
     ///

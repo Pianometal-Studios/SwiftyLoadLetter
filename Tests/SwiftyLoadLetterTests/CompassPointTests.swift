@@ -1,5 +1,6 @@
 import Testing
 import Foundation
+import SwiftUI
 @testable import SwiftyLoadLetter
 
 /// Tests for the CompassPoint enum, which models the four cardinal directions and their properties.
@@ -145,5 +146,48 @@ import Foundation
         #expect(decoded.abbreviation == original.abbreviation)
         #expect(decoded.icon == original.icon)
         #expect(decoded.opposite == original.opposite)
+    }
+
+    @Test("Bearing round-trips through the initializer", arguments: CompassPoint.allCases)
+    func bearingRoundTrips(compassPoint: CompassPoint) {
+        #expect(CompassPoint(compassPoint.locationDirection) == compassPoint)
+    }
+
+    @Test("Opposite points are 180 degrees apart", arguments: CompassPoint.allCases)
+    func oppositeBearing(compassPoint: CompassPoint) {
+        let difference = abs(compassPoint.locationDirection - compassPoint.opposite.locationDirection)
+        #expect(difference == 180)
+    }
+
+    @Test("Initializer picks the nearest point, with boundaries going clockwise", arguments: [
+        (0.0, CompassPoint.north),
+        (44.9, .north),
+        (45, .east),
+        (134.9, .east),
+        (135, .south),
+        (225, .west),
+        (314.9, .west),
+        (315, .north),
+        (359.9, .north)
+    ])
+    func nearestPoint(direction: Double, expected: CompassPoint) {
+        #expect(CompassPoint(direction) == expected)
+    }
+
+    @Test("Initializer wraps negative and over-360 bearings", arguments: [
+        (-90.0, CompassPoint.west),
+        (-180, .south),
+        (360, .north),
+        (450, .east),
+        (-450, .west)
+    ])
+    func wrapsBearings(direction: Double, expected: CompassPoint) {
+        #expect(CompassPoint(direction) == expected)
+    }
+
+    @Test("Angle and radians match the bearing", arguments: CompassPoint.allCases)
+    func angleAndRadians(compassPoint: CompassPoint) {
+        #expect(compassPoint.angle.degrees == compassPoint.locationDirection)
+        #expect(abs(compassPoint.radians - compassPoint.angle.radians) < 1e-12)
     }
 }

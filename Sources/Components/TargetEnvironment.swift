@@ -19,7 +19,7 @@ import StoreKit
 /// - Gating diagnostic or developer-only UI to debug builds.
 /// - Skipping network and persistence work while rendering SwiftUI previews.
 /// - Distinguishing a TestFlight build from an App Store release.
-/// - Detecting an iPhone or iPad app running on Apple Vision Pro.
+/// - Detecting an iPhone or iPad app running on Apple Vision Pro or a Mac.
 @frozen public enum TargetEnvironment: Sendable {
     
     /// Indicates whether the binary was compiled with the `DEBUG` flag.
@@ -48,6 +48,14 @@ import StoreKit
     /// - Returns: `true` for a compatible iOS app running on visionOS; otherwise `false`.
     public static var isiOSAppOnVisionPro: Bool {
         ProcessInfo.processInfo.isiOSAppOnVision
+    }
+    
+    /// Indicates whether an iPhone or iPad app is running on a Mac.
+    ///
+    /// - Returns: `true` for an iOS app running on macOS; otherwise `false`, including for a
+    ///   Mac Catalyst app, which `ProcessInfo.isMacCatalystApp` identifies.
+    public static var isiOSAppOnMac: Bool {
+        ProcessInfo.processInfo.isiOSAppOnMac
     }
     
     /// Indicates whether the app was installed through TestFlight.

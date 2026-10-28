@@ -59,6 +59,11 @@ public extension ProcessInfo.ThermalState {
         .init(name, icon: icon)
     }
     
+    /// Indicates whether the thermal state is `.serious` or `.critical`.
+    var isElevated: Bool {
+        self == .serious || self == .critical
+    }
+    
     var name: String {
         switch self {
         case .nominal:    "Nominal"
@@ -78,6 +83,17 @@ public extension ProcessInfo.ThermalState {
         case .serious:    75
         case .critical:   100
         @unknown default: 0
+        }
+    }
+    
+    /// The thermal state as a ``PressureLevel``: `.nominal` is `.normal`, `.fair` is `.warning`,
+    /// `.serious` and `.critical` are `.critical`, and any future state is `.unknown`.
+    var pressureLevel: PressureLevel {
+        switch self {
+        case .nominal:            .normal
+        case .fair:               .warning
+        case .serious, .critical: .critical
+        @unknown default:         .unknown
         }
     }
     

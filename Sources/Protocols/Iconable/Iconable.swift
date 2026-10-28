@@ -26,6 +26,28 @@ public protocol Iconable {
     var icon: String { get }
 }
 
+public extension Iconable where Self: Nameable {
+    
+    /// The value's name and icon as an ``IconableObject``.
+    ///
+    /// - Note: This isn't a protocol requirement, so generic code uses this default even when
+    ///   the conforming type declares its own `iconableObject`.
+    var iconableObject: IconableObject {
+        .init(name, icon: icon)
+    }
+}
+
+public extension Iconable where Self: Describable & Nameable {
+    
+    /// The value's name, icon, and details as a ``DescribableObject``.
+    ///
+    /// - Note: This isn't a protocol requirement, so generic code uses this default even when
+    ///   the conforming type declares its own `describableObject`.
+    var describableObject: DescribableObject {
+        .init(name, icon: icon, details: details)
+    }
+}
+
 // MARK: - Preview
 
 #if DEBUG

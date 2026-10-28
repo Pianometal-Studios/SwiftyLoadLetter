@@ -7,7 +7,7 @@ Stack small, single-purpose protocols to describe exactly what a type can expres
 SwiftyLoadLetter's protocols are intentionally narrow. Each one adds a single
 capability — a name, an icon, a color, an image — and they're designed to be mixed
 freely. A type conforms to as many as it needs, and gains the corresponding default
-behaviour without restating boilerplate.
+behavior without restating boilerplate.
 
 ## The building blocks
 
@@ -25,7 +25,7 @@ behaviour without restating boilerplate.
 
 ## How composition pays off
 
-Because the protocols layer, conforming to a combination unlocks behaviour that
+Because the protocols layer, conforming to a combination unlocks behavior that
 none of them provides alone. ``Iconable`` gives you `icon`; ``Colorable`` gives you
 `color`; conform to **both** (alongside ``Nameable``) and a value is immediately
 ready to drop into a styled `Label`:
@@ -68,7 +68,7 @@ across any collection of those values.
 
 The package's own enums — ``PressureLevel``, ``ConnectionState``, ``CommonAction``,
 ``SignalQuality``, ``FrequencyBands``, and friends — formally conform to these
-protocols, so they inherit the same free behaviour your own types do.
+protocols, so they inherit the same free behavior your own types do.
 
 The `Network.framework` and system-state extensions (such as `NWPath.Status` and
 `ProcessInfo.ThermalState`) don't declare conformance, but they expose the very same

@@ -72,6 +72,19 @@ public extension NWPath.Status {
     ]
 }
 
+public extension NWPath {
+    
+    /// Indicates whether the path is unsatisfied because the app has been denied Local
+    /// Network access.
+    ///
+    /// - Returns: `true` when `unsatisfiedReason` is `.localNetworkDenied`; otherwise `false`.
+    ///
+    /// - SeeAlso: `NWError.isLocalNetworkPolicyDenial`, for the same answer from an error.
+    var isLocalNetworkDenied: Bool {
+        unsatisfiedReason == .localNetworkDenied
+    }
+}
+
 #if DEBUG
 #Preview {
     NavigationStack {
