@@ -10,7 +10,7 @@ helpers — all designed to reduce boilerplate across every Apple platform.
 
 The package is built around a small set of **composable protocols** —
 ``Nameable``, ``Iconable``, ``Colorable``, and friends. Conform a type
-to one or several, and gain free behaviour: a case-insensitive `search()` on any
+to one or several, and gain free behavior: a case-insensitive `search()` on any
 collection of ``Nameable`` values, a stable `customizationID` for `TabView`
 persistence, and more.
 
@@ -129,3 +129,4 @@ and a strongly-typed **logging** layer built on `os.Logger`.
 - ``MainBundle``
 - ``TargetEnvironment``
 - ``Formatters``
+- ``Iso8601``

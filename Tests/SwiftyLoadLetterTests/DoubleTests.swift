@@ -20,6 +20,13 @@ import Testing
         #expect(value.isValid == true)
     }
     
+    @Test("radians and degrees convert between each other")
+    func radiansAndDegrees() {
+        #expect(180.0.radians == .pi)
+        #expect(Double.pi.degrees == 180)
+        #expect(abs(90.0.radians.degrees - 90) < 1e-12)
+    }
+
     @Test("percentage divides by 100")
     func percentage() {
         #expect(25.0.percentage == 0.25)

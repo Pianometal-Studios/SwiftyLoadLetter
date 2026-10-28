@@ -55,6 +55,17 @@ import Foundation
         #expect(try JSONDecoder().decode(IconableObject.self, from: data) == home)
     }
 
+    @Test("a nameable, iconable type gets an iconableObject for free")
+    func protocolDefaultIconableObject() {
+        #expect(CommonAction.add.iconableObject == IconableObject("Add", icon: "plus"))
+    }
+
+    @Test("a nameable, iconable, describable type gets a describableObject for free")
+    func protocolDefaultDescribableObject() {
+        let level = PressureLevel.warning
+        #expect(level.describableObject == DescribableObject(level.name, icon: level.icon, details: level.details))
+    }
+
     @Test("decoding fails when the icon is missing")
     func decodingRequiresIcon() {
         let payload = Data(#"{"name":"Home"}"#.utf8)

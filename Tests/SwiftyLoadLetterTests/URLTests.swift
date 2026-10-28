@@ -27,4 +27,18 @@ import SwiftUI
         #expect(URL.create("https://?query=param") == nil)
         #expect(URL.create("https://#fragment") == nil)
     }
+
+    @Test("Settings URLs exist where the platform has them")
+    func settingsURLs() {
+#if os(iOS) || os(tvOS) || os(visionOS)
+        #expect(URL.appSettings != nil)
+        #expect(URL.notificationSettings != nil)
+#elseif os(macOS)
+        #expect(URL.appSettings == nil)
+        #expect(URL.notificationSettings?.scheme == "x-apple.systempreferences")
+#else
+        #expect(URL.appSettings == nil)
+        #expect(URL.notificationSettings == nil)
+#endif
+    }
 }

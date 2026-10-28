@@ -72,7 +72,7 @@ enum Tab: String, Staticable, Searchable, Iconable, Colorable, Listable {
 }
 ```
 
-With that in place you immediately get free behaviour:
+With that in place you immediately get free behavior:
 
 ```swift
 // Case-insensitive search across a collection — from Nameable.

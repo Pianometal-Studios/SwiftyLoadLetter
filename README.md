@@ -163,7 +163,7 @@ let sorted = Tab.allCases.sorted() // [.home, .library, .settings]
 
 ### Ready-made conforming types
 
-When you just need a lightweight, searchable value — rather than conforming a bespoke type — reach for one of the built-in objects. These are also what the `iconableObject` / `describableObject` convenience accessors (on the system-state extensions below) hand back. `IconableObject` and `DescribableObject` are `Codable`; `ImageableObject` is not. `IconableObject` and `DescribableObject` take their identity from their name and icon, so two built from the same pair are equal and building one inline in a view's `body` is fine. `ImageableObject` gets a fresh identity from each initializer, so build it once wherever identity matters.
+When you just need a lightweight, searchable value — rather than conforming a bespoke type — reach for one of the built-in objects. These are also what the `iconableObject` / `describableObject` convenience accessors hand back: any `Nameable & Iconable` type gets `iconableObject` for free, any `Nameable & Iconable & Describable` type gets `describableObject`, and the system-state extensions below declare their own. `IconableObject` and `DescribableObject` are `Codable`; `ImageableObject` is not. `IconableObject` and `DescribableObject` take their identity from their name and icon, so two built from the same pair are equal and building one inline in a view's `body` is fine. `ImageableObject` gets a fresh identity from each initializer, so build it once wherever identity matters.
 
 | Type | Conforms to | Initializer |
 |---|---|---|
@@ -195,7 +195,7 @@ Cases: `.iOS` `.iPadOS` `.macOS` `.tvOS` `.watchOS` `.visionOS`
 
 ### `CommonAction`
 
-A set of reusable UI actions, each with an SF Symbol `icon`, localized `name`, an optional `ButtonRole`, and a `TabPlacement`.
+A set of reusable UI actions, each with an SF Symbol `icon`, localized `name`, `color`, an optional `ButtonRole`, a `TabPlacement`, a `ToolbarItemPlacement`, and the `accessibilityInputLabels` Voice Control accepts.
 
 ```swift
 Button(role: CommonAction.delete.role) {
@@ -203,19 +203,23 @@ Button(role: CommonAction.delete.role) {
 } label: {
     Label(CommonAction.delete.name, systemImage: CommonAction.delete.icon)
 }
+.tint(CommonAction.delete.color)
+.accessibilityInputLabels(CommonAction.delete.accessibilityInputLabels)
 ```
 
-Cases: `.add` `.back` `.cancel` `.close` `.confirm` `.debug` `.delete` `.down` `.edit` `.filter` `.help` `.info` `.next` `.ok` `.previous` `.refresh` `.reset` `.restore` `.save` `.settings` `.signOut` `.sort` `.stop` `.tryAgain` `.up`
+Cases: `.add` `.back` `.cancel` `.clear` `.close` `.confirm` `.copy` `.debug` `.delete` `.done` `.down` `.edit` `.filter` `.help` `.info` `.next` `.notNow` `.ok` `.openSettings` `.pause` `.play` `.previous` `.refresh` `.remove` `.reset` `.restore` `.resume` `.save` `.settings` `.share` `.signOut` `.sort` `.stop` `.tryAgain` `.up`
 
 ---
 
 ### `CompassPoint`
 
-The four cardinal directions, each with a single-letter `abbreviation`, SF Symbol `icon`, `name`, and its `opposite`.
+The four cardinal directions, each with a single-letter `abbreviation`, SF Symbol `icon`, `name`, its `opposite`, and its bearing as `locationDirection` (degrees clockwise from north), `angle`, and `radians`. `init(_:)` finds the nearest point to any bearing.
 
 ```swift
 CompassPoint.north.abbreviation // "N"
 CompassPoint.north.opposite     // .south
+CompassPoint(100)               // .east
+CompassPoint(-90)               // .west
 ```
 
 Cases: `.north` `.south` `.east` `.west`
@@ -348,6 +352,7 @@ Image(.hero)
 |---|---|
 | `.asPercent(_ fractionLength:)` | Localized percent string. `0.25.asPercent()` → `"25%"`. |
 | `.currency(_ identifier:)` | Localized currency string with locale-aware fallback. |
+| `.degrees` / `.radians` | Converts radians to degrees and degrees to radians. `180.0.radians` → `.pi`. |
 | `.name` | The number spelled out. `42.0.name` → `"Forty-Two"`. |
 | `.percentage` | Divides by 100. `25.0.percentage` → `0.25`. |
 | `.isValid` | `true` if finite, non-NaN, and non-signaling. |
@@ -365,6 +370,11 @@ Text(75.0.percentage.asPercent()) // "75%"
 
 | API | Description |
 |---|---|
+| `Collection.nilIfEmpty` | The collection, or `nil` when it is empty. Works on `Array`, `Set`, `Dictionary`, and `String`. |
+| `String.trimmed` | The string without leading and trailing whitespace and newlines. |
+| `String.isBlank` | `true` when the string is empty or only whitespace and newlines. |
+| `Iso8601.string(_:date:time:)` | Parses an ISO 8601 timestamp and formats it for display, or `nil` with a log. |
+| `FourCharCode.fourCharCode` | The four-character string a `FourCharCode` encodes, e.g. `"420v"`. |
 | `UInt64.toByteCount` | Converts to `Int64` for use with `ByteCountFormatter`. |
 | `Duration.seconds` | The duration as a fractional `Double` of seconds, preserving sub-second precision. |
 | `Locale.currencyIdentifier` | ISO 4217 currency code for the locale (e.g. `"USD"`), or `nil`. |
@@ -374,6 +384,8 @@ Text(75.0.percentage.asPercent()) // "75%"
 | `Locale.timeZoneAbbreviation` | Short time-zone abbreviation (e.g. `"PST"`), or `nil`. |
 | `URL.create(_:)` | Validates a string has both a parseable `URL` and a non-empty host. |
 | `String.toURL` | Convenience wrapper for `URL.create(_:)`. |
+| `URL.appSettings` | The app's page in the Settings app, or `nil` on macOS and watchOS. |
+| `URL.notificationSettings` | The app's notification settings; the Notifications pane on macOS; `nil` on watchOS. |
 | `Formatters.byteCount` | Shared `ByteCountFormatter` (`.useAll`, `.memory`), safe for off-main use. |
 | `NumberFormatter.spellOut` | Shared `.spellOut`-style `NumberFormatter`. |
 | `MainBundle.identifier` | Safe accessor for `Bundle.main.bundleIdentifier` with debug logging. |
@@ -390,6 +402,7 @@ Text(75.0.percentage.asPercent()) // "75%"
 | `TargetEnvironment.isPreview` | `true` while rendering a SwiftUI preview in Xcode. |
 | `TargetEnvironment.isTestFlight()` | Async StoreKit `AppTransaction` check for a TestFlight build. |
 | `TargetEnvironment.isiOSAppOnVisionPro` | `true` for an iOS app running on Apple Vision Pro. |
+| `TargetEnvironment.isiOSAppOnMac` | `true` for an iOS app running on a Mac. |
 | `UTType.fromBundle` | App-scoped `UTType` from the bundle identifier. |
 | `Staticable.customizationID` | Bundle-prefixed stable ID for `TabView` customization. |
 
@@ -399,6 +412,7 @@ Text(75.0.percentage.asPercent()) // "75%"
 
 | Type | Properties Added |
 |---|---|
+| `NWPath` | `isLocalNetworkDenied` |
 | `NWPath.Status` | `color`, `icon`, `name`, `details`, `isConnected`, `allCases` |
 | `NWPath.LinkQuality` | `color`, `icon`, `name`, `percentage`, `allCases` |
 | `NWPath.UnsatisfiedReason` | `color`, `icon`, `name`, `details`, `hasReason`, `allCases` |
@@ -408,6 +422,7 @@ Text(75.0.percentage.asPercent()) // "75%"
 | `NWInterface.RadioType.WiFi` | `color`, `icon`, `name`, `adoptedYear`, `frequencyBands`, `generation`, `maxSpeed`, `allCases` |
 | `NWInterface.RadioType.Cellular.NewRadio5GVariant` | `color`, `icon`, `name`, `details`, `isLowLatency`, `isHighSpeed`, `rangeQuality`, `penetrationLevel`, `allCases` |
 | `DTLS.PeerAuthentication` | `color`, `icon`, `name`, `details`, `allCases` |
+| `NWError` | `isLocalNetworkPolicyDenial` |
 
 ```swift
 Label(path.status.name, systemImage: path.status.icon)
@@ -420,7 +435,7 @@ Label(path.status.name, systemImage: path.status.icon)
 
 | Type | Properties Added |
 |---|---|
-| `ProcessInfo.ThermalState` | `color`, `icon`, `name`, `details`, `percentage`, `allCases` |
+| `ProcessInfo.ThermalState` | `color`, `icon`, `name`, `details`, `percentage`, `isElevated`, `pressureLevel` → `PressureLevel`, `allCases` |
 | `DispatchSource.MemoryPressureEvent` | `pressureLevel` → `PressureLevel` |
 | `OSLogType` | `color`, `name`, `details`, `emoji`, `emojiLabel`, `severity`, `isPersistedInProduction`, `allCases` |
 | `ObservationTracking.Event.Kind` | `color`, `icon`, `name`, `details`, `allCases` |
@@ -438,7 +453,7 @@ let level = memoryEvent.pressureLevel
 
 | Type | Properties Added |
 |---|---|
-| `ColorScheme` / `ColorScheme?` | `color`, `icon`, `name`, `details`, `isDark` |
+| `ColorScheme` / `ColorScheme?` | `color`, `icon`, `name`, `details`, `isDark`, `primary`, `inverse` |
 | `ColorSchemeContrast` | `color`, `icon`, `name`, `details` |
 | `DynamicTypeSize` | `name`, `details` |
 | `Font.Design` | `name`, `allCases` |

@@ -35,6 +35,11 @@ public extension ColorScheme {
         .init(name, icon: icon)
     }
     
+    /// The background color for the appearance: `.black` for Dark Mode, otherwise `.white`.
+    var inverse: Color {
+        isDark ? .black : .white
+    }
+    
     /// Indicates whether the current `ColorScheme` is Dark Mode.
     ///
     /// - Returns:
@@ -47,6 +52,11 @@ public extension ColorScheme {
     
     var name: String {
         isDark ? "Dark" : "Light"
+    }
+    
+    /// The foreground color for the appearance: `.white` for Dark Mode, otherwise `.black`.
+    var primary: Color {
+        isDark ? .white : .black
     }
 }
 
@@ -77,6 +87,13 @@ public extension ColorScheme? {
         return self.icon
     }
     
+    /// `.white` when the scheme is unknown.
+    ///
+    /// - SeeAlso: `ColorScheme.inverse`
+    var inverse: Color {
+        self?.inverse ?? .white
+    }
+    
     /// - SeeAlso: `ColorScheme.isDark`
     var isDark: Bool {
         guard let self else {
@@ -92,5 +109,12 @@ public extension ColorScheme? {
             return "Unknown"
         }
         return self.name
+    }
+    
+    /// `.black` when the scheme is unknown.
+    ///
+    /// - SeeAlso: `ColorScheme.primary`
+    var primary: Color {
+        self?.primary ?? .black
     }
 }

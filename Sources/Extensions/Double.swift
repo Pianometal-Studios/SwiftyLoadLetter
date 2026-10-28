@@ -67,6 +67,18 @@ public extension Double {
         return self.formatted(.currency(code: code))
     }
     
+    /// Converts the value from radians to degrees.
+    ///
+    /// ## Example
+    /// ```swift
+    /// Double.pi.degrees // 180
+    /// ```
+    ///
+    /// - SeeAlso: `radians`
+    var degrees: Self {
+        self * 180 / .pi
+    }
+    
     /// Indicates whether the double represents a finite, non-NaN number.
     ///
     /// Checks that the value is not NaN, not infinite, and not a signaling NaN.
@@ -124,5 +136,17 @@ public extension Double {
         case 0.79.nextUp...1:    .critical
         default:                 .unknown
         }
+    }
+    
+    /// Converts the value from degrees to radians.
+    ///
+    /// ## Example
+    /// ```swift
+    /// 180.0.radians // .pi
+    /// ```
+    ///
+    /// - SeeAlso: `degrees`
+    var radians: Self {
+        self * .pi / 180
     }
 }
