@@ -19,7 +19,7 @@ behavior without restating boilerplate.
 | ``Iconable`` | `icon: String` | An SF Symbol name, ready for `Image(systemName:)`. |
 | ``Imageable`` | `@MainActor image: ImageResource` | An asset-catalog image for types backed by named assets; the requirement is main-actor isolated. |
 | ``Searchable`` | composition | ``Nameable`` + `Identifiable` + `Hashable` + `Comparable` for searchable lists. |
-| ``Staticable`` | composition | For `String`-backed enums shareable across concurrency domains: bundles `Identifiable`, `Codable`, `CaseIterable`, `Hashable`, `CodingKey`, `Sendable`, and `Transferable`, and provides default `id`, `customizationID`, and `transferRepresentation`. |
+| ``Staticable`` | composition | For `String`-backed enums shareable across concurrency domains: bundles `Identifiable`, `Codable`, `CaseIterable`, `Hashable`, `CodingKey`, `CodingKeyRepresentable`, `Sendable`, and `Transferable`, and provides default `id`, `customizationID`, and `transferRepresentation`. A dictionary keyed by the enum encodes and decodes as a JSON object keyed by the raw values. |
 | ``Listable`` | `static navigationTitle` | A navigation title for list-based presentation, plus a default `collection` name (sanitized and lowercased) derived from it. |
 | ``NestedObject`` | composition | `Codable` + `Sendable` + `Identifiable` + `Hashable` for nested, non-top-level persistent value objects. |
 
