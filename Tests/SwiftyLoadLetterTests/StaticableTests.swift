@@ -245,24 +245,98 @@ import UniformTypeIdentifiers
         }
     }
     
-    @Test("Dictionary with Staticable keys encodes correctly")
+    @Test("Dictionary with Staticable keys round-trips inside a container")
     func testDictionaryWithStaticableKeys() async throws {
         struct Container: Codable {
-            let values: [String: String]
+            let values: [TestEnum: String]
         }
-        let dict: [String: String] = [
-            TestEnum.first.rawValue: "one",
-            TestEnum.second.rawValue: "two",
-            TestEnum.third.rawValue: "three"
-        ]
-        let container = Container(values: dict)
+        let container = Container(values: [
+            .first: "one",
+            .second: "two",
+            .third: "three"
+        ])
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
         let encoded = try encoder.encode(container)
         let decoded = try decoder.decode(Container.self, from: encoded)
-        #expect(decoded.values[TestEnum.first.rawValue] == "one")
-        #expect(decoded.values[TestEnum.second.rawValue] == "two")
-        #expect(decoded.values[TestEnum.third.rawValue] == "three")
+        #expect(decoded.values[.first] == "one")
+        #expect(decoded.values[.second] == "two")
+        #expect(decoded.values[.third] == "three")
+    }
+    
+    @Test("Dictionary with Staticable keys encodes as a JSON object keyed by raw values")
+    func testDictionaryEncodesAsObject() async throws {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        let dict: [TestEnum: Int] = [.first: 1, .second: 2, .third: 3]
+        let data = try encoder.encode(dict)
+        let jsonString = String(data: data, encoding: .utf8)
+        #expect(jsonString == #"{"first":1,"second":2,"third":3}"#)
+        let object = try JSONSerialization.jsonObject(with: data) as? [String: Int]
+        #expect(object == ["first": 1, "second": 2, "third": 3])
+    }
+    
+    @Test("Dictionary keys use custom raw values")
+    func testDictionaryEncodesCustomRawValueKeys() async throws {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        let dict: [CustomRawValueEnum: Int] = [.alpha: 1, .beta: 2]
+        let data = try encoder.encode(dict)
+        let jsonString = String(data: data, encoding: .utf8)
+        #expect(jsonString == #"{"custom_alpha":1,"custom_beta":2}"#)
+    }
+    
+    @Test("Dictionary with Staticable keys decodes from a JSON object")
+    func testDictionaryDecodesFromObject() async throws {
+        let json = Data(#"{"first":1,"third":3}"#.utf8)
+        let decoded = try JSONDecoder().decode([TestEnum: Int].self, from: json)
+        #expect(decoded == [.first: 1, .third: 3])
+    }
+    
+    @Test("Dictionary with Staticable keys round-trips through JSON")
+    func testDictionaryRoundTrip() async throws {
+        let original: [TestEnum: Int] = [.first: 1, .second: 2, .third: 3]
+        let encoded = try JSONEncoder().encode(original)
+        let decoded = try JSONDecoder().decode([TestEnum: Int].self, from: encoded)
+        #expect(decoded == original)
+    }
+    
+    @Test("Dictionary decoding rejects an unknown key")
+    func testDictionaryDecodingUnknownKeyThrows() async throws {
+        let json = Data(#"{"first":1,"fourth":4}"#.utf8)
+        #expect(throws: DecodingError.self) {
+            try JSONDecoder().decode([TestEnum: Int].self, from: json)
+        }
+    }
+    
+    @Test("Dictionary decoding rejects the alternating key-value array form")
+    func testDictionaryDecodingArrayFormThrows() async throws {
+        let json = Data(#"["first",1,"second",2]"#.utf8)
+        #expect(throws: DecodingError.self) {
+            try JSONDecoder().decode([TestEnum: Int].self, from: json)
+        }
+    }
+    
+    @Test("CodingKeyRepresentable codingKey matches rawValue")
+    func testCodingKeyRepresentableCodingKey() async throws {
+        for testCase in TestEnum.allCases {
+            #expect(testCase.codingKey.stringValue == testCase.rawValue)
+            #expect(testCase.codingKey.intValue == nil)
+        }
+        #expect(CustomRawValueEnum.alpha.codingKey.stringValue == "custom_alpha")
+    }
+    
+    @Test("CodingKeyRepresentable init(codingKey:) restores known keys")
+    func testCodingKeyRepresentableInit() async throws {
+        for testCase in TestEnum.allCases {
+            #expect(TestEnum(codingKey: testCase) == testCase)
+        }
+    }
+    
+    @Test("CodingKeyRepresentable init(codingKey:) returns nil for an unknown key")
+    func testCodingKeyRepresentableInitUnknownKey() async throws {
+        #expect(TestEnum(codingKey: CustomRawValueEnum.alpha) == nil)
+        #expect(CustomRawValueEnum(codingKey: TestEnum.first) == nil)
     }
 }
 

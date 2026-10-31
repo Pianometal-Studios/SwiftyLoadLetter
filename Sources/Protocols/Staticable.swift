@@ -17,6 +17,8 @@ import os
 /// ## Example Usage
 /// - Define an enum of static values (e.g., feature flags, route names, field keys) backed by `String`.
 /// - Use the cases as `CodingKey`s when implementing custom `Codable` logic.
+/// - Key a dictionary by the enum (e.g., `[Element: Int]`) and encode or decode it as a JSON object
+///   such as `{"fire": 2, "water": 1}`.
 /// - Iterate all cases with `CaseIterable` for validation or UI lists.
 /// - Pass values across tasks/actors thanks to `Sendable`.
 /// - Transfer types conforming to this protocol via drag and drop or copy/paste operations.
@@ -34,6 +36,10 @@ import os
 ///   - `CaseIterable`: Provide a finite, discoverable set of values.
 ///   - `Hashable` (and `Equatable`): Participate in hashing for use in sets and dictionary keys.
 ///   - `CodingKey`: Enable use as keys in `Codable` containers.
+///   - `CodingKeyRepresentable`: A dictionary keyed by the type encodes and decodes as a keyed container
+///     (a JSON object whose keys are the raw values) rather than an array of alternating keys and values.
+///     The standard library supplies `codingKey` and `init?(codingKey:)` from the `String` raw value,
+///     and an unknown key fails to decode.
 ///   - `Sendable`: Allow safe transfer across concurrency boundaries.
 ///   - `Transferable`: Support system-level data transfer operations.
 ///   - `RawRepresentable` where `RawValue == String`: Enable ergonomic serialization and display.
