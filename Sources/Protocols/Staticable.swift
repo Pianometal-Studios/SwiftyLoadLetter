@@ -43,6 +43,7 @@ public protocol Staticable:
     CaseIterable,
     Hashable,
     CodingKey,
+    CodingKeyRepresentable,
     Sendable,
     Equatable,
     Transferable,
